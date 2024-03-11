@@ -8,7 +8,7 @@ class PathResolver extends \iw\Universe
 	private string $requestUri;
 	private static string $_defaultClass = "Home";
 	private static array $_map = [
-		"/\/abc\//i" => "abc"
+		"/\/abc\/?/i" => "abc"
 	];
 
 
