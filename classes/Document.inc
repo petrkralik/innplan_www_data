@@ -5,13 +5,14 @@ class Document extends \iw\Universe
 {
 
 
-	public \page\Page $page;
-	public DocumentElements $elements;
+	private DocumentElements $elements;
+	private RequestClassResolver $resolver;
 	private \iw\DOMDocumentExtension $content;
 
 
-	public function __construct(\page\Page $page) {
+	public function __construct(RequestClassResolver $resolver) {
 		parent::__construct();
+		$this->resolver= $resolver;
 		$this->content= new \iw\DOMDocumentExtension("UTF-8");
 		$this->elements= new DocumentElements($this->content);
 	}
@@ -19,7 +20,7 @@ class Document extends \iw\Universe
 
 	public function display(): void
 	{
-		var_dump($this->elements->body);
+		$page= $this->resolver->getPageClass();
 	}
 
 
