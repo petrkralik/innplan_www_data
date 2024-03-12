@@ -12,7 +12,8 @@ class Document extends \iw\Universe
 
 	public function __construct(\page\Page $page) {
 		parent::__construct();
-		$this->elements= new DocumentElements($this->content= new \iw\DOMDocumentExtension("UTF-8"));
+		$this->content= new \iw\DOMDocumentExtension("UTF-8");
+		$this->elements= new DocumentElements($this->content);
 	}
 
 
