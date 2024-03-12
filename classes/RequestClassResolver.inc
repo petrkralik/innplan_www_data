@@ -6,7 +6,7 @@ class RequestClassResolver extends \iw\Universe
 
 
 	private string $requestUri;
-	private static string $_langingPage = "\page\Home";
+	private static string $_landingPage = "\page\Home";
 	private static array $_map = [
 		"/\/project\/list\/?/i" => "\page\ProjectList",
 	];
@@ -67,7 +67,7 @@ class RequestClassResolver extends \iw\Universe
 		}
 
 		return [
-			"className" => $resultantClass ?? self::$_langingPage,
+			"className" => $resultantClass ?? self::$_landingPage,
 			"matches"   => $matches,
 		];
 	}
