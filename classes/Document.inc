@@ -18,7 +18,7 @@ class Document extends \iw\Universe
 
 	public function display(): void
 	{
-
+		var_dump($this->elements->body);
 	}
 
 
