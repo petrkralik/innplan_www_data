@@ -8,6 +8,7 @@ abstract class Page2Columns extends Page
 {
 
 
+
 	abstract function getContentMain(\iw\DOMElementExtension $body): void;
 
 
@@ -17,18 +18,18 @@ abstract class Page2Columns extends Page
 	}
 
 
-	function getContentLeft()
+	function getContentLeft() {}
+
+
+	private function buildContent(\iw\DOMElementExtension $body): void
 	{
-
-	}
-
-
-	private function buildContent(\iw\DOMElementExtension $body) {
 		$this->loadTemplate($body);
 	}
 
 
-	private function loadTemplate(\iw\DOMElementExtension $body) {
+	private function loadTemplate(\iw\DOMElementExtension $body): void
+	{
+		$this->getDocumentProvider()->adopt(__DIR__."/resource/Page2Columns.template.html");
 	}
 
 

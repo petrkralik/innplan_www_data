@@ -9,15 +9,16 @@ abstract class Page extends \World
 
 
 	private \DocumentProvider $documentProvider;
+	private array $uriMatches;
 
 
 	abstract function getContent(\iw\DOMElementExtension $body): void;
 
 
-	public function __construct(\DocumentProvider $documentProvider, array $args) {
+	public function __construct(\DocumentProvider $documentProvider, array $uriMatches) {
 		parent::__construct();
 		$this->documentProvider= $documentProvider;
-		var_dump($args);
+		$this->uriMatches= $uriMatches;
 	}
 
 
@@ -25,6 +26,13 @@ abstract class Page extends \World
 	{
 
 		return $this->documentProvider;
+	}
+
+
+	protected function getUriMatches(): array
+	{
+
+		return $this->uriMatches;
 	}
 
 

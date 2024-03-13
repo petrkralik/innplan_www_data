@@ -12,7 +12,7 @@ class Document extends \iw\Universe
 
 	public function __construct() {
 		parent::__construct();
-		$this->document= new \iw\DOMDocumentExtension("UTF-8");
+		$this->document= new \iw\DOMDocumentExtension($this->cfg["charset"]);
 		$this->elements= new DocumentElements($this->document);
 		$this->resolver= new RequestClassResolver();
 	}
