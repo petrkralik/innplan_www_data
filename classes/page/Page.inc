@@ -9,7 +9,7 @@ abstract class Page extends \World
 
 
 	private \DocumentProvider $documentProvider;
-	private array $uriMatches;
+	public array $uriMatches;
 	protected \iw\DOMDocumentExtension $doc;
 
 
@@ -20,13 +20,6 @@ abstract class Page extends \World
 		parent::__construct();
 		$this->doc= $documentProvider->document();
 		$this->uriMatches= $uriMatches;
-	}
-
-
-	protected function uriMatches(): array
-	{
-
-		return $this->uriMatches;
 	}
 
 
