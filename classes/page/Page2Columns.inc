@@ -38,6 +38,9 @@ abstract class Page2Columns extends Page
 	function getContentLeft() {}
 
 
+	/**
+	 * @throws \page\Exception
+	 */
 	private function getElements(): void
 	{
 		$data = [
