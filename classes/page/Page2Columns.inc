@@ -8,7 +8,7 @@ abstract class Page2Columns extends Page
 {
 
 
-	abstract function getContentMain(\iw\DOMElementExtension $element): void;
+	abstract function getContentMain(\iw\DOMElementExtension $body): void;
 
 
 	public function getContent(\iw\DOMElementExtension $body): void

@@ -4,8 +4,7 @@
 namespace page;
 
 
-
-class Home extends Page2Columns
+class ProjectDetail extends Page2Columns
 {
 
 
