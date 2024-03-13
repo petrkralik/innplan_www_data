@@ -14,7 +14,7 @@ abstract class Page2Columns extends Page
 
 	private const string EID_CONTENT_MAIN = "pgContentMain";
 
-	private const string EID_FOOTER = "pgFooter";
+	private const string EID_FOOTER = "pgContentFooter";
 
 
 	private \iw\DOMElementExtension $elementHeader;
