@@ -29,11 +29,11 @@ class RequestClassResolver extends \iw\Universe
 	 * @throws \RequestClassResolverException
 	 * @throws \ReflectionException
 	 */
-	function getPageClass(): \page\Page
+	function getPageClass(DocumentProvider $documentProvider): \page\Page
 	{
 		$info = $this->getClassInfo();
 
-		return $this->getReflection($info["className"])->newInstanceArgs($info["matches"]);
+		return $this->getReflection($info["className"])->newInstanceArgs([$documentProvider, $info["matches"]]);
 	}
 
 
