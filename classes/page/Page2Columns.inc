@@ -51,7 +51,7 @@ abstract class Page2Columns extends Page
 		];
 		foreach ($data as $var => $element)
 			if (F == ($this->$var = $this->documentProvider()->document()->getElementById($element)))
-				Error::TEMPLATE_ELEMENT_MISSING->throw("The element by ID \"$element\" hasn't been found in the document.");
+				Error::TEMPLATE_ELEMENT_MISSING->throw("The element ID \"$element\" hasn't been found in the template.");
 	}
 
 
