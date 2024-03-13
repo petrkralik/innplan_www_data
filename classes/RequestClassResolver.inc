@@ -9,6 +9,7 @@ class RequestClassResolver extends \iw\Universe
 	private static string $_landingPage = "\page\Home";
 	private static array $_map = [
 		"/\/project\/list\/?/i" => "\page\ProjectList",
+		"/\/project\/(\d+)\/detail\/?/i" => "\page\ProjectDetail",
 	];
 
 
