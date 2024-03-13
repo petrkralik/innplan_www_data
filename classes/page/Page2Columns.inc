@@ -14,22 +14,25 @@ abstract class Page2Columns extends Page
 
 	public function getContent(\iw\DOMElementExtension $body): void
 	{
-		$this->buildContent($body);
+		$body->appendChild($this->buildContent());
 	}
 
 
-	function getContentLeft() {}
+	function getContentLeft() {
 
-
-	private function buildContent(\iw\DOMElementExtension $body): void
-	{
-		$this->loadTemplate($body);
 	}
 
 
-	private function loadTemplate(\iw\DOMElementExtension $body): void
+	private function buildContent(): \iw\DOMElementExtension
 	{
-		$this->getDocumentProvider()->adopt(__DIR__."/resource/Page2Columns.template.html");
+		return $this->loadTemplate();
+	}
+
+
+	private function loadTemplate(): \iw\DOMElementExtension
+	{
+
+		return $this->getDocumentProvider()->adopt(__DIR__."/resource/Page2Columns.template.html");
 	}
 
 
