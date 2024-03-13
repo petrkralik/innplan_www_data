@@ -15,6 +15,7 @@ class Project extends BusinessObject
 	{
 		parent::__construct();
 		$this->id= $id;
+		$this->loadData();
 	}
 
 
