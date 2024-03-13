@@ -22,7 +22,7 @@ abstract class Page extends \World
 	}
 
 
-	protected function getDocumentProvider(): \DocumentProvider
+	protected function documentProvider(): \DocumentProvider
 	{
 
 		return $this->documentProvider;

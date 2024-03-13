@@ -13,13 +13,10 @@ class DocumentProvider
 	}
 
 
-	/**
-	 * @throws \iw\Exception
-	 */
-	public function adopt(string $content, ?array $replacement= N, ?int $flags= N): \iw\DOMElementExtension
+	public function document(): \iw\DOMDocumentExtension
 	{
 
-		return $this->document->adopt($content, $replacement, $flags);
+		return $this->document;
 	}
 
 
