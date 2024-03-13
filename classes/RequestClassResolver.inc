@@ -20,8 +20,6 @@ class RequestClassResolver extends \iw\Universe
 	{
 		parent::__construct();
 		$this->requestUri = $_SERVER["REQUEST_URI"];
-		$a = $this->getPageClass();
-		var_dump($a);
 	}
 
 
