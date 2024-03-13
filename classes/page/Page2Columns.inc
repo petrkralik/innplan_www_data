@@ -23,7 +23,7 @@ abstract class Page2Columns extends Page
 	private \iw\DOMElementExtension $elementFooter;
 
 
-	abstract function getContentMain(\iw\DOMElementExtension $body): void;
+	abstract function getContentMain(\iw\DOMElementExtension $element): void;
 
 
 	/**
@@ -32,10 +32,14 @@ abstract class Page2Columns extends Page
 	public function getContent(\iw\DOMElementExtension $body): void
 	{
 		$body->appendChild($this->loadTemplate());
+		$this->getElements();
+		$this->getContentLeft($this->elementLeft);
+		$this->getContentMain($this->elementMain);
 	}
 
 
-	function getContentLeft() {}
+	function getContentLeft(\iw\DOMElementExtension $element): void {
+	}
 
 
 	/**
@@ -49,9 +53,11 @@ abstract class Page2Columns extends Page
 			"elementMain"   => self::EID_CONTENT_MAIN,
 			"elementFooter" => self::EID_FOOTER,
 		];
-		foreach ($data as $var => $element)
-			if (F == ($this->$var = $this->documentProvider()->document()->getElementById($element)))
+		foreach ($data as $var => $element) {
+			if (F == ($this->$var = $this->doc->getElementById($element))) {
 				Error::TEMPLATE_ELEMENT_MISSING->throw("The element ID \"$element\" hasn't been found in the template.");
+			}
+		}
 	}
 
 
@@ -60,8 +66,7 @@ abstract class Page2Columns extends Page
 	 */
 	private function loadTemplate(): \iw\DOMElementExtension
 	{
-
-		return $this->documentProvider()->document()->adopt(__DIR__."/resource/Page2Columns.template.html");
+		return $this->doc->adopt(__DIR__."/resource/Page2Columns.template.html");
 	}
 
 
