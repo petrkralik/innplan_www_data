@@ -1,6 +1,6 @@
 <?php
 
-class APICall extends \iw\APICall {
+class APICall extends \iw\api\Call {
 
 
 	function __construct() {

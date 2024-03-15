@@ -11,6 +11,10 @@ class Project extends BusinessObject
 	public int $id;
 
 
+	/**
+	 * @throws \iw\APICallException
+	 * @throws \iw\Exception
+	 */
 	public function __construct(int $id)
 	{
 		parent::__construct();
