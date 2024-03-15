@@ -31,6 +31,7 @@ class Project extends BusinessObject
 	#[\Override] function loadData(): bool
 	{
 		$result= $this-> api->get("https://api.innplan.westa.cz/v1/project/{$this->id}");
+		var_dump($result);
 		var_dump(Autoloader::$_loaded);
 		return T;
 	}
