@@ -8,7 +8,7 @@ abstract class BusinessObject extends \World
 {
 
 
-	protected \iw\APICall $api;
+	protected \APICall $api;
 
 
 	abstract function loadData(): bool;
@@ -16,7 +16,7 @@ abstract class BusinessObject extends \World
 
 	public function __construct() {
 		parent::__construct();
-		$this->api= new \iw\APICall();
+		$this->api= new \APICall();
 	}
 
 
