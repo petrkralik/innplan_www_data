@@ -24,13 +24,10 @@ class Project extends BusinessObject
 
 
 	/**
-	 * @throws \iw\APICallException
 	 * @throws \iw\Exception
 	 */
 	#[\Override] function loadData(): bool
 	{
-		// TODO: Implement loadData() method.
-		echo "Load data of project {$this->id}";
 		$result= $this-> api->get("https://api.innplan.westa.cz/v1/project/{$this->id}");
 		var_dump($result);
 		return T;
