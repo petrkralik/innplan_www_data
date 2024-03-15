@@ -27,8 +27,7 @@ class Project extends BusinessObject
 	{
 		// TODO: Implement loadData() method.
 		echo "Load data of project {$this->id}";
-		$api= new \iw\APICall();
-		$result= $api->get("https://api.innplan.westa.cz/v1/project/{$this->id}");
+		$result= $this-> api->get("https://api.innplan.westa.cz/v1/project/{$this->id}");
 		var_dump($result);
 		return T;
 	}
