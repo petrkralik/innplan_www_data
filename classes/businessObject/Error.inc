@@ -9,6 +9,7 @@ enum Error: string
 
 
 	case NO_OBJECT_LIKE_THIS = "NO_OBJECT_LIKE_THIS";
+	case NONEXISTENT_PROPERTY= "NONEXISTENT_PROPERTY";
 
 
 	/**

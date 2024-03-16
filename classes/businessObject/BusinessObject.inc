@@ -10,15 +10,11 @@ abstract class BusinessObject extends \World
 
 	protected \APICall $api;
 	public bool $dataInitiated = F;
+	protected array $propertiesData = [];
+	protected array $properties = [];
 
 
 	abstract function apiUriGet(): string;
-
-
-	abstract function setProperty(string $propertyName, mixed $content): bool;
-
-
-	abstract function getProperty(string $propertyName): mixed;
 
 
 	function apiUrlBase(): string
@@ -37,6 +33,7 @@ abstract class BusinessObject extends \World
 
 	/**
 	 * @throws \iw\api\Exception
+	 * @throws Exception
 	 */
 	public function initData(bool $forceLoad = F): void
 	{
@@ -71,8 +68,26 @@ abstract class BusinessObject extends \World
 
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
-		foreach ($response->body as $attribute=> $value)
-			$this-> $attribute= $value;
+		foreach ($response->body as $property => $value)
+			$this->setProperty($property, $value);
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public function setProperty(string $propertyName, mixed $value): void
+	{
+		if (key_exists($propertyName, $this->properties))
+			$this->properties[$propertyName] = $value;
+		else
+			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
+	}
+
+
+	function getProperty(string $propertyName): mixed
+	{
+		// TODO: Implement getProperty() method.
 	}
 
 
