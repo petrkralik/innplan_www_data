@@ -4,8 +4,6 @@
 namespace businessObject;
 
 
-use iw\Autoloader;
-
 class Project extends BusinessObject
 {
 
@@ -14,26 +12,31 @@ class Project extends BusinessObject
 
 
 	/**
-	 * @throws \iw\APICallException
 	 * @throws \iw\Exception
 	 */
 	public function __construct(int $id)
 	{
 		parent::__construct();
-		$this->id= $id;
-		$this->loadData();
+		$this->id = $id;
+		$this->initData();
 	}
 
 
 	/**
 	 * @throws \iw\Exception
 	 */
-	#[\Override] function loadData(): bool
+	#[\Override] function initData(): bool
 	{
-		$result= $this-> api->get("https://api.innplan.westa.cz/v1/project/{$this->id}");
-		var_dump($result->body);
+		$this->get();
 
 		return T;
+	}
+
+
+	#[\Override] function urlGet(): string
+	{
+
+		return "https://api.innplan.westa.cz/v1/project/{$this->id}";
 	}
 
 
