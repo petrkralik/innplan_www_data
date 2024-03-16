@@ -17,6 +17,10 @@ class ProjectDetail extends Page2Columns
 		$this->init();
 	}
 
+
+	/**
+	 * @throws \iw\api\Exception
+	 */
 	private function init(): void
 	{
 		$this->project = new \businessObject\Project((int)$this->uriMatches[1]);

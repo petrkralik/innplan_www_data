@@ -50,6 +50,7 @@ abstract class BusinessObject extends \World
 	 */
 	private function initDataFromAPI(): bool
 	{
+		echo "init data from api";
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
 			return $this->apiMapAttributes($response);
@@ -70,7 +71,6 @@ abstract class BusinessObject extends \World
 
 	protected function apiMapAttributes(\iw\api\Response $response): bool
 	{
-		var_dump($response->body);
 
 		return T;
 	}
