@@ -53,9 +53,9 @@ abstract class BusinessObject extends \World
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
-			$this->apiMapAttributes($response);
+			$this->apiResultMapData($response);
 		else
-			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error");
+			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error.");
 	}
 
 
@@ -69,10 +69,10 @@ abstract class BusinessObject extends \World
 	}
 
 
-	protected function apiMapAttributes(\iw\api\Response $response): bool
+	protected function apiResultMapData(\iw\api\Response $response): void
 	{
-
-		return T;
+		foreach ($response->body as $attribute=> $value)
+			$this-> $attribute= $value;
 	}
 
 
