@@ -55,6 +55,9 @@ abstract class BusinessObject extends \World
 			echo "init data from api";
 
 			return $this->apiMapAttributes($response);
+		} else {
+			echo "nejaky problem". EOL;
+			var_dump($response);
 		}
 
 		return F;
