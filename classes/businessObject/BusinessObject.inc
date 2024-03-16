@@ -47,20 +47,15 @@ abstract class BusinessObject extends \World
 
 	/**
 	 * @throws \iw\api\Exception
+	 * @throws Exception
 	 */
 	private function initDataFromAPI(): bool
 	{
 		$response = $this->apiGet();
-		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
-			echo "init data from api";
-
+		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
 			return $this->apiMapAttributes($response);
-		} else {
-			echo "nejaky problem". EOL;
-			var_dump($response);
-		}
-
-		return F;
+		else
+			Error::NO_OBJECT_LIKE_THIS->throw("Object doesn't exist");
 	}
 
 
