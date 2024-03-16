@@ -38,7 +38,7 @@ abstract class BusinessObject extends \World
 	/**
 	 * @throws \iw\api\Exception
 	 */
-	public function initData(bool $forceLoad= F): void
+	public function initData(bool $forceLoad = F): void
 	{
 		if (!$this->dataInitiated || $forceLoad)
 			$this->initDataFromAPI();
@@ -50,10 +50,12 @@ abstract class BusinessObject extends \World
 	 */
 	private function initDataFromAPI(): bool
 	{
-		echo "init data from api";
 		$response = $this->apiGet();
-		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
+		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
+			echo "init data from api";
+
 			return $this->apiMapAttributes($response);
+		}
 
 		return F;
 	}
