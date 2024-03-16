@@ -38,7 +38,7 @@ abstract class BusinessObject extends \World
 	/**
 	 * @throws \iw\api\Exception
 	 */
-	public function initData(bool $forceLoad): void
+	public function initData(bool $forceLoad= F): void
 	{
 		if (!$this->dataInitiated || $forceLoad)
 			$this->initDataFromAPI();

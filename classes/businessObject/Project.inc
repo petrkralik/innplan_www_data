@@ -11,10 +11,14 @@ class Project extends BusinessObject
 	public int $id;
 
 
+	/**
+	 * @throws \iw\api\Exception
+	 */
 	public function __construct(int $id)
 	{
 		parent::__construct();
 		$this->id = $id;
+		$this->initData();
 	}
 
 
