@@ -4,32 +4,75 @@
 namespace businessObject;
 
 
-use iw\api\Exception;
-
 abstract class BusinessObject extends \World
 {
 
 
 	protected \APICall $api;
+	public bool $dataInitiated = F;
 
 
-	abstract function initData(): bool;
-	abstract function urlGet(): string;
+	abstract function apiUriGet(): string;
 
 
-	public function __construct() {
+	abstract function setProperty(string $propertyName, mixed $content): bool;
+
+
+	abstract function getProperty(string $propertyName): mixed;
+
+
+	function apiUrlBase(): string
+	{
+
+		return "https://api.innplan.westa.cz";
+	}
+
+
+	public function __construct()
+	{
 		parent::__construct();
-		$this->api= new \APICall();
+		$this->api = new \APICall();
 	}
 
 
 	/**
-	 * @throws Exception
+	 * @throws \iw\api\Exception
 	 */
-	protected function get(): array
+	public function initData(bool $forceLoad): void
 	{
-		$result= $this->api->get($this->urlGet());
-		return N;
+		if (!$this->dataInitiated || $forceLoad)
+			$this->initDataFromAPI();
+	}
+
+
+	/**
+	 * @throws \iw\api\Exception
+	 */
+	private function initDataFromAPI(): bool
+	{
+		$response = $this->apiGet();
+		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
+			return $this->apiMapAttributes($response);
+
+		return F;
+	}
+
+
+	/**
+	 * @throws \iw\api\Exception
+	 */
+	protected function apiGet(): \iw\api\Response
+	{
+
+		return $this->api->get($this->apiUrlBase() . $this->apiUriGet());
+	}
+
+
+	protected function apiMapAttributes(\iw\api\Response $response): bool
+	{
+		var_dump($response->body);
+
+		return T;
 	}
 
 

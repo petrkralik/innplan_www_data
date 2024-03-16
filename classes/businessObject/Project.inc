@@ -11,32 +11,29 @@ class Project extends BusinessObject
 	public int $id;
 
 
-	/**
-	 * @throws \iw\Exception
-	 */
 	public function __construct(int $id)
 	{
 		parent::__construct();
 		$this->id = $id;
-		$this->initData();
 	}
 
 
-	/**
-	 * @throws \iw\Exception
-	 */
-	#[\Override] function initData(): bool
+	#[\Override] function apiUriGet(): string
 	{
-		$this->get();
 
-		return T;
+		return "/v1/project/{$this->id}";
 	}
 
 
-	#[\Override] function urlGet(): string
+	#[\Override] function setProperty(string $propertyName, mixed $content): bool
 	{
+		// TODO: Implement setProperty() method.
+	}
 
-		return "https://api.innplan.westa.cz/v1/project/{$this->id}";
+
+	#[\Override] function getProperty(string $propertyName): mixed
+	{
+		// TODO: Implement getProperty() method.
 	}
 
 
