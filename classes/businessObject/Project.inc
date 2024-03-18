@@ -8,11 +8,6 @@ class Project extends BusinessObject
 {
 
 
-	protected array $properties = [
-		"clientId"=> []
-	];
-
-
 	/**
 	*/
 	public function __construct(int $id)
@@ -27,6 +22,16 @@ class Project extends BusinessObject
 	{
 
 		return "/v1/project/{$this->id}";
+	}
+
+
+	#[\Override] function properties(): array
+	{
+
+		return [
+			"clientId"=> new Property(new PropertyInt()),
+			"client"=> new Property(new PropertyObjectReferral("clientId", "Client"))
+		];
 	}
 
 

@@ -15,6 +15,7 @@ abstract class BusinessObject extends \World
 
 
 	abstract function apiUriGet(): string;
+	abstract function properties(): array;
 
 
 	function apiUrlBase(): string
