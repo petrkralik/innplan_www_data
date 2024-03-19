@@ -34,6 +34,8 @@ class Project extends BusinessObject
 			"name"=> new PropertyString(),
 			"dateStart"=> new PropertyString(),
 			"dateEnd"=> new PropertyString(),
+			"projectStateId"=> new PropertyInt(minimum: 1),
+			"projectState"=> new PropertyObjectReferral("projectStateId", "ProjectState"),
 			"clientId"=> new PropertyInt(minimum: 1),
 			"client"=> new PropertyObjectReferral("clientId", "Client")
 		];
