@@ -67,6 +67,9 @@ abstract class BusinessObject extends \World
 	}
 
 
+	/**
+	 * @throws \businessObject\Exception
+	 */
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
 		foreach ($response->body as $property => $value)
