@@ -11,6 +11,7 @@ abstract class BusinessObject extends \World
 	protected \APICall $api;
 	public bool $dataInitiated = F;
 	private array $properties;
+	public int $id;
 
 
 	abstract function apiUriGet(): string;
@@ -19,9 +20,10 @@ abstract class BusinessObject extends \World
 	abstract function properties(): array;
 
 
-	public function __construct()
+	public function __construct(int $id)
 	{
 		parent::__construct();
+		$this->id= $id;
 		$this->properties = $this->properties();
 		$this->api = new \APICall();
 	}
@@ -83,9 +85,10 @@ abstract class BusinessObject extends \World
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
-		if (key_exists($propertyName, $this->properties))
-			$this->properties[$propertyName]->set($value);
-		else
+		if (key_exists($propertyName, $this->properties)) {
+			if ($propertyName != "id")
+				$this->properties[$propertyName]->set($value);
+		} else
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
 	}
 
