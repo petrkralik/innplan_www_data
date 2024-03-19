@@ -88,7 +88,13 @@ abstract class BusinessObject extends \World
 		if ($propertyName != "id") {
 			if (key_exists($propertyName, $this->properties)) {
 				if($this->properties[$propertyName] instanceof Property) {
-					$this->properties[$propertyName]->set($value);
+					switch ($this->properties[$propertyName]::class) {
+						case PropertyDate::class:
+							// @todo dopracovat konverzi do DateTime
+							break;
+						default:
+							$this->properties[$propertyName]->set($value);
+					}
 				} else {
 					Error::ITEM_MUST_BE_INSTANCE_OF_PROPERTY->throw("Item must be instance of 'Property'.");
 				}
@@ -97,6 +103,8 @@ abstract class BusinessObject extends \World
 			}
 		}
 	}
+
+
 
 
 }
