@@ -87,9 +87,11 @@ abstract class BusinessObject extends \World
 	{
 		if ($propertyName != "id") {
 			if (key_exists($propertyName, $this->properties)) {
-				var_dump($this->properties[$propertyName]);
-				die();
-				$this->properties[$propertyName]->set($value);
+				if($this->properties[$propertyName] instanceof PropertyType) {
+					$this->properties[$propertyName]->set($value);
+				} else {
+					Error::ITEM_MUST_BE_INSTANCE_OF_PROPERTY->throw("Item must be instance of 'Property'.");
+				}
 			} else {
 				Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
 			}
