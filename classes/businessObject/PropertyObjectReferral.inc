@@ -4,7 +4,7 @@
 namespace businessObject;
 
 
-class PropertyObjectReferral extends PropertyType
+class PropertyObjectReferral extends Property
 {
 
 

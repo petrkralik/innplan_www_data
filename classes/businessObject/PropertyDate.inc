@@ -4,16 +4,13 @@
 namespace businessObject;
 
 
-class PropertyString extends Property
+class PropertyDate extends Property
 {
 
 
 	#[\Override] protected function setValueCheck(mixed $value): bool
 	{
-		if (is_string($value) || is_null($value))
-			return \T;
-
-		return \F;
+		// TODO: Implement setValueCheck() method.
 	}
 
 

@@ -4,7 +4,7 @@
 namespace businessObject;
 
 
-abstract class PropertyType
+abstract class Property
 {
 
 

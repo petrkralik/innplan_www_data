@@ -4,7 +4,7 @@
 namespace businessObject;
 
 
-class PropertyInt extends PropertyType
+class PropertyInt extends Property
 {
 
 
