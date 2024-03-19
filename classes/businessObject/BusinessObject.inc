@@ -91,6 +91,7 @@ abstract class BusinessObject extends \World
 					switch ($this->properties[$propertyName]::class) {
 						case PropertyDate::class:
 							// @todo dopracovat konverzi do DateTime
+							$this->properties[$propertyName]->set($this->convertValueStrToDate($value));
 							break;
 						default:
 							$this->properties[$propertyName]->set($value);
@@ -105,6 +106,9 @@ abstract class BusinessObject extends \World
 	}
 
 
+	private function convertValueStrToDate(mixed $value) {
+		// @todo dopracovat
+	}
 
 
 }
