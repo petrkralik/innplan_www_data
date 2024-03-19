@@ -12,9 +12,9 @@ class PropertyInt extends PropertyType
 	public readonly ?int $maximum;
 
 
-	public function __construct(bool $required, ?int $minimum = N, ?int $maximum = N)
+	public function __construct(bool $required= T, bool $nullable= F, ?int $minimum = N, ?int $maximum = N)
 	{
-		parent::__construct($required);
+		parent::__construct($required, $nullable);
 		$this->minimum = $minimum;
 		$this->maximum = $maximum;
 	}

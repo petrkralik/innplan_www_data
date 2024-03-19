@@ -31,7 +31,8 @@ class Project extends BusinessObject
 	{
 
 		return [
-			"clientId"=> new PropertyInt(T, 1),
+			"name"=> new PropertyString(),
+			"clientId"=> new PropertyInt(minimum: 1),
 			"client"=> new PropertyObjectReferral("clientId", "Client")
 		];
 	}
