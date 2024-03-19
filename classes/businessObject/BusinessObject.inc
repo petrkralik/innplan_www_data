@@ -10,25 +10,26 @@ abstract class BusinessObject extends \World
 
 	protected \APICall $api;
 	public bool $dataInitiated = F;
-	protected array $propertiesData = [];
-	protected array $properties = [];
+	private array $properties;
 
 
 	abstract function apiUriGet(): string;
+
+
 	abstract function properties(): array;
-
-
-	function apiUrlBase(): string
-	{
-
-		return "https://api.innplan.westa.cz";
-	}
 
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->properties = $this->properties();
 		$this->api = new \APICall();
+	}
+
+
+	function apiUrlBase(): string
+	{
+		return "https://api.innplan.westa.cz";
 	}
 
 
@@ -38,7 +39,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function initData(bool $forceLoad = F): void
 	{
-		if (!$this->dataInitiated || $forceLoad)
+		if (! $this->dataInitiated || $forceLoad)
 			$this->initDataFromAPI();
 	}
 
@@ -62,8 +63,7 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiGet(): \iw\api\Response
 	{
-
-		return $this->api->get($this->apiUrlBase() . $this->apiUriGet());
+		return $this->api->get($this->apiUrlBase().$this->apiUriGet());
 	}
 
 
@@ -72,8 +72,9 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
-		foreach ($response->body as $property => $value)
+		foreach ($response->body as $property => $value) {
 			$this->setProperty($property, $value);
+		}
 	}
 
 
@@ -83,15 +84,9 @@ abstract class BusinessObject extends \World
 	public function setProperty(string $propertyName, mixed $value): void
 	{
 		if (key_exists($propertyName, $this->properties))
-			$this->properties[$propertyName] = $value;
+			$this->properties[$propertyName]->set($value);
 		else
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
-	}
-
-
-	function getProperty(string $propertyName): mixed
-	{
-		// TODO: Implement getProperty() method.
 	}
 
 

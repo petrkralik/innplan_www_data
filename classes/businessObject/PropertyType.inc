@@ -8,25 +8,36 @@ abstract class PropertyType
 {
 
 
-	public function __construct()
+	protected mixed $value;
+
+
+	public readonly bool $required;
+
+
+	abstract protected function setValueCheck(mixed $value): bool;
+
+
+	public function __construct(bool $required)
 	{
+		$this->required = $required;
 	}
 
 
 	/**
-	 * @throws Exception
+	 * @throws \businessObject\Exception
 	 */
-	public function set(mixed $value): void {
-		Error::CLASS_MUST_IMPLEMENT_METHOD_SET-> throw("Class {$this::class} must implement method set().");
+	public function set(mixed $value): void
+	{
+		if(!$this->setValueCheck($value))
+			Error::PROPERTY_TYPE_ERROR-> throw("Property is not of required type");
+		$this->value = $value;
 	}
 
 
-	/**
-	 * @throws Exception
-	 */
 	public function get(): mixed
 	{
-		Error::CLASS_MUST_IMPLEMENT_METHOD_GET-> throw("Class {$this::class} must implement method get().");
+		return $this->value;
 	}
+
 
 }
