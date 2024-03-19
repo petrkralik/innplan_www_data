@@ -23,7 +23,7 @@ abstract class BusinessObject extends \World
 	public function __construct(int $id)
 	{
 		parent::__construct();
-		$this->id= $id;
+		$this->id = $id;
 		$this->properties = $this->properties();
 		$this->api = new \APICall();
 	}
@@ -85,9 +85,8 @@ abstract class BusinessObject extends \World
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
-		if (key_exists($propertyName, $this->properties)) {
-			if ($propertyName != "id")
-				$this->properties[$propertyName]->set($value);
+		if (($propertyName != "id") && key_exists($propertyName, $this->properties)) {
+			$this->properties[$propertyName]->set($value);
 		} else
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
 	}
