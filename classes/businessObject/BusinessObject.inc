@@ -86,10 +86,13 @@ abstract class BusinessObject extends \World
 	public function setProperty(string $propertyName, mixed $value): void
 	{
 		if ($propertyName != "id") {
-			if (key_exists($propertyName, $this->properties))
+			if (key_exists($propertyName, $this->properties)) {
+				var_dump($this->properties[$propertyName]);
+				die();
 				$this->properties[$propertyName]->set($value);
-			else
+			} else {
 				Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
+			}
 		}
 	}
 
