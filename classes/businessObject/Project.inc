@@ -33,6 +33,7 @@ class Project extends BusinessObject
 		return [
 			"name"=> new PropertyString(),
 			"dateStart"=> new PropertyString(),
+			"dateEnd"=> new PropertyString(),
 			"clientId"=> new PropertyInt(minimum: 1),
 			"client"=> new PropertyObjectReferral("clientId", "Client")
 		];
