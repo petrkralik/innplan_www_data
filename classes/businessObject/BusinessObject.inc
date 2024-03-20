@@ -54,7 +54,8 @@ abstract class BusinessObject extends \World
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
-			$this->apiResultMapData($response); else
+			$this->apiResultMapData($response);
+		else
 			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error.");
 	}
 
