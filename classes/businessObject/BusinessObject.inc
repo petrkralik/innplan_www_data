@@ -113,7 +113,7 @@ abstract class BusinessObject extends \World
 			return N;
 		if (!$this->strDateWellFormed($value))
 			Error::PROPERTY_TYPE_ERROR->throw("Value content of 'date' malformed");
-		$dateTime = \DateTime::createFromFormat("Y-m-d", $value);
+		$dateTime = \DateTime::createFromFormat("Y-m-d H:i:s", "$value 00:00:00");
 		if ($dateTime === false)
 			Error::PROPERTY_TYPE_ERROR->throw("Failed to create DateTime object from the provided value");
 
