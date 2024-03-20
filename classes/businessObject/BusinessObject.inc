@@ -13,7 +13,7 @@ abstract class BusinessObject extends \World
 	private array $properties;
 	public int $id;
 	private array $changedProperties= [];
-	private bool $inLoadProgress= F;
+	private bool $dataLoadingInProgress= F;
 
 
 	abstract function apiUrl(): string;
@@ -114,13 +114,11 @@ abstract class BusinessObject extends \World
 		if ($propertyName != "id") {
 			if (key_exists($propertyName, $this->properties)) {
 				if ($this->properties[$propertyName] instanceof Property) {
-					switch ($this->properties[$propertyName]::class) {
-						case PropertyDate::class:
-							$this->properties[$propertyName]->set($this->convertValueStrToDate($value));
-							break;
-						default:
-							$this->properties[$propertyName]->set($value);
-					}
+					$value= match ($this->properties[$propertyName]::class) {
+						PropertyDate::class=> $this->convertValueStrToDate($value),
+						default=> $value
+					};
+					$this->properties[$propertyName]->set($value);
 				} else {
 					Error::ITEM_MUST_BE_INSTANCE_OF_PROPERTY->throw("Item must be instance of 'Property'.");
 				}
