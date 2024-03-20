@@ -56,7 +56,7 @@ abstract class BusinessObject extends \World
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
 			$this->apiResultMapData($response);
 		else
-			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error.");
+			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error with http code {$response->statusCode->value}.");
 	}
 
 
