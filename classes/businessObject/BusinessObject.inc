@@ -107,7 +107,9 @@ abstract class BusinessObject extends \World
 	/**
 	 * @throws \businessObject\Exception
 	 */
-	private function convertValueStrToDate(mixed $value): \DateTime {
+	private function convertValueStrToDate(?string $value): ?\DateTime {
+		if($value=== N)
+			return N;
 		if (!$this->strDateWellFormed($value))
 			Error::PROPERTY_TYPE_ERROR->throw("Value content of 'date' malformed");
 		$dateTime = \DateTime::createFromFormat("Y-m-d", $value);
@@ -118,7 +120,7 @@ abstract class BusinessObject extends \World
 	}
 
 
-	private function strDateWellFormed(mixed $value): bool
+	private function strDateWellFormed(string $value): bool
 	{
 		$matches = [];
 		if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $value, $matches)) {
