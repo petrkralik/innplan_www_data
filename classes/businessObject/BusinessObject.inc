@@ -54,8 +54,7 @@ abstract class BusinessObject extends \World
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
-			$this->apiResultMapData($response);
-		else
+			$this->apiResultMapData($response); else
 			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error.");
 	}
 
@@ -87,10 +86,9 @@ abstract class BusinessObject extends \World
 	{
 		if ($propertyName != "id") {
 			if (key_exists($propertyName, $this->properties)) {
-				if($this->properties[$propertyName] instanceof Property) {
+				if ($this->properties[$propertyName] instanceof Property) {
 					switch ($this->properties[$propertyName]::class) {
 						case PropertyDate::class:
-							// @todo dopracovat konverzi do DateTime
 							$this->properties[$propertyName]->set($this->convertValueStrToDate($value));
 							break;
 						default:
@@ -106,8 +104,38 @@ abstract class BusinessObject extends \World
 	}
 
 
-	private function convertValueStrToDate(mixed $value) {
-		// @todo dopracovat
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	private function convertValueStrToDate(mixed $value): \DateTime {
+		if (!$this->strDateWellFormed($value))
+			Error::PROPERTY_TYPE_ERROR->throw("Value content of 'date' malformed");
+		$dateTime = \DateTime::createFromFormat("Y-m-d", $value);
+		if ($dateTime === false)
+			Error::PROPERTY_TYPE_ERROR->throw("Failed to create DateTime object from the provided value");
+
+		return $dateTime;
+	}
+
+
+	private function strDateWellFormed(mixed $value): bool
+	{
+		$matches = [];
+		if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $value, $matches)) {
+			$year = (int)$matches[1];
+			$month = (int)$matches[2];
+			$day = (int)$matches[3];
+			if ($year < 1000 || $year > 9999)
+				return F;
+			if ($month < 1 || $month > 12)
+				return F;
+			if ($day < 1 || $day > cal_days_in_month(CAL_GREGORIAN, $month, $year))
+				return F;
+
+			return T;
+		}
+
+		return F;
 	}
 
 
