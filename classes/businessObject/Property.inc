@@ -8,14 +8,14 @@ abstract class Property
 {
 
 
-	protected mixed $value;
-	proteced
+	protected mixed $valueOriginal;
+	protected mixed $valueChanged;
 
 
 	public readonly bool $required;
 	public readonly bool $nullable;
-	private bool $isSet= F;
-	private bool $isChanged= F;
+	private bool $isSet = F;
+	private bool $isChanged = F;
 
 
 	abstract protected function setValueCheck(mixed $value): bool;
@@ -35,26 +35,38 @@ abstract class Property
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * @throws Exception
 	 */
-	public function set(mixed $value): void
+	public function setValue(mixed $value): void
 	{
-		if (! $this->setValueCheck($value))
+		if (!$this->setValueCheck($value))
 			Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
-		if($this->isSet()) {
-			change
+		if ($this->isSet()) {
+			$this->valueChanged = $value;
+			$this->isChanged = T;
+		} else {
+			$this->valueOriginal = $value;
+			$this->isSet = T;
 		}
-
-		$this->value = $value;
 	}
 
 
-	public function get(): mixed
+	public function getValue(): mixed
 	{
-		return $this->value;
+		return $this->isChanged ? $this->valueChanged : $this->valueOriginal;
 	}
 
 
+	public function getValueOriginal(): mixed
+	{
+		return $this->valueOriginal;
+	}
+
+
+	public function getValueChanged(): mixed
+	{
+		return $this->valueChanged;
+	}
 
 
 }

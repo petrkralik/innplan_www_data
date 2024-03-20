@@ -4,53 +4,115 @@
 namespace businessObject;
 
 
+/**
+ * Abstract class BusinessObject serves as a base class for all business entities within the application.
+ * It provides common functionalities such as API interactions and property management.
+ * This class extends a generic World class, providing a foundation for specific business object implementations.
+ */
 abstract class BusinessObject extends \World
 {
 
 
+	/**
+	 * @var \APICall $api An instance of APICall to handle API requests, facilitating communication with external services.
+	 */
 	protected \APICall $api;
-	public bool $dataInitiated = F;
+
+	/**
+	 * @var bool $dataInitiated Flag indicating whether the data for the business object has been initialized.
+	 */
+	public bool $dataInitiated = false;
+
+	/**
+	 * @var array $properties Associative array storing properties of the business object, keyed by property names.
+	 */
 	private array $properties;
+
+	/**
+	 * @var int $id Unique identifier for the business object, essential for database operations and API interactions.
+	 */
 	public int $id;
-	private array $changedProperties= [];
-	private bool $dataLoadingInProgress= F;
+
+	/**
+	 * @var array $changedProperties Tracks properties that have been modified, aiding in change detection and persistence.
+	 */
+	private array $changedProperties = [];
 
 
+	/**
+	 * Abstract method that should return the specific API endpoint URL for the business object.
+	 * Implementing classes must define this to interact with the correct API endpoint.
+	 *
+	 * @return string The API endpoint URL specific to the business object.
+	 */
 	abstract function apiUrl(): string;
 
 
+	/**
+	 * Abstract method that should return a list of properties associated with the business object.
+	 * Implementing classes must define this to ensure the business object has its required properties.
+	 *
+	 * @return array An array of property definitions for the business object.
+	 */
 	abstract function propertyList(): array;
 
 
+	/**
+	 * Constructor for the BusinessObject class. Initializes the object with a unique ID,
+	 * sets up the properties by calling the abstract propertyList method, and initializes the API caller.
+	 *
+	 * @param int $id The unique identifier for the business object instance.
+	 */
+	public function __construct(int $id)
+	{
+		parent::__construct(); // Call to the parent class constructor.
+		$this->id = $id; // Setting the unique ID.
+		$this->properties = $this->propertyList(); // Initializing properties.
+		$this->api = new \APICall(); // Initializing the API caller.
+	}
+
+
+	/**
+	 * Retrieves a list of properties that have been changed.
+	 * This method can be used to identify which properties need to be updated in the database or via an API.
+	 *
+	 * @return array An array of changed properties.
+	 */
 	public function changes(): array
 	{
 		return $this->changedProperties;
 	}
 
 
+	/**
+	 * Resets the list of changed properties. This method should be called after changes have been persisted,
+	 * ensuring that the object reflects the current state without pending changes.
+	 */
 	public function dropChanges(): void
 	{
-		$this->changedProperties= [];
+		$this->changedProperties = [];
 	}
 
 
-	public function saveChanges(): void
+	/**
+	 * Saves changes made to the properties to the database or via an API.
+	 * This method should contain logic to persist the changes tracked in $changedProperties.
+	 *
+	 * @return bool Returns true if changes are successfully saved, false otherwise.
+	 */
+	public function saveChanges(): bool
 	{
-		//foreach ($this->changedProperties as $propertyName=> $value) {
-			//$this->
-		//}
+		// @todo Logic to save changes goes here.
+		return T;
 	}
 
 
-	public function __construct(int $id)
-	{
-		parent::__construct();
-		$this->id = $id;
-		$this->properties = $this->propertyList();
-		$this->api = new \APICall();
-	}
-
-
+	/**
+	 * Provides the base URL for the API endpoint. This method can be overridden in child classes
+	 * to provide a different base URL if necessary.
+	 *
+	 * @return string The base URL for the API.
+	 */
 	function apiUrlBase(): string
 	{
 		return "https://api.innplan.westa.cz";
@@ -58,67 +120,92 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @throws Exception
+	 * Initializes the object's data from the API. If data has not been loaded or a force reload is requested,
+	 * this method fetches the data from the API and maps it to the object's properties.
+	 *
+	 * @param bool $forceLoad Forces the reload of data even if it has already been loaded.
+	 *
+	 * @throws Exception If there is an issue with data loading.
 	 */
-	public function initData(bool $forceLoad = F): void
+	public function initData(bool $forceLoad = false): void
 	{
-		if (! $this->dataInitiated || $forceLoad)
+		if (!$this->dataInitiated || $forceLoad) {
 			try {
 				$this->initDataFromAPI();
-			}
-			catch(\iw\api\Exception $ex) {
+			} catch (\iw\api\Exception $ex) {
 				Error::API_DATA_LOAD->throw("API data load error", previous: $ex);
 			}
+		}
 	}
 
 
 	/**
-	 * @throws \iw\api\Exception
-	 * @throws Exception
+	 * Private method to initialize data from the API. It makes an API call, checks the response,
+	 * and maps the data to the object's properties if the call is successful.
+	 *
+	 * @throws \iw\api\Exception If the API call fails.
+	 * @throws Exception If the response status code is not successful.
 	 */
 	private function initDataFromAPI(): void
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
 			$this->apiResultMapData($response);
-			$this->dataInitiated = T;
-		} else
+			$this->dataInitiated = true;
+		} else {
 			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error with http code {$response->statusCode->value}.");
+		}
 	}
 
 
 	/**
-	 * @throws \iw\api\Exception
+	 * Protected method to perform a GET request to the object's API endpoint. It constructs the full URL
+	 * by combining the base URL with the endpoint specific to the object.
+	 *
+	 * @return \iw\api\Response The response from the API.
+	 * @throws \iw\api\Exception If the API request fails.
 	 */
 	protected function apiGet(): \iw\api\Response
 	{
-		return $this->api->get($this->apiUrlBase().$this->apiUrl());
+		return $this->api->get($this->apiUrlBase() . $this->apiUrl());
 	}
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * Maps the data from the API response to the object's properties. This method iterates over the response data
+	 * and assigns the data to the respective properties of the object.
+	 *
+	 * @param \iw\api\Response $response The response from the API containing the data.
+	 *
+	 * @throws Exception If there is an issue with setting the property values.
 	 */
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
-		foreach ($response->body as $property => $value)
+		foreach ($response->body as $property => $value) {
 			$this->setProperty($property, $value);
+		}
 	}
 
 
 	/**
-	 * @throws Exception
+	 * Sets the value of a property. This method checks if the property exists, validates the value,
+	 * and sets the value while tracking any changes.
+	 *
+	 * @param string $propertyName The name of the property to set.
+	 * @param mixed  $value        The value to set for the property.
+	 *
+	 * @throws Exception If the property does not exist or the value is not valid.
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
 		if ($propertyName != "id") {
 			if (key_exists($propertyName, $this->properties)) {
 				if ($this->properties[$propertyName] instanceof Property) {
-					$value= match ($this->properties[$propertyName]::class) {
-						PropertyDate::class=> $this->convertValueStrToDate($value),
-						default=> $value
+					$value = match ($this->properties[$propertyName]::class) {
+						PropertyDate::class => $this->convertValueStrToDate($value),
+						default => $value
 					};
-					$this->properties[$propertyName]->set($value);
+					$this->properties[$propertyName]->setValue($value);
 				} else {
 					Error::ITEM_MUST_BE_INSTANCE_OF_PROPERTY->throw("Item must be instance of 'Property'.");
 				}
@@ -130,10 +217,36 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * Retrieves the Property object for a given property name. This method is used to access
+	 * the Property object associated with a specific property of the business object.
+	 *
+	 * @param string $propertyName The name of the property to retrieve.
+	 *
+	 * @return Property The Property object associated with the given property name.
+	 * @throws Exception If the property name is not registered in the object.
 	 */
-	private function convertValueStrToDate(?string $value): ?\DateTime {
-		if($value=== N)
+	public function getProperty(string $propertyName): Property
+	{
+		if (!array_key_exists($propertyName, $this->properties)) {
+			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
+		}
+
+		return $this->properties[$propertyName];
+	}
+
+
+	/**
+	 * Converts a string value to a DateTime object if the string is properly formatted.
+	 * This method is specifically used for properties of type PropertyDate.
+	 *
+	 * @param ?string $value The string value to convert.
+	 *
+	 * @return ?\DateTime The converted DateTime object or null if the input is null or improperly formatted.
+	 * @throws Exception If the string is not a well-formed date.
+	 */
+	private function convertValueStrToDate(?string $value): ?\DateTime
+	{
+		if ($value === N)
 			return N;
 		if (!$this->strDateWellFormed($value))
 			Error::PROPERTY_TYPE_ERROR->throw("Value content of 'date' malformed");
@@ -145,24 +258,23 @@ abstract class BusinessObject extends \World
 	}
 
 
+	/**
+	 * Validates whether a string is a well-formed date string in the format 'Y-m-d'.
+	 *
+	 * @param string $value The date string to validate.
+	 *
+	 * @return bool True if the string is a well-formed date, false otherwise.
+	 */
 	private function strDateWellFormed(string $value): bool
 	{
 		$matches = [];
 		if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $value, $matches)) {
-			$year = (int)$matches[1];
-			$month = (int)$matches[2];
-			$day = (int)$matches[3];
-			if ($year < 1000 || $year > 9999)
-				return F;
-			if ($month < 1 || $month > 12)
-				return F;
-			if ($day < 1 || $day > cal_days_in_month(CAL_GREGORIAN, $month, $year))
-				return F;
+			[$year, $month, $day] = array_map('intval', array_slice($matches, 1));
 
-			return T;
+			return checkdate($month, $day, $year);
 		}
 
-		return F;
+		return false;
 	}
 
 
