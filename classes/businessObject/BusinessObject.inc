@@ -73,6 +73,36 @@ abstract class BusinessObject extends \World
 
 
 	/**
+	 * Magic getter method to access the value of a property dynamically.
+	 * This method delegates the responsibility to the existing getProperty method.
+	 *
+	 * @param string $propertyName The name of the property to access.
+	 *
+	 * @return Property The value of the requested property.
+	 * @throws Exception If the property is not defined or cannot be accessed.
+	 */
+	public function __get(string $propertyName): Property
+	{
+		return $this->getProperty($propertyName);
+	}
+
+
+	/**
+	 * Magic setter method to set the value of a property dynamically.
+	 * This method delegates the responsibility to the existing setProperty method.
+	 *
+	 * @param string $propertyName The name of the property to set.
+	 * @param mixed  $value        The value to set to the property.
+	 *
+	 * @throws Exception If the property is not defined or the value is invalid.
+	 */
+	public function __set(string $propertyName, mixed $value): void
+	{
+		$this->setProperty($propertyName, $value);
+	}
+
+
+	/**
 	 * Retrieves a list of properties that have been changed.
 	 * This method can be used to identify which properties need to be updated in the database or via an API.
 	 *
@@ -127,11 +157,11 @@ abstract class BusinessObject extends \World
 	 *
 	 * @throws Exception If there is an issue with data loading.
 	 */
-	public function initData(bool $forceLoad = false): void
+	public function loadData(bool $forceLoad = false): void
 	{
 		if (!$this->dataInitiated || $forceLoad) {
 			try {
-				$this->initDataFromAPI();
+				$this->loadDataFromAPI();
 			} catch (\iw\api\Exception $ex) {
 				Error::API_DATA_LOAD->throw("API data load error", previous: $ex);
 			}
@@ -146,7 +176,7 @@ abstract class BusinessObject extends \World
 	 * @throws \iw\api\Exception If the API call fails.
 	 * @throws Exception If the response status code is not successful.
 	 */
-	private function initDataFromAPI(): void
+	private function loadDataFromAPI(): void
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
@@ -227,9 +257,10 @@ abstract class BusinessObject extends \World
 	 */
 	public function getProperty(string $propertyName): Property
 	{
-		if (!array_key_exists($propertyName, $this->properties)) {
+		if (!array_key_exists($propertyName, $this->properties))
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
-		}
+		if (!$this->dataInitiated)
+			$this->loadData();
 
 		return $this->properties[$propertyName];
 	}
