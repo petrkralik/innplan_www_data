@@ -10,7 +10,6 @@ class Project extends BusinessObject
 
 	/**
 	 * @throws \businessObject\Exception
-	 * @throws \iw\api\Exception
 	 */
 	public function __construct(int $id)
 	{
@@ -20,7 +19,7 @@ class Project extends BusinessObject
 	}
 
 
-	#[\Override] function apiUriGet(): string
+	#[\Override] function apiUrl(): string
 	{
 
 		return "/v1/project/{$this->id}";

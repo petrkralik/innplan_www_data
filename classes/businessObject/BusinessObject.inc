@@ -12,12 +12,33 @@ abstract class BusinessObject extends \World
 	public bool $dataInitiated = F;
 	private array $properties;
 	public int $id;
+	private array $changedProperties= [];
 
 
-	abstract function apiUriGet(): string;
+	abstract function apiUrl(): string;
 
 
 	abstract function properties(): array;
+
+
+	public function changes(): array
+	{
+		return $this->changedProperties;
+	}
+
+
+	public function dropChanges(): void
+	{
+		$this->changedProperties= [];
+	}
+
+
+	public function saveChanges(): bool
+	{
+		foreach ($this->changedProperties as $propertyName=> $value) {
+			$this->
+		}
+	}
 
 
 	public function __construct(int $id)
@@ -36,13 +57,17 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @throws \iw\api\Exception
 	 * @throws Exception
 	 */
 	public function initData(bool $forceLoad = F): void
 	{
 		if (! $this->dataInitiated || $forceLoad)
-			$this->initDataFromAPI();
+			try {
+				$this->initDataFromAPI();
+			}
+			catch(\iw\api\Exception $ex) {
+				Error::API_DATA_LOAD->throw("API data load error", previous: $ex);
+			}
 	}
 
 
@@ -53,9 +78,10 @@ abstract class BusinessObject extends \World
 	private function initDataFromAPI(): void
 	{
 		$response = $this->apiGet();
-		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS)
+		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
 			$this->apiResultMapData($response);
-		else
+			$this->dataInitiated = T;
+		} else
 			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error with http code {$response->statusCode->value}.");
 	}
 
@@ -65,7 +91,7 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiGet(): \iw\api\Response
 	{
-		return $this->api->get($this->apiUrlBase().$this->apiUriGet());
+		return $this->api->get($this->apiUrlBase().$this->apiUrl());
 	}
 
 
@@ -74,9 +100,8 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
-		foreach ($response->body as $property => $value) {
+		foreach ($response->body as $property => $value)
 			$this->setProperty($property, $value);
-		}
 	}
 
 
