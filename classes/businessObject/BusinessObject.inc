@@ -108,6 +108,7 @@ abstract class BusinessObject extends \World
 	 * @throws \businessObject\Exception
 	 */
 	private function convertValueStrToDate(?string $value): ?\DateTime {
+		echo $value. LF;
 		if($value=== N)
 			return N;
 		if (!$this->strDateWellFormed($value))
