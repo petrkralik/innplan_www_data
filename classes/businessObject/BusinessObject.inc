@@ -13,12 +13,13 @@ abstract class BusinessObject extends \World
 	private array $properties;
 	public int $id;
 	private array $changedProperties= [];
+	private bool $inLoadProgress= F;
 
 
 	abstract function apiUrl(): string;
 
 
-	abstract function properties(): array;
+	abstract function propertyList(): array;
 
 
 	public function changes(): array
@@ -33,11 +34,11 @@ abstract class BusinessObject extends \World
 	}
 
 
-	public function saveChanges(): bool
+	public function saveChanges(): void
 	{
-		foreach ($this->changedProperties as $propertyName=> $value) {
-			$this->
-		}
+		//foreach ($this->changedProperties as $propertyName=> $value) {
+			//$this->
+		//}
 	}
 
 
@@ -45,7 +46,7 @@ abstract class BusinessObject extends \World
 	{
 		parent::__construct();
 		$this->id = $id;
-		$this->properties = $this->properties();
+		$this->properties = $this->propertyList();
 		$this->api = new \APICall();
 	}
 

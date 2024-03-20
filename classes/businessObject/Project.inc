@@ -26,7 +26,7 @@ class Project extends BusinessObject
 	}
 
 
-	#[\Override] function properties(): array
+	#[\Override] function propertyList(): array
 	{
 
 		return [
