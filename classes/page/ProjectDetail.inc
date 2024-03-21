@@ -29,7 +29,7 @@ class ProjectDetail extends Page2Columns
 	#[\Override] function getContentMain(): \iw\DOMElementExtension
 	{
 		$this->init();
-		return $this->doc->div(N, "HAHAHAHA");
+		return $this->doc->div(N, "Název projektu: ". $this->project->name->getValue());
 	}
 
 
