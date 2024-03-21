@@ -16,7 +16,7 @@ class ProjectDetail extends Page2Columns
 	 *
 	 * @return void
 	 */
-	#[\Override] function getContentMain(\iw\DOMElementExtension $element): void
+	#[\Override] function fillContentMain(\iw\DOMElementExtension $element): void
 	{
 		// TODO: Implement getContentMain() method.
 		$this->init();
@@ -26,7 +26,6 @@ class ProjectDetail extends Page2Columns
 	private function init(): void
 	{
 		$this->project = new \businessObject\Project((int)$this->uriMatches[1]);
-		var_dump($this->project->dateStart->getValue());
 	}
 
 

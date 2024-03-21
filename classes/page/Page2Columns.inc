@@ -23,7 +23,7 @@ abstract class Page2Columns extends Page
 	private \iw\DOMElementExtension $elementFooter;
 
 
-	abstract function getContentMain(\iw\DOMElementExtension $element): void;
+	abstract function fillContentMain(\iw\DOMElementExtension $element): void;
 
 
 	/**
@@ -34,7 +34,7 @@ abstract class Page2Columns extends Page
 		$body->appendChild($this->loadTemplate());
 		$this->getElements();
 		$this->getContentLeft($this->elementLeft);
-		$this->getContentMain($this->elementMain);
+		$this->fillContentMain($this->elementMain);
 	}
 
 
