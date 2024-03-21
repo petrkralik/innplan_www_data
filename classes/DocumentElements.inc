@@ -4,23 +4,29 @@
 class DocumentElements extends \iw\Universe {
 
 
-	public \iw\DOMElementExtension $html;
-	public \iw\DOMElementExtension $head;
-	public \iw\DOMElementExtension $body;
+	public \iw\dom\Element $html;
+	public \iw\dom\Element $head;
+	public \iw\dom\Element $body;
 
 
-	public function __construct(\iw\DOMDocumentExtension $doc) {
+	/**
+	 * @throws DOMException
+	 */
+	public function __construct(\iw\dom\Document $doc) {
 		parent::__construct();
 		$this->build($doc);
 	}
 
 
-	private function build(\iw\DOMDocumentExtension $doc): void
+	/**
+	 * @throws DOMException
+	 */
+	private function build(\iw\dom\Document $doc): void
 	{
 		$doc-> appendChild(
-			$this-> html= $doc-> DOMElement(iw\html::E_HTML, N,
-				$this-> head= $doc-> DOMElement(iw\html::E_HEAD),
-				$this-> body= $doc-> DOMElement(iw\html::E_BODY)
+			$this-> html= $doc-> element(iw\html::E_HTML, N,
+				$this-> head= $doc-> element(iw\html::E_HEAD),
+				$this-> body= $doc-> element(iw\html::E_BODY)
 			)
 		);
 	}

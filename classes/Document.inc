@@ -7,12 +7,12 @@ class Document extends \iw\Universe
 
 	private DocumentElements $elements;
 	private RequestClassResolver $resolver;
-	private \iw\DOMDocumentExtension $document;
+	private \iw\dom\Document $document;
 
 
 	public function __construct() {
 		parent::__construct();
-		$this->document= new \iw\DOMDocumentExtension($this->cfg["charset"]);
+		$this->document= new \iw\dom\Document($this->cfg["charset"]);
 		$this->elements= new DocumentElements($this->document);
 		$this->resolver= new RequestClassResolver();
 	}
