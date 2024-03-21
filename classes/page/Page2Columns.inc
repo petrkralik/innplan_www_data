@@ -34,7 +34,7 @@ abstract class Page2Columns extends Page
 		$body->appendChild($this->loadTemplate());
 		$this->getElements();
 		$this->getContentLeft($this->elementLeft);
-		$this->getContentMain($this->elementMain);
+		$this->elementMain->appendChild($this->getContentMain());
 	}
 
 
