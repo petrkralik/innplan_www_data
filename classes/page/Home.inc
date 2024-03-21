@@ -9,7 +9,7 @@ class Home extends Page2Columns
 {
 
 
-	#[\Override] function fillContentMain(\iw\DOMElementExtension $element): void
+	#[\Override] function getContentMain(\iw\DOMElementExtension $element): void
 	{
 		// TODO: Implement getContentMain() method.
 	}
