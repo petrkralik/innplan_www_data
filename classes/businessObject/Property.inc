@@ -8,8 +8,8 @@ abstract class Property
 {
 
 
-	protected mixed $valueOriginal;
-	protected mixed $valueChanged;
+	private mixed $valueOriginal;
+	private mixed $valueChanged;
 
 
 	public readonly bool $required;

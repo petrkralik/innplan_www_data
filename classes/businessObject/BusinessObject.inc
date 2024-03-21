@@ -250,19 +250,33 @@ abstract class BusinessObject extends \World
 	 * Retrieves the Property object for a given property name. This method is used to access
 	 * the Property object associated with a specific property of the business object.
 	 *
-	 * @param string $propertyName The name of the property to retrieve.
+	 * @param   string  $propertyName  The name of the property to retrieve.
 	 *
-	 * @return Property The Property object associated with the given property name.
-	 * @throws Exception If the property name is not registered in the object.
+	 * @return \businessObject\Property|\businessObject\BusinessObject The Property object associated with the given property name.
+	 * @throws \businessObject\Exception If the property name is not registered in the object.
 	 */
-	public function getProperty(string $propertyName): Property
+	public function getProperty(string $propertyName): Property|BusinessObject
 	{
 		if (!array_key_exists($propertyName, $this->properties))
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
 		if (!$this->dataInitiated)
 			$this->loadData();
 
-		return $this->properties[$propertyName];
+		return $this->getPropertyConverted($this->properties[$propertyName]);
+	}
+
+
+	/**
+	 * @param   \businessObject\Property  $property
+	 *
+	 * @return \businessObject\Property|\businessObject\BusinessObject
+	 */
+	private function getPropertyConverted(Property $property): Property|BusinessObject
+	{
+		if($property instanceof PropertyObjectReferral)
+			return $property->getObject();
+		else
+			return $property;
 	}
 
 

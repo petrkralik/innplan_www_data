@@ -57,14 +57,16 @@ class Project extends BusinessObject
 	#[\Override]
 	public function propertyList(): array
 	{
+		$propProjectStateId= new PropertyInt(minimum: 1);
+		$propClientId= new PropertyInt(minimum: 1);
 		return [
 			"name" => new PropertyString(),
 			"dateStart" => new PropertyDate(F, T),
 			"dateEnd" => new PropertyDate(F, T),
-			"projectStateId" => new PropertyInt(minimum: 1),
-			"projectState" => new PropertyObjectReferral("projectStateId", "ProjectState"),
-			"clientId" => new PropertyInt(minimum: 1),
-			"client" => new PropertyObjectReferral("clientId", "Client")
+			"projectStateId" => $propProjectStateId,
+			"projectState" => new PropertyObjectReferral($propProjectStateId, "ProjectState"),
+			"clientId" => $propClientId,
+			"client" => new PropertyObjectReferral($propClientId, "Client")
 		];
 	}
 
