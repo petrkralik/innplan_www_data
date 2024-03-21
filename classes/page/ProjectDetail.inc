@@ -26,7 +26,7 @@ class ProjectDetail extends Page2Columns
 	private function init(): void
 	{
 		$this->project = new \businessObject\Project((int)$this->uriMatches[1]);
-		var_dump($this->project->dateStart);
+		var_dump($this->project->dateStart->getValue());
 	}
 
 

@@ -10,13 +10,13 @@ namespace businessObject;
  *
  * Attributes:
  *
- * @property string       $name           Name of the project.
- * @property \DateTime    $dateStart      The start date of the project.
- * @property \DateTime    $dateEnd        The end date of the project.
- * @property int          $projectStateId The unique identifier for the project state.
- * @property ProjectState $projectState   An object representing the state of the project.
- * @property int          $clientId       The unique identifier for the client associated with the project.
- * @property Client       $client         An object representing the client associated with the project.
+ * @property \businessObject\PropertyString     $name           Name of the project.
+ * @property \businessObject\PropertyDate		$dateStart      The start date of the project.
+ * @property \businessObject\PropertyDate		$dateEnd        The end date of the project.
+ * @property \businessObject\PropertyInt        $projectStateId The unique identifier for the project state.
+ * @property ProjectState						$projectState   An object representing the state of the project.
+ * @property \businessObject\PropertyInt        $clientId       The unique identifier for the client associated with the project.
+ * @property Client								$client         An object representing the client associated with the project.
  */
 class Project extends BusinessObject
 {
