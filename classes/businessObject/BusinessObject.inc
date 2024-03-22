@@ -76,12 +76,12 @@ abstract class BusinessObject extends \World
 	 * Magic getter method to access the value of a property dynamically.
 	 * This method delegates the responsibility to the existing getProperty method.
 	 *
-	 * @param string $propertyName The name of the property to access.
+	 * @param   string  $propertyName  The name of the property to access.
 	 *
-	 * @return Property The value of the requested property.
-	 * @throws Exception If the property is not defined or cannot be accessed.
+	 * @return \businessObject\Property|\businessObject\BusinessObject The value of the requested property.
+	 * @throws \businessObject\Exception If the property is not defined or cannot be accessed.
 	 */
-	public function __get(string $propertyName): Property
+	public function __get(string $propertyName): Property|BusinessObject
 	{
 		return $this->getProperty($propertyName);
 	}
