@@ -32,9 +32,10 @@ class ProjectDetail extends Page2Columns
 		$c= new \businessObject\Project();
 		$c-> setAttributes(
 			[
-				"name"=> "nějaký nový klient",
+				"name"=> "nějaký nový projekt",
 				"projectStateId"=> 1,
-				"clientId"=> 1
+				"clientId"=> 1,
+				"dateStart"=> \DateTime::createFromFormat("Y-m-d", "2024-04-01")
 			]
 		);
 		$c->create();
