@@ -311,7 +311,7 @@ abstract class BusinessObject extends \World
 	{
 		if (!array_key_exists($propertyName, $this->properties))
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
-		if (!$this->dataInitiated)
+		if (!$this->dataInitiated && $this->id)
 			$this->loadData();
 
 		return $this->getPropertyConverted($this->properties[$propertyName]);
