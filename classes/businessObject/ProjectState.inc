@@ -25,7 +25,7 @@ class ProjectState extends BusinessObject
 	{
 		return [
 			"name"     => new PropertyString(),
-			"disabled" => new PropertyBool(),
+			"disabled" => new PropertyBool(F, T),
 		];
 	}
 
