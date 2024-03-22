@@ -17,19 +17,19 @@ abstract class Page2Columns extends Page
 	private const string EID_FOOTER = "pgContentFooter";
 
 
-	private \iw\DOMElementExtension $elementHeader;
-	private \iw\DOMElementExtension $elementLeft;
-	private \iw\DOMElementExtension $elementMain;
-	private \iw\DOMElementExtension $elementFooter;
+	private \iw\dom\Element $elementHeader;
+	private \iw\dom\Element $elementLeft;
+	private \iw\dom\Element $elementMain;
+	private \iw\dom\Element $elementFooter;
 
 
-	abstract function getContentMain(): \iw\DOMElementExtension;
+	abstract function getContentMain(): \iw\dom\Element;
 
 
 	/**
 	 * @throws \iw\Exception
 	 */
-	public function getContent(\iw\DOMElementExtension $body): void
+	public function getContent(\iw\dom\Element $body): void
 	{
 		$body->appendChild($this->loadTemplate());
 		$this->getElements();
@@ -38,7 +38,7 @@ abstract class Page2Columns extends Page
 	}
 
 
-	function getContentLeft(\iw\DOMElementExtension $element): void {
+	function getContentLeft(\iw\dom\Element $element): void {
 	}
 
 
@@ -64,7 +64,7 @@ abstract class Page2Columns extends Page
 	/**
 	 * @throws \iw\Exception
 	 */
-	private function loadTemplate(): \iw\DOMElementExtension
+	private function loadTemplate(): \iw\dom\Element
 	{
 		return $this->doc->adopt(__DIR__."/resource/Page2Columns.template.html");
 	}

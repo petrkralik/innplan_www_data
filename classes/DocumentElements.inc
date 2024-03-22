@@ -24,9 +24,9 @@ class DocumentElements extends \iw\Universe {
 	private function build(\iw\dom\Document $doc): void
 	{
 		$doc-> appendChild(
-			$this-> html= $doc-> element(iw\html::E_HTML, N,
-				$this-> head= $doc-> element(iw\html::E_HEAD),
-				$this-> body= $doc-> element(iw\html::E_BODY)
+			$this-> html= $doc-> element(\iw\html::E_HTML, N,
+				$this-> head= $doc-> element(\iw\html::E_HEAD),
+				$this-> body= $doc-> element(\iw\html::E_BODY)
 			)
 		);
 	}

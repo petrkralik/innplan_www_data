@@ -5,15 +5,15 @@ class DocumentProvider
 {
 
 
-	private \iw\DOMDocumentExtension $document;
+	private \iw\dom\Document $document;
 
 
-	public function __construct(\iw\DOMDocumentExtension $document) {
+	public function __construct(\iw\dom\Document $document) {
 		$this->document= $document;
 	}
 
 
-	public function document(): \iw\DOMDocumentExtension
+	public function document(): \iw\dom\Document
 	{
 
 		return $this->document;

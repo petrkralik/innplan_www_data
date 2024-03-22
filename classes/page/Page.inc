@@ -23,17 +23,17 @@ abstract class Page extends \World
 	public array $uriMatches;
 
 	/**
-	 * @var \iw\DOMDocumentExtension An instance of DOMDocumentExtension to handle document manipulations.
+	 * @var \iw\dom\Document An instance of DOMDocumentExtension to handle document manipulations.
 	 */
-	protected \iw\DOMDocumentExtension $doc;
+	protected \iw\dom\Document $doc;
 
 
 	/**
 	 * Abstract method to be implemented by subclasses to define the content of the page.
 	 *
-	 * @param   \iw\DOMElementExtension  $body  The DOM element that should be used as the body of the page.
+	 * @param   \iw\dom\Element  $body  The DOM element that should be used as the body of the page.
 	 */
-	abstract function getContent(\iw\DOMElementExtension $body): void;
+	abstract function getContent(\iw\dom\Element $body): void;
 
 
 	/**

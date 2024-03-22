@@ -21,12 +21,12 @@ class ProjectDetail extends Page2Columns
 
 	/**
 	 * This method 'fillContentMain' is used to generate the main content associated with the project.
-	 * It takes an argument of type \iw\DOMElementExtension and returns void.
+	 * It takes an argument of type \iw\dom\Element and returns void.
 	 * The implementation of this method is yet to be defined.
 	 *
-	 * @return \iw\DOMElementExtension
+	 * @return \iw\dom\Element
 	 */
-	#[\Override] function getContentMain(): \iw\DOMElementExtension
+	#[\Override] function getContentMain(): \iw\dom\Element
 	{
 		$this->init();
 		return $this->doc->div(N, "Název projektu: ". $this->project->name->getValue());
