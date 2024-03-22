@@ -23,7 +23,7 @@ abstract class Page2Columns extends Page
 	private \iw\dom\Element $elementFooter;
 
 
-	abstract function getContentMain(): \iw\dom\Element;
+	abstract function getContentMain(): ?\iw\dom\Element;
 
 
 	/**

@@ -26,13 +26,13 @@ class ProjectDetail extends Page2Columns
 	 *
 	 * @return \iw\dom\Element
 	 */
-	#[\Override] function getContentMain(): \iw\dom\Element
+	#[\Override] function getContentMain(): ?\iw\dom\Element
 	{
-		$this->init();
-		var_dump($this->project->projectState->name);
-		return $this->doc->div(N,
-			"Název projektu: ". $this->project->name->getValue()
-		);
+
+		$c= new \businessObject\Client();
+		$c-> name= "Toto je nový projekt";
+
+		return N;
 	}
 
 

@@ -29,14 +29,9 @@ abstract class BusinessObject extends \World
 	private array $properties;
 
 	/**
-	 * @var int $id Unique identifier for the business object, essential for database operations and API interactions.
+	 * @var int|null $id Unique identifier for the business object, essential for database operations and API interactions.
 	 */
-	public int $id;
-
-	/**
-	 * @var array $changedProperties Tracks properties that have been modified, aiding in change detection and persistence.
-	 */
-	private array $changedProperties = [];
+	public readonly ?int $id;
 
 
 	/**
@@ -61,14 +56,14 @@ abstract class BusinessObject extends \World
 	 * Constructor for the BusinessObject class. Initializes the object with a unique ID,
 	 * sets up the properties by calling the abstract propertyList method, and initializes the API caller.
 	 *
-	 * @param int $id The unique identifier for the business object instance.
+	 * @param   int|null  $id  The unique identifier for the business object instance.
 	 */
-	public function __construct(int $id)
+	public function __construct(?int $id= N)
 	{
-		parent::__construct(); // Call to the parent class constructor.
-		$this->id = $id; // Setting the unique ID.
-		$this->properties = $this->propertyList(); // Initializing properties.
-		$this->api = new \APICall(); // Initializing the API caller.
+		parent::__construct();
+		$this->id= $id;
+		$this->properties = $this->propertyList();
+		$this->api = new \APICall();
 	}
 
 
@@ -110,7 +105,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function changes(): array
 	{
-		return $this->changedProperties;
+		return [];
 	}
 
 
@@ -120,7 +115,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function dropChanges(): void
 	{
-		$this->changedProperties = [];
+
 	}
 
 
@@ -159,7 +154,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function loadData(bool $forceLoad = false): void
 	{
-		if (!$this->dataInitiated || $forceLoad) {
+		if (!$this->dataInitiated || $forceLoad && $this->id) {
 			try {
 				$this->loadDataFromAPI();
 			} catch (\iw\api\Exception $ex) {
