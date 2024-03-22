@@ -233,7 +233,6 @@ abstract class BusinessObject extends \World
 				if ($this->properties[$propertyName] instanceof Property) {
 					$value = match ($this->properties[$propertyName]::class) {
 						PropertyDate::class => $this->convertValueStrToDate($value),
-						PropertyBool::class => $this->convertValueStrToBool($value),
 						default => $value
 					};
 					$this->properties[$propertyName]->setValue($value);
