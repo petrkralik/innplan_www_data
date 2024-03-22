@@ -80,8 +80,10 @@ abstract class BusinessObject extends \World
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
 		$response = $this->api->post($this->apiUrlBase(). $this->apiUrl(), $this->createCollectData());
-		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS)
-			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}. Response: {$response->body}");
+		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS) {
+			var_dump($response->body);
+			Error::API_DATA_POST->throw("Failed to create object of ".$this::class." due to API error {$response->statusCode->value}.");
+		}
 	}
 
 
