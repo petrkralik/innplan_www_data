@@ -23,19 +23,6 @@ class Project extends BusinessObject
 
 
 	/**
-	 * Constructs a new instance of the Project class.
-	 *
-	 * @param int $id The unique identifier of the project.
-	 *
-	 */
-	public function __construct(int $id)
-	{
-		parent::__construct($id);
-		$this->id = $id;
-	}
-
-
-	/**
 	 * Provides the API URL for the current project. This URL is used to access or modify
 	 * the project's data via a RESTful API.
 	 *

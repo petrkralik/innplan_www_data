@@ -68,6 +68,26 @@ abstract class BusinessObject extends \World
 
 
 	/**
+	 * Sets the attributes of a business object based on a provided associative array.
+	 * This method iterates over each entry in the array, where the key represents the property name
+	 * and the value represents the value to be set for that property.
+	 *
+	 * @param array $attributes Associative array of property names and values to be set.
+	 * @throws Exception if the property does not exist or if the value is not valid for the property type.
+	 */
+	public function setAttributes(array $attributes): void
+	{
+		foreach ($attributes as $propertyName => $value) {
+			if (!array_key_exists($propertyName, $this->properties))
+				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object {$this::class}");
+			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)
+				Error::PROPERTY_TYPE_ERROR->throw("Attribute '$propertyName' cannot be set directly as it is a PropertyObjectReferral");
+			$this->properties[$propertyName]->setValue($value);
+		}
+	}
+
+
+	/**
 	 * Magic getter method to access the value of a property dynamically.
 	 * This method delegates the responsibility to the existing getProperty method.
 	 *

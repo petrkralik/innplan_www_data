@@ -30,7 +30,11 @@ class ProjectDetail extends Page2Columns
 	{
 
 		$c= new \businessObject\Client();
-		$c-> name= "Toto je nový projekt";
+		$c-> setAttributes(
+			[
+				"name"=> "nějaký nový klient"
+			]
+		);
 
 		return $this->doc->div();
 	}
