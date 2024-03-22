@@ -68,6 +68,36 @@ abstract class BusinessObject extends \World
 
 
 	/**
+	 * @throws \businessObject\Exception
+	 * @throws \iw\api\Exception
+	 */
+	public function create(): void
+	{
+		if($this->id)
+			Error::CANNOT_CREATE->throw("Object of ". $this::class. " cannot be created due to this is a particular object");
+		foreach ($this->properties as $propertyName => $property)
+			if ($property->required && !$property->isSet())
+				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
+		$data= $this->createCollectData();
+		var_dump($data);
+		//$response = $this->api->post($this->apiUrl(), $this->createCollectData());
+		//if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS)
+		//	Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
+	}
+
+
+	private function createCollectData(): array
+	{
+		$data = [];
+		foreach ($this->properties as $propertyName => $property)
+			if (!$property instanceof PropertyObjectReferral && $property->isSet())
+				$data[$propertyName] = $property->getValue();
+
+		return $data;
+	}
+
+
+	/**
 	 * Sets the attributes of a business object based on a provided associative array.
 	 * This method iterates over each entry in the array, where the key represents the property name
 	 * and the value represents the value to be set for that property.
@@ -336,7 +366,6 @@ abstract class BusinessObject extends \World
 
 		return false;
 	}
-
 
 
 }

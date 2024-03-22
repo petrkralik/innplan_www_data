@@ -29,7 +29,7 @@ class ProjectDetail extends Page2Columns
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
 
-		$c= new \businessObject\Client();
+		$c= new \businessObject\Project();
 		$c-> setAttributes(
 			[
 				"name"=> "nějaký nový klient"
