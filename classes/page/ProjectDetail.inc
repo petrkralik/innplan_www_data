@@ -35,6 +35,7 @@ class ProjectDetail extends Page2Columns
 				"name"=> "nějaký nový klient"
 			]
 		);
+		$c->create();
 
 		return $this->doc->div();
 	}
