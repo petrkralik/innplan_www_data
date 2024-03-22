@@ -79,7 +79,7 @@ abstract class BusinessObject extends \World
 	{
 		foreach ($attributes as $propertyName => $value) {
 			if (!array_key_exists($propertyName, $this->properties))
-				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object {$this::class}");
+				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object ". $this::class);
 			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)
 				Error::PROPERTY_TYPE_ERROR->throw("Attribute '$propertyName' cannot be set directly as it is a PropertyObjectReferral");
 			$this->properties[$propertyName]->setValue($value);
