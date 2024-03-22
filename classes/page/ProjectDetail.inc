@@ -32,7 +32,8 @@ class ProjectDetail extends Page2Columns
 		$c= new \businessObject\Project();
 		$c-> setAttributes(
 			[
-				"name"=> "nějaký nový klient"
+				"name"=> "nějaký nový klient",
+				"projectState"=> 123
 			]
 		);
 		$c->create();
