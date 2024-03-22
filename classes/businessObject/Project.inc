@@ -64,9 +64,9 @@ class Project extends BusinessObject
 			"dateStart" => new PropertyDate(F, T),
 			"dateEnd" => new PropertyDate(F, T),
 			"projectStateId" => $propProjectStateId,
-			"projectState" => new PropertyObjectReferral($propProjectStateId, "ProjectState"),
+			"projectState" => new PropertyObjectReferral($propProjectStateId, __NAMESPACE__. "\ProjectState"),
 			"clientId" => $propClientId,
-			"client" => new PropertyObjectReferral($propClientId, "Client")
+			"client" => new PropertyObjectReferral($propClientId, __NAMESPACE__. "\Client")
 		];
 	}
 
