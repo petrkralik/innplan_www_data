@@ -333,7 +333,9 @@ abstract class BusinessObject extends \World
 	 *
 	 * @throws \businessObject\Exception If the input value is not a valid string representation of a boolean value.
 	 */
-	private function convertValueStrToBool(mixed $value): ?bool {
+	private function convertValueStrToBool(mixed $value): ?bool
+	{
+		var_dump($value);
 		if($value=== N)
 			return N;
 		if(is_string($value)) {
@@ -345,8 +347,6 @@ abstract class BusinessObject extends \World
 				Error::PROPERTY_TYPE_ERROR->throw("Value content of 'bool' malformed");
 		} else
 			Error::PROPERTY_TYPE_ERROR->throw("Value content of 'bool' malformed");
-
-		return N;
 	}
 
 
