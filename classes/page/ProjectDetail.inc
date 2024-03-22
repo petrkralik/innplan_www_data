@@ -33,7 +33,7 @@ class ProjectDetail extends Page2Columns
 		$c-> setAttributes(
 			[
 				"name"=> "nějaký nový klient",
-				"projectState"=> 123
+				"projectStateId"=> 1
 			]
 		);
 		$c->create();

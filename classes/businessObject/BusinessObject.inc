@@ -74,7 +74,7 @@ abstract class BusinessObject extends \World
 	public function create(): void
 	{
 		if($this->id)
-			Error::CANNOT_CREATE->throw("Object of ". $this::class. " cannot be created due to this is a particular object");
+			Error::CANNOT_CREATE->throw("Object of ". $this::class. " cannot be created because it exists.");
 		foreach ($this->properties as $propertyName => $property)
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
@@ -111,7 +111,7 @@ abstract class BusinessObject extends \World
 			if (!array_key_exists($propertyName, $this->properties))
 				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object ". $this::class);
 			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)
-				Error::PROPERTY_TYPE_ERROR->throw("Attribute '$propertyName' cannot be set directly as it is a PropertyObjectReferral");
+				Error::PROPERTY_TYPE_ERROR->throw("Attribute '$propertyName' cannot be set directly as it is a PropertyObjectReferral. Set its id directly in related attribute");
 			$this->properties[$propertyName]->setValue($value);
 		}
 	}
