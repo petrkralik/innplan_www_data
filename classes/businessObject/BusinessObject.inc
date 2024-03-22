@@ -323,30 +323,5 @@ abstract class BusinessObject extends \World
 	}
 
 
-	/**
-	 * Private method to convert a string representation of a boolean value to a boolean.
-	 *
-	 * @param   mixed  $value  The value to be converted to a boolean.
-	 *
-	 * @return ?bool The converted boolean value. Returns `null` if the input value is not a string or is not "true" or "false".
-	 *
-	 * @throws \businessObject\Exception If the input value is not a valid string representation of a boolean value.
-	 */
-	private function convertValueStrToBool(mixed $value): ?bool
-	{
-		var_dump($value);
-		if($value=== N)
-			return N;
-		if(is_string($value)) {
-			if ($value == "true")
-				return T;
-			elseif ($value == "false")
-				return F;
-			else
-				Error::PROPERTY_TYPE_ERROR->throw("Value content of 'bool' malformed");
-		} else
-			Error::PROPERTY_TYPE_ERROR->throw("Value content of 'bool' malformed");
-	}
-
 
 }
