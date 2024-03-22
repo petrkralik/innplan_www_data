@@ -27,11 +27,25 @@ class Project extends BusinessObject
 	 * the project's data via a RESTful API.
 	 *
 	 * @return string The API URL specific to this project.
+	 * @throws \businessObject\Exception
 	 */
 	#[\Override]
-	public function apiUrl(): string
+	public function apiUrlGet(): string
 	{
-		return "/v1/project/{$this->id}";
+		if (!$this->id)
+			Error::GENERAL->throw("Object must exist.");
+		return $this->apiUrlBase(). "/v1/project/{$this->id}";
+	}
+
+
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	public function apiUrlCreate(): string
+	{
+		if(!$this->clientId->isSet())
+			Error::GENERAL->throw("Attribute clientId must be set");
+		return $this->apiUrlBase(). "/v1/client/{$this->clientId->getValue()}/project/";
 	}
 
 

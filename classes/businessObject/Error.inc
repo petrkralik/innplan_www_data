@@ -18,6 +18,7 @@ enum Error: string
 	case CANNOT_CREATE= "CANNOT_CREATE";
 	case PROPERTY_NOT_SET = "PROPERTY_NOT_SET";
 	case API_DATA_POST = "API_DATA_POST";
+	case GENERAL = "GENERAL";
 
 
 	/**

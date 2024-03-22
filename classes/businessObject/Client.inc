@@ -14,9 +14,14 @@ class Client extends BusinessObject
 {
 
 
-	#[\Override] function apiUrl(): string
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	#[\Override] function apiUrlGet(): string
 	{
-		return "/v1/client/{$this->id}";
+		if (!$this->id)
+			Error::GENERAL->throw("Object must exist.");
+		return $this->apiUrlBase(). "/v1/client/{$this->id}";
 	}
 
 
@@ -26,6 +31,12 @@ class Client extends BusinessObject
 			"name"     => new PropertyString(),
 			"disabled" => new PropertyBool(F, T),
 		];
+	}
+
+
+	#[\Override] function apiUrlCreate(): string
+	{
+		return $this->apiUrlBase(). "/v1/client/";
 	}
 
 

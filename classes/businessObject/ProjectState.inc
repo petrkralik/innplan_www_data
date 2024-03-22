@@ -15,8 +15,13 @@ class ProjectState extends BusinessObject
 {
 
 
-	#[\Override] function apiUrl(): string
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	#[\Override] function apiUrlGet(): string
 	{
+		if (!$this->id)
+			Error::GENERAL->throw("Object must exist.");
 		return "/v1/project/state/{$this->id}";
 	}
 
@@ -27,6 +32,12 @@ class ProjectState extends BusinessObject
 			"name"     => new PropertyString(),
 			"disabled" => new PropertyBool(F, T),
 		];
+	}
+
+
+	#[\Override] function apiUrlCreate(): string
+	{
+		return $this->apiUrlBase(). "/project/state/";
 	}
 
 
