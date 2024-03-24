@@ -15,7 +15,7 @@ class Client extends BusinessObject
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * @throws Exception
 	 */
 	#[\Override] function apiUrlGet(): string
 	{

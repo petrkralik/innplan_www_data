@@ -154,6 +154,8 @@ abstract class Property
 	 */
 	public function setValue(mixed $value): void
 	{
+		if ($this->isSet() && $this->getValue() === $value)
+			return;
 		if (!$this->valueCheckOnSet($value))
 			Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
 		if ($this->isSet()) {
@@ -163,6 +165,8 @@ abstract class Property
 			$this->valueOriginal = $value;
 			$this->isSet = T;
 		}
+		foreach ($this->getReferrals() as $referral)
+			$referral->emptyObject();
 	}
 
 
