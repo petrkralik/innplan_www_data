@@ -71,7 +71,7 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * @throws Exception
 	 * @throws \iw\api\Exception
 	 */
 	public function create(array $attributes): void
@@ -130,7 +130,7 @@ abstract class BusinessObject extends \World
 	 * @param   string  $propertyName  The name of the property to access.
 	 *
 	 * @return \businessObject\Property|\businessObject\BusinessObject The value of the requested property.
-	 * @throws \businessObject\Exception If the property is not defined or cannot be accessed.
+	 * @throws Exception If the property is not defined or cannot be accessed.
 	 */
 	public function __get(string $propertyName): Property|BusinessObject
 	{
@@ -304,7 +304,7 @@ abstract class BusinessObject extends \World
 	 * @param   string  $propertyName  The name of the property to retrieve.
 	 *
 	 * @return \businessObject\Property|\businessObject\BusinessObject The Property object associated with the given property name.
-	 * @throws \businessObject\Exception If the property name is not registered in the object.
+	 * @throws Exception If the property name is not registered in the object.
 	 */
 	public function getProperty(string $propertyName): Property|BusinessObject
 	{
