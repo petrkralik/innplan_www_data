@@ -10,13 +10,13 @@ namespace businessObject;
  *
  * Attributes:
  *
- * @property \businessObject\PropertyString     $name           Name of the project.
- * @property \businessObject\PropertyDate		$dateStart      The start date of the project.
- * @property \businessObject\PropertyDate		$dateEnd        The end date of the project.
- * @property \businessObject\PropertyInt        $projectStateId The unique identifier for the project state.
- * @property ProjectState						$projectState   An object representing the state of the project.
- * @property \businessObject\PropertyInt        $clientId       The unique identifier for the client associated with the project.
- * @property Client								$client         An object representing the client associated with the project.
+ * @property PropertyString $name           Name of the project.
+ * @property PropertyDate   $dateStart      The start date of the project.
+ * @property PropertyDate   $dateEnd        The end date of the project.
+ * @property PropertyInt    $projectStateId The unique identifier for the project state.
+ * @property ProjectState   $projectState   An object representing the state of the project.
+ * @property PropertyInt    $clientId       The unique identifier for the client associated with the project.
+ * @property Client         $client         An object representing the client associated with the project.
  */
 class Project extends BusinessObject
 {
@@ -27,7 +27,7 @@ class Project extends BusinessObject
 	 * the project's data via a RESTful API.
 	 *
 	 * @return string The API URL specific to this project.
-	 * @throws \businessObject\Exception
+	 * @throws Exception
 	 */
 	#[\Override]
 	public function apiUrlGet(): string
@@ -39,7 +39,7 @@ class Project extends BusinessObject
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * @throws Exception
 	 */
 	public function apiUrlCreate(): string
 	{

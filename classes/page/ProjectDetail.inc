@@ -39,6 +39,8 @@ class ProjectDetail extends Page2Columns
 			]
 		);
 
+		var_dump($c);
+
 		return $this->doc->div();
 	}
 

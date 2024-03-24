@@ -14,11 +14,6 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @var \APICall $api An instance of APICall to handle API requests, facilitating communication with external services.
-	 */
-	protected \APICall $api;
-
-	/**
 	 * @var bool $dataInitiated Flag indicating whether the data for the business object has been initialized.
 	 */
 	public bool $dataInitiated = false;
@@ -64,9 +59,9 @@ abstract class BusinessObject extends \World
 	public function __construct(?int $id= N)
 	{
 		parent::__construct();
-		$this->id= $id;
+		if($id)
+			$this->id= $id;
 		$this->properties = $this->propertyList();
-		$this->api = new \APICall();
 	}
 
 
@@ -76,17 +71,21 @@ abstract class BusinessObject extends \World
 	 */
 	public function create(array $attributes): void
 	{
-		$api= new \iw\api\Call();
 		if($this->id)
 			Error::CANNOT_CREATE->throw("Object of ". $this::class. " cannot be created because it exists.");
 		$this->setAttributes($attributes);
 		foreach ($this->properties as $propertyName => $property)
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
-		$response = $api->post($this->apiUrlCreate(), $this->createCollectData());
-		var_dump($response);
+		$response = $this->getApi()->post($this->apiUrlCreate(), $this->createCollectData());
 		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS)
 			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
+		if (isset($response->body["id"])) {
+			$this->id = $response->body["id"];
+			$this->apiResultMapData($response);
+			$this->dataInitiated = T;
+		} else
+			Error::API_RESPONSE_MISSING_ID->throw("API response does not include an 'id' for the newly created " . $this::class . ".");
 	}
 
 
@@ -130,7 +129,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param   string  $propertyName  The name of the property to access.
 	 *
-	 * @return \businessObject\Property|\businessObject\BusinessObject The value of the requested property.
+	 * @return Property|BusinessObject The value of the requested property.
 	 * @throws Exception If the property is not defined or cannot be accessed.
 	 */
 	public function __get(string $propertyName): Property|BusinessObject
@@ -234,9 +233,19 @@ abstract class BusinessObject extends \World
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
 			$this->apiResultMapData($response);
 			$this->dataInitiated = true;
-		} else {
+		} else
 			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error with http code {$response->statusCode->value}.");
-		}
+	}
+
+
+	/**
+	 * Instantiates a new instance of the \iw\api\Call class and returns it.
+	 *
+	 * @return \iw\api\Call An instance of \iw\api\Call used to perform API calls.
+	 */
+	protected function getApi(): \iw\api\Call
+	{
+		return new \iw\api\Call();
 	}
 
 
@@ -249,7 +258,8 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiGet(): \iw\api\Response
 	{
-		return $this->api->get($this->apiUrlGet());
+
+		return $this->getApi()->get($this->apiUrlGet());
 	}
 
 
@@ -263,9 +273,8 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
-		foreach ($response->body as $property => $value) {
+		foreach ($response->body as $property => $value)
 			$this->setProperty($property, $value);
-		}
 	}
 
 
@@ -304,7 +313,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param   string  $propertyName  The name of the property to retrieve.
 	 *
-	 * @return \businessObject\Property|\businessObject\BusinessObject The Property object associated with the given property name.
+	 * @return Property|BusinessObject The Property object associated with the given property name.
 	 * @throws Exception If the property name is not registered in the object.
 	 */
 	public function getProperty(string $propertyName): Property|BusinessObject
@@ -319,9 +328,9 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @param   \businessObject\Property  $property
+	 * @param Property $property
 	 *
-	 * @return \businessObject\Property|\businessObject\BusinessObject
+	 * @return Property|BusinessObject
 	 */
 	private function getPropertyConverted(Property $property): Property|BusinessObject
 	{
