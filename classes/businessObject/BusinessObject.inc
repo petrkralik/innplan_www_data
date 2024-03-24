@@ -54,13 +54,13 @@ abstract class BusinessObject extends \World
 	 * Constructor for the BusinessObject class. Initializes the object with a unique ID,
 	 * sets up the properties by calling the abstract propertyList method, and initializes the API caller.
 	 *
-	 * @param   int|null  $id  The unique identifier for the business object instance.
+	 * @param int|null $id The unique identifier for the business object instance.
 	 */
-	public function __construct(?int $id= N)
+	public function __construct(?int $id = N)
 	{
 		parent::__construct();
-		if($id)
-			$this->id= $id;
+		if ($id)
+			$this->id = $id;
 		$this->properties = $this->propertyList();
 	}
 
@@ -71,15 +71,17 @@ abstract class BusinessObject extends \World
 	 */
 	public function create(array $attributes): void
 	{
-		if(isset($this->id))
-			Error::CANNOT_CREATE->throw("Object of ". $this::class. " cannot be created because it exists.");
+		if (isset($this->id))
+			Error::CANNOT_CREATE->throw("Object of " . $this::class . " cannot be created because it exists.");
 		$this->setAttributes($attributes);
 		foreach ($this->properties as $propertyName => $property)
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
 		$response = $this->getApi()->post($this->apiUrlCreate(), $this->createCollectData());
-		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS)
+		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS) {
+			var_dump($response);
 			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
+		}
 		if (isset($response->body["id"])) {
 			$this->id = $response->body["id"];
 			$this->apiResultMapData($response);
@@ -95,8 +97,8 @@ abstract class BusinessObject extends \World
 		foreach ($this->properties as $propertyName => $property)
 			if (!$property instanceof PropertyObjectReferral && $property->isSet())
 				$data[$propertyName] = match ($property::class) {
-					PropertyDate::class=> $property->getValue()? $property->getValue()->format("Y-m-d"): N,
-					default=> $property->getValue()
+					PropertyDate::class => $property->getValue() ? $property->getValue()->format("Y-m-d") : N,
+					default => $property->getValue()
 				};
 
 		return $data;
@@ -109,13 +111,14 @@ abstract class BusinessObject extends \World
 	 * and the value represents the value to be set for that property.
 	 *
 	 * @param array $attributes Associative array of property names and values to be set.
+	 *
 	 * @throws Exception if the property does not exist or if the value is not valid for the property type.
 	 */
 	public function setAttributes(array $attributes): void
 	{
 		foreach ($attributes as $propertyName => $value) {
 			if (!array_key_exists($propertyName, $this->properties))
-				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object ". $this::class);
+				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object " . $this::class);
 			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)
 				Error::PROPERTY_TYPE_ERROR->throw("Attribute '$propertyName' cannot be set directly as it is a PropertyObjectReferral. Set its id directly in related attribute");
 			$this->properties[$propertyName]->setValue($value);
@@ -127,7 +130,7 @@ abstract class BusinessObject extends \World
 	 * Magic getter method to access the value of a property dynamically.
 	 * This method delegates the responsibility to the existing getProperty method.
 	 *
-	 * @param   string  $propertyName  The name of the property to access.
+	 * @param string $propertyName The name of the property to access.
 	 *
 	 * @return Property|BusinessObject The value of the requested property.
 	 * @throws Exception If the property is not defined or cannot be accessed.
@@ -311,7 +314,7 @@ abstract class BusinessObject extends \World
 	 * Retrieves the Property object for a given property name. This method is used to access
 	 * the Property object associated with a specific property of the business object.
 	 *
-	 * @param   string  $propertyName  The name of the property to retrieve.
+	 * @param string $propertyName The name of the property to retrieve.
 	 *
 	 * @return Property|BusinessObject The Property object associated with the given property name.
 	 * @throws Exception If the property name is not registered in the object.
@@ -334,7 +337,7 @@ abstract class BusinessObject extends \World
 	 */
 	private function getPropertyConverted(Property $property): Property|BusinessObject
 	{
-		if($property instanceof PropertyObjectReferral)
+		if ($property instanceof PropertyObjectReferral)
 			return $property->getObject();
 		else
 			return $property;
