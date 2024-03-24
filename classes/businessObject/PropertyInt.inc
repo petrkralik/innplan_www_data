@@ -20,7 +20,7 @@ class PropertyInt extends Property
 	}
 
 
-	#[\Override] protected function setValueCheck(mixed $value): bool
+	#[\Override] protected function valueCheckOnSet(mixed $value): bool
 	{
 		if (is_int($value)) {
 			if (($this->minimum !== null) && ($value < $this->minimum))

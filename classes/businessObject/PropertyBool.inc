@@ -9,7 +9,7 @@ class PropertyBool extends Property
 
 
 
-	#[\Override] protected function setValueCheck(mixed $value): bool
+	#[\Override] protected function valueCheckOnSet(mixed $value): bool
 	{
 		if((($value=== N) && ($this->nullable)) || is_bool($value))
 			return T;

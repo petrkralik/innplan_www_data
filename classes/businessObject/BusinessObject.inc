@@ -75,8 +75,25 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @throws Exception
-	 * @throws \iw\api\Exception
+	 * Creates a new instance of the business object by sending a POST request to the API.
+	 * This method initializes the object with provided attributes, validates required properties,
+	 * and handles the API response to set the object's ID and load its data.
+	 *
+	 * The method checks if the object already has an ID and throws an exception if it does,
+	 * indicating that an existing object cannot be created again. It sets the object's attributes
+	 * using the provided array and validates that all required properties for creation are set.
+	 * After sending the POST request to the API, it checks the response status.
+	 * If the response includes an ID, it sets the object's ID and loads the data from the response.
+	 * If the ID is missing in the response, it throws an exception.
+	 *
+	 * @param array $attributes Associative array of attributes to set on the object. The keys should
+	 *                          match the property names, and the values should be the property values.
+	 *
+	 * @return void
+	 * @throws Exception|\iw\api\Exception Throws an exception if the object already has an ID (indicating it exists),
+	 *                   if a required property is not set, if the API call is unsuccessful,
+	 *                   or if the API response does not include an ID for the newly created object.
+	 *
 	 */
 	public function create(array $attributes): void
 	{
@@ -87,10 +104,8 @@ abstract class BusinessObject extends \World
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
 		$response = $this->getApi()->post($this->apiUrlCreate(), $this->createCollectData());
-		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS) {
-			var_dump($response);
+		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS)
 			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
-		}
 		if (isset($response->body->id)) {
 			$this->id = $response->body->id;
 			$this->apiResultMapData($response);
@@ -100,6 +115,19 @@ abstract class BusinessObject extends \World
 	}
 
 
+	/**
+	 * Collects and prepares the data for the API request to create a new business object.
+	 * This method iterates over the properties of the object and gathers their values,
+	 * excluding any PropertyObjectReferral properties to avoid nested object complexity in the API call.
+	 * The collected data is then used as the payload for the API request.
+	 *
+	 * For specific property types like PropertyDate, the method formats the value
+	 * appropriately (e.g., converting a DateTime object to a string in Y-m-d format).
+	 *
+	 * @return array An associative array where each key is a property name and the value is the property's
+	 *               value formatted for the API request. This array is used as the payload in the API call
+	 *               to create or update the object.
+	 */
 	private function createCollectData(): array
 	{
 		$data = [];
@@ -166,15 +194,28 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * Retrieves a list of properties that have been changed.
-	 * This method can be used to identify which properties need to be updated in the database or via an API.
+	 * Identifies and returns a list of properties that have been changed.
+	 * This method iterates over all properties of the business object and checks if any have been modified
+	 * since their initial set value. Only properties that are instances of the Property class (or its descendants)
+	 * and have their 'isChanged' method return true are considered changed.
 	 *
-	 * @return array An array of changed properties.
+	 * The method returns an associative array where each key is the name of a changed property, and the
+	 * corresponding value is the Property object itself. This array can be used to further inspect changes,
+	 * validate them, or update the object in the database or through an API.
+	 *
+	 * @return Property[] An associative array of changed properties. The keys are property names, and the values are
+	 *               the new values for these properties.
 	 */
 	public function changes(): array
 	{
-		return [];
+		$changedProperties = [];
+		foreach ($this->properties as $propertyName => $property)
+			if ($property instanceof Property && $property->isChanged())
+				$changedProperties[$propertyName] = $property;
+
+		return $changedProperties;
 	}
+
 
 
 	/**
@@ -183,7 +224,9 @@ abstract class BusinessObject extends \World
 	 */
 	public function dropChanges(): void
 	{
-
+		foreach ($this->properties as $property)
+			if ($property instanceof Property)
+				$property->dropChange();
 	}
 
 

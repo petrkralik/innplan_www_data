@@ -18,11 +18,12 @@ class PropertyObjectReferral extends Property
 	{
 		parent::__construct(F);
 		$this->propertyReferral = $propertyReferral;
+		$this->propertyReferral->addReferral($this);
 		$this->classNameReferral = $classNameReferral;
 	}
 
 
-	#[\Override] protected function setValueCheck(mixed $value): bool
+	#[\Override] protected function valueCheckOnSet(mixed $value): bool
 	{
 		return T;
 	}
