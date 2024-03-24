@@ -29,7 +29,7 @@ class ProjectDetail extends Page2Columns
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
 		$this->init();
-		$a= $this->project->projectState->name;
+		$a= $this->project->projectState;
 		var_dump($a);
 		return $this->doc->div(N,
 			$this->doc->div(N, "ID: ". $this->project->id),
