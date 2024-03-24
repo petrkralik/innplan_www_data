@@ -244,11 +244,11 @@ abstract class BusinessObject extends \World
 	/**
 	 * Instantiates a new instance of the \iw\api\Call class and returns it.
 	 *
-	 * @return \iw\api\Call An instance of \iw\api\Call used to perform API calls.
+	 * @return \APICall An instance of \iw\api\Call used to perform API calls.
 	 */
-	protected function getApi(): \iw\api\Call
+	protected function getApi(): \APICall
 	{
-		return new \iw\api\Call();
+		return new \APICall();
 	}
 
 
