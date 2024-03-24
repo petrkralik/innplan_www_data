@@ -313,7 +313,7 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiGet(): \iw\api\Response
 	{
-		var_dump($this->apiUrlGet());
+		echo ($this->apiUrlGet()). LF;
 		return $this->getApi()->get($this->apiUrlGet());
 	}
 
