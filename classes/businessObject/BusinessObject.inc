@@ -21,7 +21,7 @@ abstract class BusinessObject extends \World
 	/**
 	 * @var array $properties Associative array storing properties of the business object, keyed by property names.
 	 */
-	private array $properties;
+	protected array $properties;
 
 	/**
 	 * @var int|null $id Unique identifier for the business object, essential for database operations and API interactions.
@@ -83,7 +83,7 @@ abstract class BusinessObject extends \World
 		if (isset($this->id))
 			Error::CANNOT_CREATE->throw("Object of " . $this::class . " cannot be created because it exists.");
 		$this->setAttributes($attributes);
-		foreach ($this->properties as $propertyName => $property)
+		foreach ($this->propertyListForCreate() as $propertyName => $property)
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
 		$response = $this->getApi()->post($this->apiUrlCreate(), $this->createCollectData());
@@ -103,7 +103,7 @@ abstract class BusinessObject extends \World
 	private function createCollectData(): array
 	{
 		$data = [];
-		foreach ($this->properties as $propertyName => $property)
+		foreach ($this->propertyListForCreate() as $propertyName => $property)
 			if (!$property instanceof PropertyObjectReferral && $property->isSet())
 				$data[$propertyName] = match ($property::class) {
 					PropertyDate::class => $property->getValue() ? $property->getValue()->format("Y-m-d") : N,

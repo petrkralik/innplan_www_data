@@ -59,7 +59,7 @@ class Project extends BusinessObject
 	#[\Override] public function propertyListForCreate(): array
 	{
 		$requiredPropertiesForCreate = [];
-		foreach ($this->propertyList() as $propertyName => $propertyObject)
+		foreach ($this->properties as $propertyName => $propertyObject)
 			if ($propertyName !== 'clientId')
 				$requiredPropertiesForCreate[$propertyName] = $propertyObject;
 
