@@ -71,7 +71,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function create(array $attributes): void
 	{
-		if($this->id)
+		if(isset($this->id))
 			Error::CANNOT_CREATE->throw("Object of ". $this::class. " cannot be created because it exists.");
 		$this->setAttributes($attributes);
 		foreach ($this->properties as $propertyName => $property)
@@ -210,7 +210,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function loadData(bool $forceLoad = false): void
 	{
-		if (!$this->dataInitiated || $forceLoad && $this->id) {
+		if ((!$this->dataInitiated || $forceLoad) && isset($this->id)) {
 			try {
 				$this->loadDataFromAPI();
 			} catch (\iw\api\Exception $ex) {
@@ -320,7 +320,7 @@ abstract class BusinessObject extends \World
 	{
 		if (!array_key_exists($propertyName, $this->properties))
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
-		if (!$this->dataInitiated && $this->id)
+		if (!$this->dataInitiated && isset($this->id))
 			$this->loadData();
 
 		return $this->getPropertyConverted($this->properties[$propertyName]);
