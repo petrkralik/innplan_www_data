@@ -51,6 +51,15 @@ abstract class BusinessObject extends \World
 
 
 	/**
+	 * Method that should be implemented by descendants to specify
+	 * which attributes are required for the create() method.
+	 *
+	 * @return array List of attribute names required for object creation.
+	 */
+	abstract public function propertyListForCreate(): array;
+
+
+	/**
 	 * Constructor for the BusinessObject class. Initializes the object with a unique ID,
 	 * sets up the properties by calling the abstract propertyList method, and initializes the API caller.
 	 *

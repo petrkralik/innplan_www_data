@@ -7,8 +7,8 @@ namespace businessObject;
 /**
  * Represents the state of a project.
  *
- * @property \businessObject\PropertyString $name
- * @property \businessObject\PropertyBool   $disabled
+ * @property PropertyString $name
+ * @property PropertyBool   $disabled
  *
  */
 class ProjectState extends BusinessObject
@@ -38,6 +38,15 @@ class ProjectState extends BusinessObject
 	#[\Override] function apiUrlCreate(): string
 	{
 		return $this->apiUrlBase(). "/project/state/";
+	}
+
+
+	/**
+	 * @return array
+	 */
+	#[\Override] public function propertyListForCreate(): array
+	{
+		return $this->propertyList();
 	}
 
 

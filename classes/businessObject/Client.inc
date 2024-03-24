@@ -7,8 +7,8 @@ namespace businessObject;
 /**
  * Represents a client entity.
  *
- * @property \businessObject\PropertyString $name
- * @property \businessObject\PropertyBool   $disabled
+ * @property PropertyString $name
+ * @property PropertyBool   $disabled
  */
 class Client extends BusinessObject
 {
@@ -37,6 +37,12 @@ class Client extends BusinessObject
 	#[\Override] function apiUrlCreate(): string
 	{
 		return $this->apiUrlBase(). "/v1/client/";
+	}
+
+
+	#[\Override] public function propertyListForCreate(): array
+	{
+		return $this->propertyList();
 	}
 
 

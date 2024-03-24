@@ -29,12 +29,12 @@ class Project extends BusinessObject
 	 * @return string The API URL specific to this project.
 	 * @throws Exception
 	 */
-	#[\Override]
-	public function apiUrlGet(): string
+	#[\Override] public function apiUrlGet(): string
 	{
 		if (!$this->id)
 			Error::GENERAL->throw("Object must exist.");
-		return $this->apiUrlBase(). "/v1/project/{$this->id}";
+
+		return $this->apiUrlBase() . "/v1/project/{$this->id}";
 	}
 
 
@@ -43,9 +43,27 @@ class Project extends BusinessObject
 	 */
 	public function apiUrlCreate(): string
 	{
-		if(!$this->clientId->isSet())
+		if (!$this->clientId->isSet())
 			Error::GENERAL->throw("Attribute clientId must be set");
-		return $this->apiUrlBase(). "/v1/client/{$this->clientId->getValue()}/project/";
+
+		return $this->apiUrlBase() . "/v1/client/{$this->clientId->getValue()}/project/";
+	}
+
+
+	/**
+	 * Implementation of the abstract method to specify
+	 * the properties required for the create() method in the Project class.
+	 *
+	 * @return array List of Property objects required for creating a Project, excluding 'clientId'.
+	 */
+	#[\Override] public function propertyListForCreate(): array
+	{
+		$requiredPropertiesForCreate = [];
+		foreach ($this->propertyList() as $propertyName => $propertyObject)
+			if ($propertyName !== 'clientId')
+				$requiredPropertiesForCreate[$propertyName] = $propertyObject;
+
+		return $requiredPropertiesForCreate;
 	}
 
 
@@ -55,19 +73,19 @@ class Project extends BusinessObject
 	 *
 	 * @return array An associative array where keys are property names and values are property types.
 	 */
-	#[\Override]
-	public function propertyList(): array
+	#[\Override] public function propertyList(): array
 	{
-		$propProjectStateId= new PropertyInt(minimum: 1);
-		$propClientId= new PropertyInt(minimum: 1);
+		$propProjectStateId = new PropertyInt(minimum: 1);
+		$propClientId = new PropertyInt(minimum: 1);
+
 		return [
 			"name" => new PropertyString(),
 			"dateStart" => new PropertyDate(F, T),
 			"dateEnd" => new PropertyDate(F, T),
 			"projectStateId" => $propProjectStateId,
-			"projectState" => new PropertyObjectReferral($propProjectStateId, __NAMESPACE__. "\ProjectState"),
+			"projectState" => new PropertyObjectReferral($propProjectStateId, __NAMESPACE__ . "\ProjectState"),
 			"clientId" => $propClientId,
-			"client" => new PropertyObjectReferral($propClientId, __NAMESPACE__. "\Client")
+			"client" => new PropertyObjectReferral($propClientId, __NAMESPACE__ . "\Client")
 		];
 	}
 
