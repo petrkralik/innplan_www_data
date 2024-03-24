@@ -32,7 +32,7 @@ class ProjectDetail extends Page2Columns
 		return $this->doc->div(N,
 			$this->doc->div(N, "ID: ". $this->project->id),
 			$this->doc->div(N, "Název projektu: ". $this->project->name->getValue()),
-			$this->doc->div(N, "Status: ". $this->project->projectState->name->getValue()),
+			//$this->doc->div(N, "Status: ". $this->project->projectState->name->getValue()),
 		);
 	}
 
