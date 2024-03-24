@@ -29,6 +29,8 @@ class ProjectDetail extends Page2Columns
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
 		$this->init();
+		$a= $this->project->projectState->name;
+		var_dump($a);
 		return $this->doc->div(N,
 			$this->doc->div(N, "ID: ". $this->project->id),
 			$this->doc->div(N, "Název projektu: ". $this->project->name->getValue()),
