@@ -91,8 +91,8 @@ abstract class BusinessObject extends \World
 			var_dump($response);
 			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
 		}
-		if (isset($response->body["id"])) {
-			$this->id = $response->body["id"];
+		if (isset($response->body->id)) {
+			$this->id = $response->body->id;
 			$this->apiResultMapData($response);
 			$this->dataInitiated = T;
 		} else
