@@ -28,20 +28,10 @@ class ProjectDetail extends Page2Columns
 	 */
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
-
-		$c= new \businessObject\Project();
-		$c-> create(
-			[
-				"name"=> "nějaký nový projekt",
-				"projectStateId"=> 1,
-				"clientId"=> 1,
-				"dateStart"=> \DateTime::createFromFormat("Y-m-d", "2024-04-01")
-			]
+		return $this->doc->div(N,
+			$this->doc->div("ID: ". $this->project->id),
+			$this->doc->div("Název projektu: ". $this->project->name->getValue()),
 		);
-
-		var_dump($c);
-
-		return $this->doc->div();
 	}
 
 
