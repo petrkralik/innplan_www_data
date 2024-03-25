@@ -42,12 +42,9 @@ abstract class MenuItem implements \iw\dom\NodeInterface
 	 */
 	public function getSelfAsDOMNode(): ?\DOMNode
 	{
-		$e = $this->doc->div(
-			[
+		$e = $this->doc->div([
 				\iw\html::A_ID => $this->id,
-			],
-			$this->doc->a(N, $this->link, $this->text)
-		);
+			], $this->doc->a(N, $this->link, $this->text));
 
 		return $e;
 	}
