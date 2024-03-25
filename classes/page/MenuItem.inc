@@ -46,7 +46,7 @@ abstract class MenuItem implements \iw\dom\NodeInterface
 			[
 				\iw\html::A_ID => $this->id,
 			],
-			$thi->doc->a(N, $this->link, $this->text)
+			$this->doc->a(N, $this->link, $this->text)
 		);
 
 		return $e;
