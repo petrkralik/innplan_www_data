@@ -8,9 +8,24 @@ class ProjectList extends Page2Columns
 {
 
 
+	/**
+	 * @throws \iw\api\Exception
+	 */
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
+		$this->init();
+
 		return $this->doc->h1(N, "Seznam projektů");
+	}
+
+
+	/**
+	 * @throws \iw\api\Exception
+	 */
+	private function init(): void
+	{
+		$result = $this->api->get($this->urlBaseApi()."/v1/project");
+		var_dump($result);
 	}
 
 

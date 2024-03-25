@@ -21,7 +21,7 @@ class Client extends BusinessObject
 	{
 		if (!$this->id)
 			Error::GENERAL->throw("Object must exist.");
-		return $this->apiUrlBase(). "/v1/client/{$this->id}";
+		return $this->urlBaseApi(). "/v1/client/{$this->id}";
 	}
 
 
@@ -36,7 +36,7 @@ class Client extends BusinessObject
 
 	#[\Override] function apiUrlCreate(): string
 	{
-		return $this->apiUrlBase(). "/v1/client/";
+		return $this->urlBaseApi(). "/v1/client/";
 	}
 
 

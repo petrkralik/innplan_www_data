@@ -61,7 +61,7 @@ abstract class Page2Columns extends Page
 	 */
 	function getContentLeft(): ?\iw\dom\NodeInterface
 	{
-		$m = new Menu($this->doc, N, "Seznam projektů", $this->baseUrl."project/list/");
+		$m = new Menu($this->doc, N, "Seznam projektů", $this->pageBaseUrl."project/list/");
 
 		return $m;
 	}

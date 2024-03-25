@@ -244,18 +244,6 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * Provides the base URL for the API endpoint. This method can be overridden in child classes
-	 * to provide a different base URL if necessary.
-	 *
-	 * @return string The base URL for the API.
-	 */
-	function apiUrlBase(): string
-	{
-		return "https://api.innplan.westa.cz";
-	}
-
-
-	/**
 	 * Initializes the object's data from the API. If data has not been loaded or a force reload is requested,
 	 * this method fetches the data from the API and maps it to the object's properties.
 	 *
