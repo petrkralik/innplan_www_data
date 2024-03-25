@@ -25,7 +25,10 @@ class ProjectList extends Page2Columns
 	private function init(): void
 	{
 		$result = $this->api->get($this->urlBaseApi()."/v1/project");
-		var_dump($result);
+		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
+			foreach ($result->body as $data)
+				var_dump($data);
+		}
 	}
 
 
