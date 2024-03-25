@@ -4,13 +4,13 @@
 namespace page;
 
 
-class ProjectList extends Page
+class ProjectList extends Page2Columns
 {
 
 
-	#[\Override] function setContent(\iw\dom\Element $body): void
+	#[\Override] function getContentMain(): \iw\dom\Element
 	{
-		$body->append("Project List");
+		return $this->doc->H1(N, "Seznam projektů");
 	}
 
 
