@@ -33,12 +33,14 @@ abstract class Page2Columns extends Page
 	{
 		$body->appendChild($this->loadTemplate());
 		$this->getElements();
-		$this->getContentLeft($this->elementLeft);
+		$this->elementLeft->append($this->getContentLeft());
 		$this->elementMain->appendChild($this->getContentMain());
 	}
 
 
-	function getContentLeft(\iw\dom\Element $element): void {
+	function getContentLeft(): ?\iw\dom\NodeInterface {
+		$m= new Menu($this->doc, N, "Seznam projektů", "https://innplan.westa.cz/project/list/");
+		return $m;
 	}
 
 
@@ -53,11 +55,9 @@ abstract class Page2Columns extends Page
 			"elementMain"   => self::EID_CONTENT_MAIN,
 			"elementFooter" => self::EID_FOOTER,
 		];
-		foreach ($data as $var => $element) {
-			if (F == ($this->$var = $this->doc->getElementById($element))) {
+		foreach ($data as $var => $element)
+			if (F == ($this->$var = $this->doc->getElementById($element)))
 				Error::TEMPLATE_ELEMENT_MISSING->throw("The element ID \"$element\" hasn't been found in the template.");
-			}
-		}
 	}
 
 
