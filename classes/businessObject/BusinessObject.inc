@@ -328,6 +328,7 @@ abstract class BusinessObject extends \World
 	 */
 	protected function apiResultMapData(\iw\api\Response $response): void
 	{
+		var_dump($response->body);
 		foreach ($response->body as $property => $value)
 			$this->setProperty($property, $value);
 	}
