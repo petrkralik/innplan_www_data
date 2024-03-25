@@ -36,7 +36,7 @@ abstract class Page extends \World
 	 *
 	 * @param   \iw\dom\Element  $body  The DOM element that should be used as the body of the page.
 	 */
-	abstract function getContent(\iw\dom\Element $body): void;
+	abstract function setContent(\iw\dom\Element $body): void;
 
 
 	/**

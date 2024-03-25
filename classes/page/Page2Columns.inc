@@ -44,7 +44,7 @@ abstract class Page2Columns extends Page
 	 *
 	 * @throws \iw\Exception If there are issues appending the content to the body.
 	 */
-	public function getContent(\iw\dom\Element $body): void
+	public function setContent(\iw\dom\Element $body): void
 	{
 		$body->appendChild($this->loadTemplate());
 		$this->getElements();

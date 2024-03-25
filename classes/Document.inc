@@ -10,6 +10,9 @@ class Document extends \iw\Universe
 	private \iw\dom\Document $document;
 
 
+	/**
+	 * @throws \DOMException
+	 */
 	public function __construct() {
 		parent::__construct();
 		$this->document= new \iw\dom\Document($this->cfg["charset"]);
@@ -24,7 +27,7 @@ class Document extends \iw\Universe
 	 */
 	public function display(): void
 	{
-		$this->resolver->getPageClass(new DocumentProvider($this->document))->getContent($this->elements->body);
+		$this->resolver->getPageClass(new DocumentProvider($this->document))->setContent($this->elements->body);
 		$content=
 			iw\html::DOCTYPE_5. EOL.
 			$this-> document-> saveHTML();
