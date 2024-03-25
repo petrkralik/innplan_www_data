@@ -19,9 +19,9 @@ class Menu implements \iw\dom\NodeInterface
 	/**
 	 * Constructs a new MenuItem instance.
 	 *
-	 * @param   \iw\dom\Document  $document  An instance of DocumentProvider for DOM manipulation.
-	 * @param   string            $text      The text of the menu item.
-	 * @param   Menu              ...$items  An array of MenuItem instances to be added as children.
+	 * @param \iw\dom\Document $document An instance of DocumentProvider for DOM manipulation.
+	 * @param string           $text     The text of the menu item.
+	 * @param Menu             ...$items An array of MenuItem instances to be added as children.
 	 *
 	 * @throws \InvalidArgumentException If any of the provided items are not instances of MenuItem.
 	 */
@@ -42,9 +42,17 @@ class Menu implements \iw\dom\NodeInterface
 	 */
 	public function getSelfAsDOMNode(): ?\DOMNode
 	{
-		$e = $this->doc->div([
+		$e = $this->doc->div(
+			[
 				\iw\html::A_ID => $this->id,
-			], $this->doc->a(N, $this->link, $this->text));
+			],
+			$this->doc->a(N, $this->link, $this->text)
+		);
+		if ($this->hasItems()) {
+			$e->append($children = $this->doc->div([\iw\html::A_CLASS => "children"]));
+			foreach ($this->items as $item)
+				$children->appendChild($item->getSelfAsDOMNode());
+		}
 
 		return $e;
 	}
@@ -61,14 +69,14 @@ class Menu implements \iw\dom\NodeInterface
 	 */
 	private function getId(): string
 	{
-		return "menuItem".self::$_menuIdCounter++;
+		return "menuItem" . self::$_menuIdCounter++;
 	}
 
 
 	/**
 	 * Adds a child item to this menu item.
 	 *
-	 * @param   Menu  $item  The menu item to add as a child.
+	 * @param Menu $item The menu item to add as a child.
 	 */
 	public function addItem(Menu $item): void
 	{
@@ -83,7 +91,7 @@ class Menu implements \iw\dom\NodeInterface
 	 */
 	public function hasItems(): bool
 	{
-		return ! empty($this->items);
+		return !empty($this->items);
 	}
 
 
