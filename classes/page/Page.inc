@@ -12,6 +12,9 @@ abstract class Page extends \World
 {
 
 
+	public string $baseUrl= "https://innplan.westa.cz/";
+
+
 	/**
 	 * @var \DocumentProvider An instance of DocumentProvider to manage document operations.
 	 */

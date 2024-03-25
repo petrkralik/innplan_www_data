@@ -4,6 +4,10 @@
 namespace page;
 
 
+/**
+ * The Page2Columns abstract class extends Page to provide a specific layout with two columns.
+ * This class defines the structure and functionality common to all pages with a two-column layout.
+ */
 abstract class Page2Columns extends Page
 {
 
@@ -23,29 +27,50 @@ abstract class Page2Columns extends Page
 	private \iw\dom\Element $elementFooter;
 
 
+	/**
+	 * An abstract method that should be implemented by subclasses to provide the main content
+	 * of the page located in the main column.
+	 *
+	 * @return \iw\dom\Element The DOM element representing the main content of the page.
+	 */
 	abstract function getContentMain(): \iw\dom\Element;
 
 
 	/**
-	 * @throws \iw\Exception
+	 * Loads the content of the page by appending the loaded template to the provided body element,
+	 * retrieving necessary elements, and populating specific areas of the page.
+	 *
+	 * @param   \iw\dom\Element  $body  The body element where the page content should be appended.
+	 *
+	 * @throws \iw\Exception If there are issues appending the content to the body.
 	 */
 	public function getContent(\iw\dom\Element $body): void
 	{
 		$body->appendChild($this->loadTemplate());
 		$this->getElements();
-		$this->elementLeft->appendContent($this->getContentLeft());
-		$this->elementMain->appendContent($this->getContentMain());
+		$this->elementLeft->append($this->getContentLeft());
+		$this->elementMain->append($this->getContentMain());
 	}
 
 
-	function getContentLeft(): ?\iw\dom\NodeInterface {
-		$m= new Menu($this->doc, N, "Seznam projektů", "https://innplan.westa.cz/project/list/");
+	/**
+	 * Provides the content for the left column of the page. This default implementation
+	 * returns a Menu object but can be overridden in subclasses to provide custom content.
+	 *
+	 * @return ?\iw\dom\NodeInterface The content for the left column, possibly null.
+	 */
+	function getContentLeft(): ?\iw\dom\NodeInterface
+	{
+		$m = new Menu($this->doc, N, "Seznam projektů", $this->baseUrl."project/list/");
+
 		return $m;
 	}
 
 
 	/**
-	 * @throws \page\Exception
+	 * Retrieves and assigns the main elements of the page based on predefined IDs.
+	 *
+	 * @throws \page\Exception If any of the main elements cannot be found in the template.
 	 */
 	private function getElements(): void
 	{
@@ -55,14 +80,18 @@ abstract class Page2Columns extends Page
 			"elementMain"   => self::EID_CONTENT_MAIN,
 			"elementFooter" => self::EID_FOOTER,
 		];
-		foreach ($data as $var => $element)
+		foreach ($data as $var => $element) {
 			if (F == ($this->$var = $this->doc->getElementById($element)))
 				Error::TEMPLATE_ELEMENT_MISSING->throw("The element ID \"$element\" hasn't been found in the template.");
+		}
 	}
 
 
 	/**
-	 * @throws \iw\Exception
+	 * Loads the template for the two-column page from a predefined location.
+	 *
+	 * @return \iw\dom\Element The root element of the loaded template.
+	 * @throws \iw\Exception If there are issues loading the template.
 	 */
 	private function loadTemplate(): \iw\dom\Element
 	{
