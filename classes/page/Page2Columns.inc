@@ -57,15 +57,16 @@ abstract class Page2Columns extends Page
 	 * Provides the content for the left column of the page. This default implementation
 	 * returns a Menu object but can be overridden in subclasses to provide custom content.
 	 *
-	 * @return ?\iw\dom\NodeInterface The content for the left column, possibly null.
+	 * @return \iw\dom\NodeInterface|\iw\dom\Element|array The content for the left column, possibly null.
 	 */
-	function getContentLeft(): ?\iw\dom\NodeInterface
+	function getContentLeft(): \iw\dom\NodeInterface|\iw\dom\Element|array
 	{
-		$m = new Menu($this->doc, N, "menu", $this->urlBasePage()."/",
-			new Menu($this->doc, N, "Klienti", $this->urlBasePage(). "/project")
-		);
-
-		return $m;
+		return [
+			$this->doc->h2(N, "Projekty"),
+			new MenuItem($this->doc, N, "Klienti", $this->urlBasePage(). "/client"),
+			new MenuItem($this->doc, N, "Projekty", $this->urlBasePage(). "/project"),
+			new MenuItem($this->doc, N, "Role", $this->urlBasePage(). "/role")
+		];
 	}
 
 

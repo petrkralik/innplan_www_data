@@ -4,7 +4,7 @@
 namespace page;
 
 
-class Menu implements \iw\dom\NodeInterface
+class MenuItem implements \iw\dom\NodeInterface
 {
 
 
@@ -19,9 +19,9 @@ class Menu implements \iw\dom\NodeInterface
 	/**
 	 * Constructs a new MenuItem instance.
 	 *
-	 * @param \iw\dom\Document $document An instance of DocumentProvider for DOM manipulation.
-	 * @param string           $text     The text of the menu item.
-	 * @param Menu             ...$items An array of MenuItem instances to be added as children.
+	 * @param \iw\dom\Document  $document  An instance of DocumentProvider for DOM manipulation.
+	 * @param string            $text      The text of the menu item.
+	 * @param MenuItem          ...$items  An array of MenuItem instances to be added as children.
 	 *
 	 * @throws \InvalidArgumentException If any of the provided items are not instances of MenuItem.
 	 */
@@ -76,9 +76,9 @@ class Menu implements \iw\dom\NodeInterface
 	/**
 	 * Adds a child item to this menu item.
 	 *
-	 * @param Menu $item The menu item to add as a child.
+	 * @param MenuItem  $item  The menu item to add as a child.
 	 */
-	public function addItem(Menu $item): void
+	public function addItem(MenuItem $item): void
 	{
 		$this->items[] = $item;
 	}
