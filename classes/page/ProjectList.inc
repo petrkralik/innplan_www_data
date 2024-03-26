@@ -29,7 +29,8 @@ class ProjectList extends Page2Columns
 		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$p = new \businessObject\Project();
-				echo $p->name->getValue(). LF;
+				var_dump($p);//echo $p->name->getValue(). LF;
+				die();
 			}
 		}
 	}
