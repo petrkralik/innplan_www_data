@@ -274,7 +274,6 @@ abstract class BusinessObject extends \World
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
-			var_dump($response->body);
 			$this->apiResultMapData($response->body);
 			$this->dataInitiated = true;
 		} else
@@ -310,13 +309,13 @@ abstract class BusinessObject extends \World
 	 * Maps the data from the API response to the object's properties. This method iterates over the response data
 	 * and assigns the data to the respective properties of the object.
 	 *
-	 * @param   \stdClass  $response  The response from the API containing the data.
+	 * @param   \stdClass  $body  The response from the API containing the data.
 	 *
 	 * @throws \businessObject\Exception If there is an issue with setting the property values.
 	 */
-	protected function apiResultMapData(\stdClass $response): void
+	protected function apiResultMapData(\stdClass $body): void
 	{
-		foreach ($response->body as $property => $value)
+		foreach ($body as $property => $value)
 			$this->setProperty($property, $value);
 	}
 
