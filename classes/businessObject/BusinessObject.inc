@@ -331,7 +331,7 @@ abstract class BusinessObject extends \World
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
-		if($propertyName== "id" & isset($this->id))
+		if($propertyName== "id" && isset($this->id) && !$this->dataInitiated)
 			Error::OBJECT_ALREADY_INITIATED->throw("Object already initiated and cannot be overwritten.");
 		if (key_exists($propertyName, $this->properties)) {
 			if ($this->properties[$propertyName] instanceof Property) {
