@@ -274,6 +274,7 @@ abstract class BusinessObject extends \World
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
+			var_dump($response->body);
 			$this->apiResultMapData($response->body);
 			$this->dataInitiated = true;
 		} else
