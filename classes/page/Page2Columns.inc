@@ -31,9 +31,9 @@ abstract class Page2Columns extends Page
 	 * An abstract method that should be implemented by subclasses to provide the main content
 	 * of the page located in the main column.
 	 *
-	 * @return \iw\dom\Element The DOM element representing the main content of the page.
+	 * @return \iw\dom\Element|null The DOM element representing the main content of the page.
 	 */
-	abstract function getContentMain(): \iw\dom\Element;
+	abstract function getContentMain(): ?\iw\dom\Element;
 
 
 	/**
