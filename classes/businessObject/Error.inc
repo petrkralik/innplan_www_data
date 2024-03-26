@@ -84,6 +84,7 @@ enum Error: string
 	 * Commonly thrown during data cleanup operations.
 	 */
 	case PROPERTY_CANNOT_BE_ERASED = "PROPERTY_CANNOT_BE_ERASED";
+	case OBJECT_ALREADY_INITIATED= "OBJECT_ALREADY_INITIATED";
 
 
 	/**
