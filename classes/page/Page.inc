@@ -28,20 +28,20 @@ abstract class Page extends \World
 	protected \iw\dom\Document $doc;
 
 	/**
-	 * @var PageCSS Manages the inclusion and iteration of CSS files for the page.
+	 * @var PageFiles Manages the inclusion and iteration of CSS files for the page.
 	 * This property is an instance of the PageCSS class, which provides methods
 	 * to add CSS files and iterate over them, handling both relative and absolute paths.
 	 */
-	public PageCSS $css;
+	public PageFiles $css;
 
 	/**
 	 * Instance of PageJS that manages the inclusion and organization of JavaScript files for the page.
 	 * This property allows adding, managing, and iterating over JavaScript files to be included in the page.
 	 * It handles both relative and absolute paths and ensures that each JavaScript file is included only once.
 	 *
-	 * @var PageJS Manages JavaScript file links for the web page.
+	 * @var PageFiles Manages JavaScript file links for the web page.
 	 */
-	public PageJS $javascript;
+	public PageFiles $javascript;
 
 
 	/**
@@ -63,8 +63,8 @@ abstract class Page extends \World
 		parent::__construct();
 		$this->doc = $documentProvider->document();
 		$this->uriMatches = $uriMatches;
-		$this->css = new PageCSS();
-		$this->javascript = new PageJS();
+		$this->css = new PageFiles();
+		$this->javascript = new PageFiles();
 		$this->css->setRoot("/file/stylesheet/");
 		$this->css->addFile("main.css");
 	}
