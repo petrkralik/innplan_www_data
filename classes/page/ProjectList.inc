@@ -18,13 +18,12 @@ class ProjectList extends Page2Columns
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
 		$this->init();
-		$e=  $this->doc->h1(N, "Seznam projektů");
-		if($this->projects)
-			$e->append($this->contentProjectList());
-		else
-			$e->append($this->contentNoProjects());
 
-		return $e;
+		return $this->doc->div(
+			[\iw\html::A_CLASS=> "projectList"],
+			$this->doc->h1(N, "Seznam projektů"),
+			$this->projects? $this->contentProjectList(): $this->contentNoProjects()
+		);
 	}
 
 
