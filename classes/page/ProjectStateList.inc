@@ -41,7 +41,7 @@ class ProjectStateList extends Page2Columns
 	private function contentProjectState(\businessObject\ProjectState $projectState): \iw\dom\Element {
 		$e = $this->doc->div(
 			[\iw\html::A_CLASS=> "projectState"],
-			$projectState->name->getValue()
+			"#". $projectState->id. " ". $projectState->name->getValue()
 		);
 
     	return $e;

@@ -27,6 +27,13 @@ abstract class Page extends \World
 	 */
 	protected \iw\dom\Document $doc;
 
+	/**
+	 * @var PageCSS Manages the inclusion and iteration of CSS files for the page.
+	 * This property is an instance of the PageCSS class, which provides methods
+	 * to add CSS files and iterate over them, handling both relative and absolute paths.
+	 */
+	public PageCSS $css;
+
 
 	/**
 	 * Abstract method to be implemented by subclasses to define the content of the page.
@@ -47,6 +54,7 @@ abstract class Page extends \World
 		parent::__construct();
 		$this->doc = $documentProvider->document();
 		$this->uriMatches = $uriMatches;
+		$this->css = new PageCSS();
 	}
 
 
