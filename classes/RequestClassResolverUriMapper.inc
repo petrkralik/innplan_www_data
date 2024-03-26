@@ -17,6 +17,7 @@ class RequestClassResolverUriMapper
 	 */
 	private static array $_uriClassMap = [
 		"/\/project\/list\/?/i" => "\page\ProjectList",
+		"/\/project\/state\/list\/?/i" => "\page\ProjectStateList",
 		"/\/project\/(\d+)\/detail\/?/i" => "\page\ProjectDetail",
 		"/\/client\/list\/?/i" => "\page\ClientList",
 		// Additional mappings can be added here.
