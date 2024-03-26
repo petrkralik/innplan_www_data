@@ -26,8 +26,11 @@ class ProjectList extends Page2Columns
 	{
 		$result = $this->api->get($this->urlBaseApi()."/v1/project");
 		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
-			foreach ($result->body as $data)
-				var_dump($data);
+			foreach ($result->body as $data) {
+				$p = new \businessObject\Project();
+				$p->apiResultMapData($data);
+				var_dump($p);
+			}
 		}
 	}
 

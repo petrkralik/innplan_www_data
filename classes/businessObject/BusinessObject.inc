@@ -313,7 +313,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @throws \businessObject\Exception If there is an issue with setting the property values.
 	 */
-	protected function apiResultMapData(\stdClass $body): void
+	public function apiResultMapData(\stdClass $body): void
 	{
 		foreach ($body as $property => $value)
 			$this->setProperty($property, $value);
