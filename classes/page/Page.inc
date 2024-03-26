@@ -64,6 +64,7 @@ abstract class Page extends \World
 		$this->doc = $documentProvider->document();
 		$this->uriMatches = $uriMatches;
 		$this->css = new PageCSS();
+		$this->javascript = new PageJS();
 	}
 
 
