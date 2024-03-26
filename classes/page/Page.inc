@@ -34,6 +34,15 @@ abstract class Page extends \World
 	 */
 	public PageCSS $css;
 
+	/**
+	 * Instance of PageJS that manages the inclusion and organization of JavaScript files for the page.
+	 * This property allows adding, managing, and iterating over JavaScript files to be included in the page.
+	 * It handles both relative and absolute paths and ensures that each JavaScript file is included only once.
+	 *
+	 * @var PageJS Manages JavaScript file links for the web page.
+	 */
+	public PageJS $javascript;
+
 
 	/**
 	 * Abstract method to be implemented by subclasses to define the content of the page.

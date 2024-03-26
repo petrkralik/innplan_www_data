@@ -90,7 +90,7 @@ class Document extends \iw\Universe
 	 */
 	private function manageJsFiles(\page\Page $page): void
 	{
-		foreach ($page->js->filesIterator() as $file)
+		foreach ($page->javascript->filesIterator() as $file)
 			$this->elements->body->appendChild(
 				$this->document->element(\iw\html::E_SCRIPT,
 					[
