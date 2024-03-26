@@ -339,8 +339,12 @@ abstract class BusinessObject extends \World
 					PropertyDate::class => $this->convertValueStrToDate($value),
 					default => $value
 				};
-				if($propertyName!= "id" || !isset($this->id))
+				if($propertyName== "id") {
+					if(!isset($this->id))
+						$this->id= $value;
+				} else {
 					$this->properties[$propertyName]->setValue($value);
+				}
 			} else {
 				Error::ITEM_MUST_BE_INSTANCE_OF_PROPERTY->throw("Item must be instance of 'Property'.");
 			}
