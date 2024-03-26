@@ -331,15 +331,16 @@ abstract class BusinessObject extends \World
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
-		if($propertyName== "id" && isset($this->id) && !$this->dataInitiated)
-			Error::OBJECT_ALREADY_INITIATED->throw("Object already initiated and cannot be overwritten.");
+
+			//Error::OBJECT_ALREADY_INITIATED->throw("Object already initiated and cannot be overwritten.");
 		if (key_exists($propertyName, $this->properties)) {
 			if ($this->properties[$propertyName] instanceof Property) {
 				$value = match ($this->properties[$propertyName]::class) {
 					PropertyDate::class => $this->convertValueStrToDate($value),
 					default => $value
 				};
-				$this->properties[$propertyName]->setValue($value);
+				if($propertyName!= "id" || !isset($this->id))
+					$this->properties[$propertyName]->setValue($value);
 			} else {
 				Error::ITEM_MUST_BE_INSTANCE_OF_PROPERTY->throw("Item must be instance of 'Property'.");
 			}
