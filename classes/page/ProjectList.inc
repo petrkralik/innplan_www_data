@@ -21,6 +21,7 @@ class ProjectList extends Page2Columns
 
 	/**
 	 * @throws \iw\api\Exception
+	 * @throws \businessObject\Exception
 	 */
 	private function init(): void
 	{
@@ -28,8 +29,7 @@ class ProjectList extends Page2Columns
 		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$p = new \businessObject\Project();
-				$p->apiResultMapData($data);
-				var_dump($p);
+				echo $p->name->getValue(). LF;
 			}
 		}
 	}
