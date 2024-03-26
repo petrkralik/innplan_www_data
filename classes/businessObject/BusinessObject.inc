@@ -108,7 +108,7 @@ abstract class BusinessObject extends \World
 			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
 		if (isset($response->body->id)) {
 			$this->id = $response->body->id;
-			$this->apiResultMapData($response);
+			$this->apiResultMapData($response->body);
 			$this->dataInitiated = T;
 		} else
 			Error::API_RESPONSE_MISSING_ID->throw("API response does not include an 'id' for the newly created " . $this::class . ".");
@@ -274,7 +274,7 @@ abstract class BusinessObject extends \World
 	{
 		$response = $this->apiGet();
 		if ($response->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
-			$this->apiResultMapData($response);
+			$this->apiResultMapData($response->body);
 			$this->dataInitiated = true;
 		} else
 			Error::NO_OBJECT_LIKE_THIS->throw("Object loading error with http code {$response->statusCode->value}.");
@@ -309,11 +309,11 @@ abstract class BusinessObject extends \World
 	 * Maps the data from the API response to the object's properties. This method iterates over the response data
 	 * and assigns the data to the respective properties of the object.
 	 *
-	 * @param \iw\api\Response $response The response from the API containing the data.
+	 * @param   \stdClass  $response  The response from the API containing the data.
 	 *
-	 * @throws Exception If there is an issue with setting the property values.
+	 * @throws \businessObject\Exception If there is an issue with setting the property values.
 	 */
-	protected function apiResultMapData(\iw\api\Response $response): void
+	protected function apiResultMapData(\stdClass $response): void
 	{
 		foreach ($response->body as $property => $value)
 			$this->setProperty($property, $value);
