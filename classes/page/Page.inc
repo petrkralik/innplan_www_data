@@ -65,7 +65,7 @@ abstract class Page extends \World
 		$this->uriMatches = $uriMatches;
 		$this->css = new PageCSS();
 		$this->javascript = new PageJS();
-		$this->css->setRoot("/");
+		$this->css->setRoot("/file/stylesheet/");
 		$this->css->addFile("main.css");
 	}
 
