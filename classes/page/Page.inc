@@ -15,7 +15,7 @@ abstract class Page extends \World
 	/**
 	 * @var \DocumentProvider An instance of DocumentProvider to manage document operations.
 	 */
-	private \DocumentProvider $documentProvider;
+	protected \DocumentProvider $documentProvider;
 
 	/**
 	 * @var array An array of URI matches for routing purposes.

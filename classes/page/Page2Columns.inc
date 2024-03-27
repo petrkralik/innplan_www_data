@@ -61,7 +61,9 @@ abstract class Page2Columns extends Page
 	 */
 	function getContentLeft(): \iw\dom\NodeInterface|\iw\dom\Element|array
 	{
-		return [
+		return new Menu(
+			$this->documentProvider,
+			"mainMenu",
 			$this->doc->h2(N, "Projekty"),
 			new MenuItem($this->doc, N, "Klienti", $this->urlBasePage(). "/client/list"),
 			new MenuItem($this->doc, N, "Projekty", $this->urlBasePage(). "/project/list"),
@@ -70,7 +72,7 @@ abstract class Page2Columns extends Page
 			new MenuItem($this->doc, N, "Role", $this->urlBasePage(). "/role/list"),
 			new MenuItem($this->doc, N, "Stavy projektů", $this->urlBasePage(). "/project/state/list"),
 			new MenuItem($this->doc, N, "Typy prací", $this->urlBasePage(). "/workType/list"),
-		];
+		);
 	}
 
 

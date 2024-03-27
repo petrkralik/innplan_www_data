@@ -38,9 +38,11 @@ class MenuItem implements \iw\dom\NodeInterface
 
 
 	/**
+	 * @param   \iw\dom\Document|null  $doc  *
+	 *
 	 * @throws \DOMException
 	 */
-	public function getSelfAsDOMNode(): ?\DOMNode
+	public function getSelfAsDOMNode(?\iw\dom\Document $doc = N): ?\DOMNode
 	{
 		$e = $this->doc->div(
 			[

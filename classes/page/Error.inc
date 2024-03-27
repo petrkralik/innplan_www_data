@@ -7,7 +7,9 @@ namespace page;
 enum Error: string
 {
 
-	case TEMPLATE_ELEMENT_MISSING= "TEMPLATE_ELEMENT_MISSING";
+
+	case GENERAL = "GENERAL";
+	case TEMPLATE_ELEMENT_MISSING = "TEMPLATE_ELEMENT_MISSING";
 
 
 	/**
