@@ -61,6 +61,7 @@ abstract class Page extends \World
 	public function __construct(\DocumentProvider $documentProvider, array $uriMatches)
 	{
 		parent::__construct();
+		$this->documentProvider = $documentProvider;
 		$this->doc = $documentProvider->document();
 		$this->uriMatches = $uriMatches;
 		$this->css = new PageFiles();
