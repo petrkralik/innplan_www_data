@@ -17,9 +17,9 @@ class Menu implements \iw\dom\NodeInterface
 	private \DocumentProvider $documentProvider;
 
 	/**
-	 * @var int A unique identifier for the menu, used for assigning an ID to the menu's DOM element.
+	 * @var string A unique identifier for the menu, used for assigning an ID to the menu's DOM element.
 	 */
-	public readonly int $id;
+	public readonly string $id;
 
 	/**
 	 * @var array A collection of items that are part of the menu. Each item must either be a DOMNode or implement NodeInterface.
