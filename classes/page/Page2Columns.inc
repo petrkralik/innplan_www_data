@@ -61,9 +61,7 @@ abstract class Page2Columns extends Page
 	 */
 	function getContentLeft(): \iw\dom\NodeInterface|\iw\dom\Element|array
 	{
-		return new Menu(
-			$this->documentProvider,
-			"mainMenu",
+		return [
 			$this->doc->h2(N, "Projekty"),
 			new MenuItem($this->doc, N, "Klienti", $this->urlBasePage(). "/client/list"),
 			new MenuItem($this->doc, N, "Projekty", $this->urlBasePage(). "/project/list"),
