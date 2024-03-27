@@ -31,12 +31,12 @@ class Menu implements \iw\dom\NodeInterface
 	 * Constructs a new Menu object, initializing with an optional array of items.
 	 *
 	 * @param   \DocumentProvider  $documentProvider  The document context for the menu.
-	 * @param   int                $id                The unique identifier for the menu.
+	 * @param   string             $id                The unique identifier for the menu.
 	 * @param   mixed              ...$items          Optional initial items to include in the menu.
 	 *
 	 * @throws \page\Exception
 	 */
-	public function __construct(\DocumentProvider $documentProvider, int $id, ...$items)
+	public function __construct(\DocumentProvider $documentProvider, string $id, ...$items)
 	{
 		$this->documentProvider = $documentProvider;
 		$this->id= $id;
