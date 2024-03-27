@@ -54,7 +54,7 @@ class Menu implements \iw\dom\NodeInterface
 	{
 		foreach ($items as $item) {
 			if($item instanceof \DOMNode || $item instanceof \iw\dom\NodeInterface)
-				$items[]= $item;
+				$this->items[]= $item;
 			else
 				\page\Error::GENERAL->throw("Given item must be inheritor of \DOMNode or must implement \iw\dom\NodeInterface");
 		}
