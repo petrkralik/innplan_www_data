@@ -1,7 +1,7 @@
 <?php
 
 
-namespace page;
+namespace page\menu;
 
 
 /**
@@ -56,7 +56,7 @@ class Menu implements \iw\dom\NodeInterface
 			if($item instanceof \DOMNode || $item instanceof \iw\dom\NodeInterface)
 				$items[]= $item;
 			else
-				Error::GENERAL->throw("Given item must be inheritor of \DOMNode or must implement \iw\dom\NodeInterface");
+				\page\Error::GENERAL->throw("Given item must be inheritor of \DOMNode or must implement \iw\dom\NodeInterface");
 		}
 	}
 
@@ -69,7 +69,7 @@ class Menu implements \iw\dom\NodeInterface
 	function getSelfAsDOMNode(): ?\DOMNode
 	{
 		if(empty($this->items))
-			return N;
+			return \N;
 
 		return $this->documentProvider->document()->div(
 			[
