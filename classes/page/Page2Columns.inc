@@ -70,7 +70,7 @@ abstract class Page2Columns extends Page
 			new MenuItem($this->doc, N, "Role", $this->urlBasePage(). "/role/list"),
 			new MenuItem($this->doc, N, "Stavy projektů", $this->urlBasePage(). "/project/state/list"),
 			new MenuItem($this->doc, N, "Typy prací", $this->urlBasePage(). "/workType/list"),
-		);
+		];
 	}
 
 
