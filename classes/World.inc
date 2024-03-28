@@ -57,19 +57,14 @@ abstract class World extends iw\World_a
 	 */
 	private static function _setStaticServices(): void
 	{
-		self::_getServiceLocator()->registerService(self::SERVICE_DOC, "\iw\dom\Document", N, [self::class, "_getDomDocument"]);
-	}
-
-
-	/**
-	 * Provides a Document instance when requested. This method acts as a lazy loader for
-	 * the Document service, instantiating the service only when it is first needed.
-	 *
-	 * @return \iw\dom\Document An instance of the Document service.
-	 */
-	private static function _getDomDocument(): \iw\dom\Document
-	{
-		return new \iw\dom\Document();
+		self::_getServiceLocator()->registerService(
+			self::SERVICE_DOC,
+			"\iw\dom\Document",
+			N,
+			function (): \iw\dom\Document {
+				return new \iw\dom\Document();
+			}
+		);
 	}
 
 
@@ -80,7 +75,7 @@ abstract class World extends iw\World_a
 	 *
 	 * @throws \iw\service\locator\Exception
 	 */
-	public static function _setServiceLocator(): void
+	public static function _setupServiceLocator(): void
 	{
 		if (!isset(self::$_serviceLocator)) {
 			self::$_serviceLocator = new \iw\service\locator\Locator();
@@ -98,7 +93,7 @@ abstract class World extends iw\World_a
 	 */
 	public function setServiceLocator(): void
 	{
-		self::_setServiceLocator();
+		self::_setupServiceLocator();
 	}
 
 
@@ -112,7 +107,7 @@ abstract class World extends iw\World_a
 	 */
 	public static function _getServiceLocator(): \iw\service\locator\Locator
 	{
-		self::_setServiceLocator();
+		self::_setupServiceLocator();
 
 		return self::$_serviceLocator;
 	}
