@@ -5,7 +5,7 @@
  * The Document class provides a structure for creating, manipulating, and rendering an HTML document.
  * It encapsulates the creation of the fundamental HTML elements and manages the addition of CSS files.
  */
-class Document extends \iw\Universe
+class Document
 {
 
 
@@ -29,11 +29,11 @@ class Document extends \iw\Universe
 	 * Constructor initializes the document, document elements, and class resolver.
 	 *
 	 * @throws \DOMException If there is an error during the document or elements initialization.
+	 * @throws \iw\service\locator\Exception
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-		$this->document= new \iw\dom\Document($this->cfg["charset"]);
+		$this->document= World::_getServiceLocator()->getService(World::SERVICE_DOC);
 		$this->elements= new DocumentElements($this->document);
 		$this->resolver= new RequestClassResolver();
 	}
