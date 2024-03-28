@@ -22,7 +22,7 @@ class Document
 	/**
 	 * @var \iw\dom\Document Represents the DOM document and provides methods for DOM manipulation.
 	 */
-	private \iw\dom\Document $document;
+	private \iw\dom\Document $dom;
 
 
 	/**
@@ -33,8 +33,8 @@ class Document
 	 */
 	public function __construct()
 	{
-		$this->document= World::_getServiceLocator()->getService(World::SERVICE_DOM);
-		$this->elements= new DocumentElements($this->document);
+		$this->dom= World::_getServiceLocator()->getService(World::SERVICE_DOM);
+		$this->elements= new DocumentElements($this->dom);
 		$this->resolver= new RequestClassResolver();
 	}
 
@@ -49,11 +49,11 @@ class Document
 	 */
 	public function display(): void
 	{
-		$page= $this->resolver->getPageClass(new DocumentProvider($this->document));
+		$page= $this->resolver->getPageClass(new DocumentProvider($this->dom));
 		$page->setContent($this->elements->body);
 		$this->manageCssFiles($page);
 		$this->manageJsFiles($page);
-		echo iw\html::DOCTYPE_5. EOL. $this-> document-> saveHTML();
+		echo iw\html::DOCTYPE_5. EOL. $this-> dom-> saveHTML();
 	}
 
 
@@ -68,7 +68,7 @@ class Document
 	{
 		foreach ($page->css->filesIterator() as $file)
 			$this->elements->head->appendChild(
-				$this->document->element(\iw\html::E_LINK,
+				$this->dom->element(\iw\html::E_LINK,
 					[
 						\iw\html::A_REL => 'stylesheet',
 						\iw\html::A_TYPE => 'text/css',
@@ -92,7 +92,7 @@ class Document
 	{
 		foreach ($page->javascript->filesIterator() as $file)
 			$this->elements->body->appendChild(
-				$this->document->element(\iw\html::E_SCRIPT,
+				$this->dom->element(\iw\html::E_SCRIPT,
 					[
 						\iw\html::A_TYPE => 'text/javascript',
 						\iw\html::A_SRC  => $file,
