@@ -33,7 +33,7 @@ class Document
 	 */
 	public function __construct()
 	{
-		$this->document= World::_getServiceLocator()->getService(World::SERVICE_DOC);
+		$this->document= World::_getServiceLocator()->getService(World::SERVICE_DOM);
 		$this->elements= new DocumentElements($this->document);
 		$this->resolver= new RequestClassResolver();
 	}

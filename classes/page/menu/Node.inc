@@ -14,17 +14,22 @@ abstract class Node implements NodeInterface
 	public ?bool $disabled;
 	public ?bool $invisible;
 	public ?bool $notDisplayed;
-
 	private static int $_menuIdCounter = 1;
+	protected \iw\dom\Document $dom;
 
 
-	function __construct(string $text, string $link, ?string $id, ?bool $disabled = N, ?bool $invisible = N, ?bool $notDisplayed = null) {
+	/**
+	 * @throws \iw\service\locator\Exception
+	 */
+	function __construct(string $text, string $link, ?string $id, ?bool $disabled = N, ?bool $invisible = N, ?bool $notDisplayed = null)
+	{
 		$this->id = $id ?? $this->getId();
-    	$this->text = $text;
-    	$this->link = $link;
-    	$this->disabled = $disabled;
-    	$this->invisible = $invisible;
-    	$this->notDisplayed = $notDisplayed;
+		$this->text = $text;
+		$this->link = $link;
+		$this->disabled = $disabled;
+		$this->invisible = $invisible;
+		$this->notDisplayed = $notDisplayed;
+		$this->dom= \World::_getServiceLocator()->getService(\World::SERVICE_DOM);
 	}
 
 
@@ -39,7 +44,7 @@ abstract class Node implements NodeInterface
 	 */
 	private function getId(): string
 	{
-		return "menuItem".self::$_menuIdCounter++;
+		return "menuItem" . self::$_menuIdCounter++;
 	}
 
 

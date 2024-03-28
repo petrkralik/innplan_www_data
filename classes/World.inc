@@ -20,7 +20,7 @@ abstract class World extends iw\World_a
 	 * A constant identifier for the document service within the service locator.
 	 * This identifier is used to retrieve the specific service instance from the service locator.
 	 */
-	public const string SERVICE_DOC = "serviceDoc";
+	public const string SERVICE_DOM = "serviceDOM";
 
 	/**
 	 * An APICall instance used for conducting API interactions. This property allows
@@ -58,7 +58,7 @@ abstract class World extends iw\World_a
 	private static function _setStaticServices(): void
 	{
 		self::_getServiceLocator()->registerService(
-			self::SERVICE_DOC,
+			self::SERVICE_DOM,
 			"\iw\dom\Document",
 			N,
 			function (): \iw\dom\Document {
@@ -78,7 +78,6 @@ abstract class World extends iw\World_a
 	public static function _setupServiceLocator(): void
 	{
 		if (!isset(self::$_serviceLocator)) {
-			echo "Setup Service Locator";
 			self::$_serviceLocator = new \iw\service\locator\Locator();
 			self::_setStaticServices();
 		}
