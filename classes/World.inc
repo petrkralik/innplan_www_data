@@ -78,6 +78,7 @@ abstract class World extends iw\World_a
 	public static function _setupServiceLocator(): void
 	{
 		if (!isset(self::$_serviceLocator)) {
+			echo "Setup Service Locator";
 			self::$_serviceLocator = new \iw\service\locator\Locator();
 			self::_setStaticServices();
 		}
