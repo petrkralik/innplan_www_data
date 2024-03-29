@@ -40,7 +40,7 @@ abstract class Page2Columns extends Page
 	 * Loads the content of the page by appending the loaded template to the provided body element,
 	 * retrieving necessary elements, and populating specific areas of the page.
 	 *
-	 * @param   \iw\dom\Element  $body  The body element where the page content should be appended.
+	 * @param \iw\dom\Element $body The body element where the page content should be appended.
 	 *
 	 * @throws \iw\Exception If there are issues appending the content to the body.
 	 */
@@ -63,13 +63,13 @@ abstract class Page2Columns extends Page
 	{
 		return [
 			$this->DOM->h2(N, "Projekty"),
-			new MenuItem($this->DOM, N, "Klienti", $this->urlBasePage(). "/client/list"),
-			new MenuItem($this->DOM, N, "Projekty", $this->urlBasePage(). "/project/list"),
+			new MenuItem($this->DOM, N, "Klienti", $this->urlBasePage() . "/client/list"),
+			new MenuItem($this->DOM, N, "Projekty", $this->urlBasePage() . "/project/list"),
 			$this->DOM->h2(N, "Číselníky"),
-			new MenuItem($this->DOM, N, "Zdroje", $this->urlBasePage(). "/resource/list"),
-			new MenuItem($this->DOM, N, "Role", $this->urlBasePage(). "/role/list"),
-			new MenuItem($this->DOM, N, "Stavy projektů", $this->urlBasePage(). "/project/state/list"),
-			new MenuItem($this->DOM, N, "Typy prací", $this->urlBasePage(). "/workType/list"),
+			new MenuItem($this->DOM, N, "Zdroje", $this->urlBasePage() . "/resource/list"),
+			new MenuItem($this->DOM, N, "Role", $this->urlBasePage() . "/role/list"),
+			new MenuItem($this->DOM, N, "Stavy projektů", $this->urlBasePage() . "/project/state/list"),
+			new MenuItem($this->DOM, N, "Typy prací", $this->urlBasePage() . "/workType/list"),
 		];
 	}
 
@@ -83,8 +83,8 @@ abstract class Page2Columns extends Page
 	{
 		$data = [
 			"elementHeader" => self::EID_HEADER,
-			"elementLeft"   => self::EID_CONTENT_LEFT,
-			"elementMain"   => self::EID_CONTENT_MAIN,
+			"elementLeft" => self::EID_CONTENT_LEFT,
+			"elementMain" => self::EID_CONTENT_MAIN,
 			"elementFooter" => self::EID_FOOTER,
 		];
 		foreach ($data as $var => $element) {
@@ -102,7 +102,7 @@ abstract class Page2Columns extends Page
 	 */
 	private function loadTemplate(): \iw\dom\Element
 	{
-		return $this->DOM->adopt(__DIR__."/resource/Page2Columns.template.html");
+		return $this->DOM->adopt(__DIR__ . "/resource/Page2Columns.template.html");
 	}
 
 

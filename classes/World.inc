@@ -60,10 +60,7 @@ abstract class World extends iw\World_a
 		self::_getServiceLocator()->registerService(
 			self::SERVICE_DOM,
 			"\iw\dom\Document",
-			N,
-			function (): \iw\dom\Document {
-				return new \iw\dom\Document();
-			}
+			new \iw\dom\Document()
 		);
 	}
 
