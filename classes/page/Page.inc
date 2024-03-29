@@ -13,11 +13,6 @@ abstract class Page extends \World
 
 
 	/**
-	 * @var \page\driver\DocumentProvider An instance of DocumentProvider to manage document operations.
-	 */
-	protected driver\DocumentProvider $documentProvider;
-
-	/**
 	 * @var array An array of URI matches for routing purposes.
 	 */
 	public array $uriMatches;
@@ -25,7 +20,7 @@ abstract class Page extends \World
 	/**
 	 * @var \iw\dom\Document An instance of DOMDocumentExtension to handle document manipulations.
 	 */
-	protected \iw\dom\Document $doc;
+	protected \iw\dom\Document $DOM;
 
 	/**
 	 * @var PageFiles Manages the inclusion and iteration of CSS files for the page.
@@ -55,18 +50,18 @@ abstract class Page extends \World
 	/**
 	 * Constructs a new Page object, initializing the document provider and URI matches.
 	 *
-	 * @param   \page\driver\DocumentProvider $documentProvider The document provider instance to be used for document operations.
-	 * @param   array                         $uriMatches       An array of URI matches for the page, used for routing.
+	 * @param array $uriMatches An array of URI matches for the page, used for routing.
+	 *
+	 * @throws \iw\service\locator\Exception
 	 */
-	public function __construct(driver\DocumentProvider $documentProvider, array $uriMatches)
+	public function __construct(array $uriMatches)
 	{
 		parent::__construct();
-		$this->documentProvider = $documentProvider;
-		$this->doc = $documentProvider->document();
+		$this->DOM = \page\driver\Document::_getDOM();
 		$this->uriMatches = $uriMatches;
 		$this->css = new PageFiles();
-		$this->javascript = new PageFiles();
 		$this->css->setRoot("/file/stylesheet/");
+		$this->javascript = new PageFiles();
 		$this->css->addFile("main.css");
 	}
 

@@ -19,9 +19,9 @@ class ProjectList extends Page2Columns
 	{
 		$this->init();
 
-		return $this->doc->div(
+		return $this->DOM->div(
 			[\iw\html::A_CLASS=> "projectList"],
-			$this->doc->h1(N, "Seznam projektů"),
+			$this->DOM->h1(N, "Seznam projektů"),
 			$this->projects? $this->contentProjectList(): $this->contentNoProjects()
 		);
 	}
@@ -29,7 +29,7 @@ class ProjectList extends Page2Columns
 
 	private function contentProjectList(): \iw\dom\Element
 	{
-		$e = $this->doc->div([\iw\html::A_CLASS => "list"]);
+		$e = $this->DOM->div([\iw\html::A_CLASS => "list"]);
 		foreach ($this->projects as $project) {
 			$e->append($this->contentProject($project));
 		}
@@ -39,7 +39,7 @@ class ProjectList extends Page2Columns
 
 
 	private function contentProject(\businessObject\Project $project): \iw\dom\Element {
-		$e = $this->doc->div(
+		$e = $this->DOM->div(
 			[\iw\html::A_CLASS=> "project"],
 			$project->name->getValue()
 		);
@@ -50,7 +50,7 @@ class ProjectList extends Page2Columns
 
 	private function contentNoProjects(): \iw\dom\Element
 	{
-		return $this->doc->div([\iw\html::A_CLASS => "noContentMessage"], "No project's found");
+		return $this->DOM->div([\iw\html::A_CLASS => "noContentMessage"], "No project's found");
 	}
 
 

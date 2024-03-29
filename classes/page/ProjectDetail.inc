@@ -29,10 +29,10 @@ class ProjectDetail extends Page2Columns
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
 		$this->init();
-		return $this->doc->div(N,
-			$this->doc->div(N, "ID: ". $this->project->id),
-			$this->doc->div(N, "Klient: ". $this->project->client->name->getValue()),
-			$this->doc->div(N, "Název projektu: ". $this->project->name->getValue()),
+		return $this->DOM->div(N,
+			$this->DOM->div(N, "ID: ". $this->project->id),
+			$this->DOM->div(N, "Klient: ". $this->project->client->name->getValue()),
+			$this->DOM->div(N, "Název projektu: ". $this->project->name->getValue()),
 //			$this->doc->div(N, "Stav projektu: ". $this->project->projectState->name->getValue()),
 		);
 	}

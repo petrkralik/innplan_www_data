@@ -13,19 +13,19 @@ class Document
 
 
 	/**
-	 * @var \page\driver\DocumentElements Holds instances of the main HTML elements (html, head, body) for easy access and manipulation.
+	 * @var DocumentElements Holds instances of the main HTML elements (html, head, body) for easy access and manipulation.
 	 */
-	private \page\driver\DocumentElements $elements;
+	private DocumentElements $elements;
 
 	/**
-	 * @var \page\driver\RequestClassResolver A resolver used to determine the appropriate page class based on the current request.
+	 * @var RequestClassResolver A resolver used to determine the appropriate page class based on the current request.
 	 */
-	private \page\driver\RequestClassResolver $resolver;
+	private RequestClassResolver $resolver;
 
 	/**
 	 * @var \iw\dom\Document Represents the DOM document and provides methods for DOM manipulation.
 	 */
-	private \iw\dom\Document $dom;
+	private \iw\dom\Document $DOM;
 
 
 	/**
@@ -36,9 +36,38 @@ class Document
 	 */
 	public function __construct()
 	{
-		$this->dom = \World::_getServiceLocator()->getService(\World::SERVICE_DOM);
-		$this->elements = new \page\driver\DocumentElements($this->dom);
-		$this->resolver = new \page\driver\RequestClassResolver();
+		$this->getODM();
+		$this->elements = new DocumentElements($this->DOM);
+		$this->resolver = new RequestClassResolver();
+	}
+
+
+	/**
+	 * Provides access to the DOM document instance used within this document class.
+	 * If the DOM document is not already set, it retrieves it from the global service locator.
+	 *
+	 * @return \iw\dom\Document The DOM document instance.
+	 * @throws \iw\service\locator\Exception If there is an issue retrieving the DOM service from the locator.
+	 */
+	public function getODM(): \iw\dom\Document
+	{
+		if(!isset($this->DOM))
+			$this->DOM = self::_getDOM();
+
+		return $this->DOM;
+	}
+
+
+	/**
+	 * A static method that retrieves the DOM document instance from the global service locator.
+	 * This method is designed to be called statically to provide a centralized way of accessing the DOM document.
+	 *
+	 * @return \iw\dom\Document The DOM document instance from the service locator.
+	 * @throws \iw\service\locator\Exception If the service locator cannot provide the DOM document.
+	 */
+	public static function _getDOM(): \iw\dom\Document
+	{
+		return \World::_getServiceLocator()->getService(\World::SERVICE_DOM);
 	}
 
 
@@ -47,16 +76,16 @@ class Document
 	 * and outputting the HTML string.
 	 *
 	 * @throws \ReflectionException If there is an error during page class resolution.
-	 * @throws RequestClassResolverException If there is an error during the request class resolution.
+	 * @throws Exception If there is an error during the request class resolution.
 	 * @throws \DOMException If there is an error during DOM manipulation or CSS file management.
 	 */
 	public function display(): void
 	{
-		$page = $this->resolver->getPageClass(new \page\driver\DocumentProvider($this->dom));
+		$page = $this->resolver->getPageClass();
 		$page->setContent($this->elements->body);
 		$this->manageCssFiles($page);
 		$this->manageJsFiles($page);
-		echo \iw\html::DOCTYPE_5 . \EOL . $this->dom->saveHTML();
+		echo \iw\html::DOCTYPE_5 . \EOL . $this->DOM->saveHTML();
 	}
 
 
@@ -71,7 +100,7 @@ class Document
 	{
 		foreach ($page->css->filesIterator() as $file)
 			$this->elements->head->appendChild(
-				$this->dom->element(\iw\html::E_LINK,
+				$this->DOM->element(\iw\html::E_LINK,
 					[
 						\iw\html::A_REL => 'stylesheet',
 						\iw\html::A_TYPE => 'text/css',
@@ -95,7 +124,7 @@ class Document
 	{
 		foreach ($page->javascript->filesIterator() as $file)
 			$this->elements->body->appendChild(
-				$this->dom->element(\iw\html::E_SCRIPT,
+				$this->DOM->element(\iw\html::E_SCRIPT,
 					[
 						\iw\html::A_TYPE => 'text/javascript',
 						\iw\html::A_SRC => $file,
