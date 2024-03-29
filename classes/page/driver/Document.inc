@@ -1,6 +1,9 @@
 <?php
 
 
+namespace page\driver;
+
+
 /**
  * The Document class provides a structure for creating, manipulating, and rendering an HTML document.
  * It encapsulates the creation of the fundamental HTML elements and manages the addition of CSS files.
@@ -10,14 +13,14 @@ class Document
 
 
 	/**
-	 * @var DocumentElements Holds instances of the main HTML elements (html, head, body) for easy access and manipulation.
+	 * @var \page\driver\DocumentElements Holds instances of the main HTML elements (html, head, body) for easy access and manipulation.
 	 */
-	private DocumentElements $elements;
+	private \page\driver\DocumentElements $elements;
 
 	/**
-	 * @var RequestClassResolver A resolver used to determine the appropriate page class based on the current request.
+	 * @var \page\driver\RequestClassResolver A resolver used to determine the appropriate page class based on the current request.
 	 */
-	private RequestClassResolver $resolver;
+	private \page\driver\RequestClassResolver $resolver;
 
 	/**
 	 * @var \iw\dom\Document Represents the DOM document and provides methods for DOM manipulation.
@@ -28,14 +31,14 @@ class Document
 	/**
 	 * Constructor initializes the document, document elements, and class resolver.
 	 *
-	 * @throws \DOMException If there is an error during the document or elements initialization.
 	 * @throws \iw\service\locator\Exception
+	 * @throws \DOMException
 	 */
 	public function __construct()
 	{
-		$this->dom= World::_getServiceLocator()->getService(World::SERVICE_DOM);
-		$this->elements= new DocumentElements($this->dom);
-		$this->resolver= new RequestClassResolver();
+		$this->dom = \World::_getServiceLocator()->getService(\World::SERVICE_DOM);
+		$this->elements = new \page\driver\DocumentElements($this->dom);
+		$this->resolver = new \page\driver\RequestClassResolver();
 	}
 
 
@@ -43,17 +46,17 @@ class Document
 	 * Generates the final HTML content by setting the content for the page, managing CSS files,
 	 * and outputting the HTML string.
 	 *
-	 * @throws ReflectionException If there is an error during page class resolution.
+	 * @throws \ReflectionException If there is an error during page class resolution.
 	 * @throws RequestClassResolverException If there is an error during the request class resolution.
 	 * @throws \DOMException If there is an error during DOM manipulation or CSS file management.
 	 */
 	public function display(): void
 	{
-		$page= $this->resolver->getPageClass(new DocumentProvider($this->dom));
+		$page = $this->resolver->getPageClass(new \page\driver\DocumentProvider($this->dom));
 		$page->setContent($this->elements->body);
 		$this->manageCssFiles($page);
 		$this->manageJsFiles($page);
-		echo iw\html::DOCTYPE_5. EOL. $this-> dom-> saveHTML();
+		echo \iw\html::DOCTYPE_5 . \EOL . $this->dom->saveHTML();
 	}
 
 
@@ -95,7 +98,7 @@ class Document
 				$this->dom->element(\iw\html::E_SCRIPT,
 					[
 						\iw\html::A_TYPE => 'text/javascript',
-						\iw\html::A_SRC  => $file,
+						\iw\html::A_SRC => $file,
 					]
 				)
 			);

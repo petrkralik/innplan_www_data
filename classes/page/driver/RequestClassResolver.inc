@@ -1,12 +1,15 @@
 <?php
 
 
+namespace page\driver;
+
+
 /**
  * The RequestClassResolver class determines and instantiates the appropriate class based on the request URI.
  * It extends the base Universe class, providing a dynamic page handling mechanism for the application.
  * By leveraging the RequestClassResolverUriMapper, it decouples the URI resolution logic, enhancing modularity and maintainability.
  */
-class RequestClassResolver extends \iw\Universe
+class RequestClassResolver
 {
 
 
@@ -23,7 +26,6 @@ class RequestClassResolver extends \iw\Universe
 	 */
 	public function __construct()
 	{
-		parent::__construct();
 		$this->requestUri = $_SERVER["REQUEST_URI"];
 	}
 
@@ -32,11 +34,11 @@ class RequestClassResolver extends \iw\Universe
 	 * Retrieves and instantiates the appropriate page class based on the current URI.
 	 * This method utilizes the RequestClassResolverUriMapper to determine the class to instantiate and its constructor arguments.
 	 *
-	 * @param   DocumentProvider  $documentProvider  A provider for any necessary documents or dependencies required by the page class.
+	 * @param DocumentProvider $documentProvider A provider for any necessary documents or dependencies required by the page class.
 	 *
 	 * @return \page\Page An instance of the determined page class, ready for use.
 	 * @throws \ReflectionException If there is an error during the class reflection process.
-	 * @throws \RequestClassResolverException If the determined class does not exist or is of the incorrect type.
+	 * @throws RequestClassResolverException If the determined class does not exist or is of the incorrect type.
 	 */
 	public function getPageClass(DocumentProvider $documentProvider): \page\Page
 	{
@@ -52,20 +54,20 @@ class RequestClassResolver extends \iw\Universe
 	 * Creates a reflection of the specified class.
 	 * This method checks if the class exists and is a subclass of the expected parent class, providing dynamic type safety.
 	 *
-	 * @param   string  $className  The name of the class to reflect.
+	 * @param string $className The name of the class to reflect.
 	 *
-	 * @return ReflectionClass A reflection of the class, used for dynamic instantiation.
-	 * @throws \RequestClassResolverException If the class is not a subclass of the expected parent.
+	 * @return \ReflectionClass A reflection of the class, used for dynamic instantiation.
+	 * @throws RequestClassResolverException If the class is not a subclass of the expected parent.
 	 * @throws \ReflectionException If the class does not exist.
 	 */
-	private function getReflection(string $className): ReflectionClass
+	private function getReflection(string $className): \ReflectionClass
 	{
-		if (! class_exists($className)) {
+		if (!class_exists($className)) {
 			RequestClassResolverError::CLASS_NOT_EXISTS->throw("Class '$className' does not exist");
 		}
-		$reflection = new ReflectionClass($className);
-		if (! $reflection->isSubclassOf(\page\Page::class)) {
-			RequestClassResolverError::CLASS_IS_NOT_SUCCESSOR_OF_REQUIRED_PARENT->throw("Class must be successor of the parent '".\page\Page::class."'");
+		$reflection = new \ReflectionClass($className);
+		if (!$reflection->isSubclassOf(\page\Page::class)) {
+			RequestClassResolverError::CLASS_IS_NOT_SUCCESSOR_OF_REQUIRED_PARENT->throw("Class must be successor of the parent '" . \page\Page::class . "'");
 		}
 
 		return $reflection;

@@ -1,6 +1,9 @@
 <?php
 
 
+namespace page\driver;
+
+
 class DocumentProvider
 {
 
@@ -8,8 +11,9 @@ class DocumentProvider
 	private \iw\dom\Document $document;
 
 
-	public function __construct(\iw\dom\Document $document) {
-		$this->document= $document;
+	public function __construct(\iw\dom\Document $document)
+	{
+		$this->document = $document;
 	}
 
 

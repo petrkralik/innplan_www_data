@@ -1,6 +1,9 @@
 <?php
 
 
+namespace page\driver;
+
+
 /**
  * The RequestClassResolverUriMapper class is responsible for mapping request URIs to corresponding class names.
  * It provides a centralized mechanism for managing URI-to-class mappings, simplifying maintenance and scalability.
@@ -36,6 +39,7 @@ class RequestClassResolverUriMapper
 	 * This method iterates over the URI mapping definitions, applying regular expression matching to find a corresponding class.
 	 *
 	 * @param string $uri The request URI to resolve to a class name.
+	 *
 	 * @return array An associative array containing the class name ('className') and any matches ('matches') from the regex pattern.
 	 */
 	public static function _getClassInfo(string $uri): array

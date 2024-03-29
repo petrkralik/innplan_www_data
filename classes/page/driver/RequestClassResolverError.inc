@@ -1,6 +1,9 @@
 <?php
 
 
+namespace page\driver;
+
+
 enum RequestClassResolverError: string
 {
 
@@ -17,9 +20,9 @@ enum RequestClassResolverError: string
 
 
 	/**
-	 * @throws \RequestClassResolverException
+	 * @throws RequestClassResolverException
 	 */
-	public function throw(?string $message = N)
+	public function throw(?string $message = \N)
 	{
 		throw new RequestClassResolverException($this, $message);
 	}

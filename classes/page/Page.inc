@@ -13,9 +13,9 @@ abstract class Page extends \World
 
 
 	/**
-	 * @var \DocumentProvider An instance of DocumentProvider to manage document operations.
+	 * @var \page\driver\DocumentProvider An instance of DocumentProvider to manage document operations.
 	 */
-	protected \DocumentProvider $documentProvider;
+	protected driver\DocumentProvider $documentProvider;
 
 	/**
 	 * @var array An array of URI matches for routing purposes.
@@ -55,10 +55,10 @@ abstract class Page extends \World
 	/**
 	 * Constructs a new Page object, initializing the document provider and URI matches.
 	 *
-	 * @param   \DocumentProvider  $documentProvider  The document provider instance to be used for document operations.
-	 * @param   array              $uriMatches        An array of URI matches for the page, used for routing.
+	 * @param   \page\driver\DocumentProvider $documentProvider The document provider instance to be used for document operations.
+	 * @param   array                         $uriMatches       An array of URI matches for the page, used for routing.
 	 */
-	public function __construct(\DocumentProvider $documentProvider, array $uriMatches)
+	public function __construct(driver\DocumentProvider $documentProvider, array $uriMatches)
 	{
 		parent::__construct();
 		$this->documentProvider = $documentProvider;
