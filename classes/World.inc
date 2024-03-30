@@ -63,7 +63,7 @@ abstract class World extends iw\World_a
 			"\iw\dom\Document",
 			N,
 			function (): \iw\dom\Document {
-				new \iw\dom\Document();
+				return new \iw\dom\Document();
 			}
 		);
 	}
