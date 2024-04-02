@@ -12,7 +12,7 @@
  * locator pattern to centrally manage service instances, which aids in the decoupling of
  * component dependencies.
  */
-abstract class World extends iw\World_a
+class World extends iw\World_a
 {
 
 
@@ -34,6 +34,10 @@ abstract class World extends iw\World_a
 	 * point for service management.
 	 */
 	private static \iw\service\locator\Locator $_serviceLocator;
+	private \iw\service\locator\Locator $serviceLocator;
+
+
+	private static self $_instance;
 
 
 	/**
@@ -45,6 +49,29 @@ abstract class World extends iw\World_a
 	{
 		parent::__construct();
 		$this->api = new APICall();
+	}
+
+
+	/**
+	 * Gets the singleton instance of the World class. If the instance doesn't exist, it will be created.
+	 *
+	 * @return World The singleton instance of the World class.
+	 */
+	public static function getInstance(): self
+	{
+		if (!isset(self::$_instance))
+			self::$_instance = new self();
+
+		return self::$_instance;
+	}
+
+
+	public function serviceLocator(): \iw\service\locator\Locator
+	{
+		if(!isset($this->serviceLocator))
+			$this->serviceLocator= new \iw\service\locator\Locator();
+
+		return $this->serviceLocator;
 	}
 
 
