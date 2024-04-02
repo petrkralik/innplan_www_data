@@ -34,7 +34,6 @@ class World extends iw\World_a
 	 * point for service management.
 	 */
 	private static \iw\service\locator\Locator $_serviceLocator;
-	private \iw\service\locator\Locator $serviceLocator;
 
 
 	private static self $_instance;
@@ -68,10 +67,10 @@ class World extends iw\World_a
 
 	public function serviceLocator(): \iw\service\locator\Locator
 	{
-		if(!isset($this->serviceLocator))
-			$this->serviceLocator= new \iw\service\locator\Locator();
+		if(!isset(self::$_serviceLocator))
+			self::$_serviceLocator= new \iw\service\locator\Locator();
 
-		return $this->serviceLocator;
+		return self::$_serviceLocator;
 	}
 
 
