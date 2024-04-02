@@ -57,7 +57,6 @@ abstract class World extends iw\World_a
 	 */
 	private static function _setStaticServices(): void
 	{
-		echo "...INIT...";
 		self::_getServiceLocator()->registerService(
 			self::SERVICE_DOM,
 			"\iw\dom\Document",
