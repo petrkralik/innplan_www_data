@@ -62,11 +62,11 @@ class Document
 	/**
 	 * Manages the inclusion of CSS files into the document by appending <link> elements to the <head>.
 	 *
-	 * @param \page\Page $page The page instance from which CSS files are retrieved and managed.
+	 * @param \page\driver\Page  $page  The page instance from which CSS files are retrieved and managed.
 	 *
 	 * @throws \DOMException If there is an error during the creation or appending of <link> elements.
 	 */
-	private function manageCssFiles(\page\Page $page): void
+	private function manageCssFiles(\page\driver\Page $page): void
 	{
 		foreach ($page->css->filesIterator() as $file)
 			$this->elements->head->appendChild(
@@ -86,11 +86,11 @@ class Document
 	 * Iterates over the JavaScript files provided by the PageJS instance associated with the page
 	 * and appends each one as a <script> element to the body of the document.
 	 *
-	 * @param \page\Page $page The page instance from which JavaScript files are retrieved and managed.
+	 * @param \page\driver\Page  $page  The page instance from which JavaScript files are retrieved and managed.
 	 *
 	 * @throws \DOMException If there is an error during the creation or appending of <script> elements.
 	 */
-	private function manageJsFiles(\page\Page $page): void
+	private function manageJsFiles(\page\driver\Page $page): void
 	{
 		foreach ($page->javascript->filesIterator() as $file)
 			$this->elements->body->appendChild(

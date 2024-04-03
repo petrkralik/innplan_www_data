@@ -1,7 +1,7 @@
 <?php
 
 
-namespace page;
+namespace page\driver;
 
 
 /**
@@ -23,20 +23,20 @@ abstract class Page
 	protected \iw\dom\Document $dom;
 
 	/**
-	 * @var PageFiles Manages the inclusion and iteration of CSS files for the page.
+	 * @var \page\PageFiles Manages the inclusion and iteration of CSS files for the page.
 	 * This property is an instance of the PageCSS class, which provides methods
 	 * to add CSS files and iterate over them, handling both relative and absolute paths.
 	 */
-	public PageFiles $css;
+	public \page\PageFiles $css;
 
 	/**
 	 * Instance of PageJS that manages the inclusion and organization of JavaScript files for the page.
 	 * This property allows adding, managing, and iterating over JavaScript files to be included in the page.
 	 * It handles both relative and absolute paths and ensures that each JavaScript file is included only once.
 	 *
-	 * @var PageFiles Manages JavaScript file links for the web page.
+	 * @var \page\PageFiles Manages JavaScript file links for the web page.
 	 */
-	public PageFiles $javascript;
+	public \page\PageFiles $javascript;
 
 
 	/**
@@ -58,9 +58,9 @@ abstract class Page
 	{
 		$this->dom = $dom;
 		$this->uriMatches = $uriMatches;
-		$this->css = new PageFiles();
+		$this->css = new \page\PageFiles();
 		$this->css->setRoot("/file/stylesheet/");
-		$this->javascript = new PageFiles();
+		$this->javascript = new \page\PageFiles();
 		$this->css->addFile("main.css");
 	}
 
