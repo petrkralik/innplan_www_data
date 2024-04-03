@@ -60,7 +60,7 @@ class ProjectList extends Page2Columns
 	 */
 	private function init(): void
 	{
-		$result = $this->api->get($this->urlBaseApi()."/v1/project");
+		$result = $this->api->get(urlBaseAPI."/v1/project");
 		if ($result->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$project = new \businessObject\Project();
