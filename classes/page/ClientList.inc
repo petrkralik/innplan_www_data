@@ -8,7 +8,7 @@ class ClientList extends Page2Columns
 {
 
 
-	private array $clients;
+	private array $clients= [];
 
 
 	/**
