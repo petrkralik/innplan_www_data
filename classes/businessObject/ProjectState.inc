@@ -23,7 +23,7 @@ class ProjectState extends BusinessObject
 		if (!$this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return $this->urlBaseApi(). "/v1/project/state/{$this->id}";
+		return urlBaseAPI. "/v1/project/state/{$this->id}";
 	}
 
 
@@ -38,7 +38,7 @@ class ProjectState extends BusinessObject
 
 	#[\Override] function apiUrlCreate(): string
 	{
-		return $this->urlBaseApi(). "/project/state/";
+		return urlBaseAPI. "/project/state/";
 	}
 
 

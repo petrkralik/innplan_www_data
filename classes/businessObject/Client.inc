@@ -36,7 +36,7 @@ class Client extends BusinessObject
 
 	#[\Override] function apiUrlCreate(): string
 	{
-		return $this->urlBaseApi(). "/v1/client/";
+		return urlBaseAPI. "/v1/client/";
 	}
 
 
