@@ -8,7 +8,7 @@ namespace page;
  * Abstract class Page providing the base structure for page objects in the application.
  * This class extends from the World class and utilizes document management and URI matching.
  */
-abstract class Page extends \World
+abstract class Page
 {
 
 

@@ -63,13 +63,13 @@ abstract class Page2Columns extends Page
 	{
 		return [
 			$this->dom->h2(N, "Projekty"),
-			new MenuItem($this->dom, N, "Klienti", $this->urlBasePage() . "/client/list"),
-			new MenuItem($this->dom, N, "Projekty", $this->urlBasePage() . "/project/list"),
+			new MenuItem($this->dom, N, "Klienti", urlBasePage . "/client/list"),
+			new MenuItem($this->dom, N, "Projekty", urlBasePage . "/project/list"),
 			$this->dom->h2(N, "Číselníky"),
-			new MenuItem($this->dom, N, "Zdroje", $this->urlBasePage() . "/resource/list"),
-			new MenuItem($this->dom, N, "Role", $this->urlBasePage() . "/role/list"),
-			new MenuItem($this->dom, N, "Stavy projektů", $this->urlBasePage() . "/project/state/list"),
-			new MenuItem($this->dom, N, "Typy prací", $this->urlBasePage() . "/workType/list"),
+			new MenuItem($this->dom, N, "Zdroje", urlBasePage . "/resource/list"),
+			new MenuItem($this->dom, N, "Role", urlBasePage . "/role/list"),
+			new MenuItem($this->dom, N, "Stavy projektů", urlBasePage . "/project/state/list"),
+			new MenuItem($this->dom, N, "Typy prací", urlBasePage . "/workType/list"),
 		];
 	}
 
