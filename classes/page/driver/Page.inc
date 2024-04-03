@@ -52,7 +52,6 @@ abstract class Page
 	 *
 	 * @param array $uriMatches An array of URI matches for the page, used for routing.
 	 *
-	 * @throws \iw\service\locator\Exception
 	 */
 	public function __construct(array $uriMatches, \iw\dom\Document $dom)
 	{

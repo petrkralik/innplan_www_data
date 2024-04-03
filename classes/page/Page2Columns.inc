@@ -4,9 +4,6 @@
 namespace page;
 
 
-use page\driver\Page;
-
-
 /**
  * The Page2Columns abstract class extends Page to provide a specific layout with two columns.
  * This class defines the structure and functionality common to all pages with a two-column layout.
