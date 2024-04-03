@@ -17,18 +17,6 @@ class World extends iw\World_a
 
 
 	/**
-	 * A constant identifier for the document service within the service locator.
-	 * This identifier is used to retrieve the specific service instance from the service locator.
-	 */
-	public const string SERVICE_DOM = "serviceDOM";
-
-	/**
-	 * An APICall instance used for conducting API interactions. This property allows
-	 * derived classes to easily make API requests without instantiating their own APICall objects.
-	 */
-	protected APICall $api;
-
-	/**
 	 * A static instance of the service locator. This static locator allows services to be
 	 * registered and accessed globally within the application, providing a centralized
 	 * point for service management.
@@ -47,7 +35,6 @@ class World extends iw\World_a
 	function __construct()
 	{
 		parent::__construct();
-		$this->api = new APICall();
 	}
 
 
@@ -65,7 +52,7 @@ class World extends iw\World_a
 	}
 
 
-	public function serviceLocator(): \iw\service\locator\Locator
+	public static function _serviceLocator(): \iw\service\locator\Locator
 	{
 		if(!isset(self::$_serviceLocator))
 			self::$_serviceLocator= new \iw\service\locator\Locator();
@@ -74,106 +61,9 @@ class World extends iw\World_a
 	}
 
 
-	/**
-	 * Registers the necessary static services with the service locator. This method is
-	 * responsible for setting up application-wide services that are available throughout
-	 * the application's lifecycle.
-	 *
-	 * @throws \iw\service\locator\Exception
-	 */
-	private static function _setStaticServices(): void
+	public function serviceLocator(): \iw\service\locator\Locator
 	{
-		self::_getServiceLocator()->registerService(
-			self::SERVICE_DOM,
-			"\iw\dom\Document",
-			N,
-			function (): \iw\dom\Document {
-				return new \iw\dom\Document();
-			}
-		);
-	}
-
-
-	/**
-	 * Ensures the static service locator is instantiated and available for use. If the
-	 * service locator has not been initialized, this method will create it and register
-	 * the static services.
-	 *
-	 * @throws \iw\service\locator\Exception
-	 */
-	public static function _setupServiceLocator(): void
-	{
-		if (!isset(self::$_serviceLocator)) {
-			self::$_serviceLocator = new \iw\service\locator\Locator();
-			self::_setStaticServices();
-		}
-	}
-
-
-	/**
-	 * Sets the service locator for instance-level use. This method wraps the static
-	 * _setServiceLocator method, ensuring that the service locator is ready for use
-	 * at the instance level.
-	 *
-	 * @throws \iw\service\locator\Exception
-	 */
-	public function setServiceLocator(): void
-	{
-		self::_setupServiceLocator();
-	}
-
-
-	/**
-	 * Retrieves the static service locator instance, initializing it if necessary.
-	 * This method provides access to the service locator from both static and instance
-	 * contexts, allowing services to be registered and retrieved.
-	 *
-	 * @return \iw\service\locator\Locator The service locator instance.
-	 * @throws \iw\service\locator\Exception
-	 */
-	public static function _getServiceLocator(): \iw\service\locator\Locator
-	{
-		self::_setupServiceLocator();
-
-		return self::$_serviceLocator;
-	}
-
-
-	/**
-	 * Retrieves the service locator instance for the current object. This instance-level
-	 * method provides a convenient way to access the service locator without needing to
-	 * reference the class statically.
-	 *
-	 * @return \iw\service\locator\Locator The service locator instance.
-	 * @throws \iw\service\locator\Exception
-	 */
-	public function getServiceLocator(): \iw\service\locator\Locator
-	{
-		return self::_getServiceLocator();
-	}
-
-
-	/**
-	 * Provides the base URL for API endpoints. This method can be overridden in derived
-	 * classes to specify different base URLs for different components or environments.
-	 *
-	 * @return string The base URL for API requests.
-	 */
-	function urlBaseApi(): string
-	{
-		return "https://api.innplan.westa.cz";
-	}
-
-
-	/**
-	 * Provides the base URL for the page. This method can be similarly overridden in
-	 * derived classes to specify alternative base URLs for different parts of the application.
-	 *
-	 * @return string The base URL for the page.
-	 */
-	function urlBasePage(): string
-	{
-		return "https://innplan.westa.cz";
+		return self::_serviceLocator();
 	}
 
 
