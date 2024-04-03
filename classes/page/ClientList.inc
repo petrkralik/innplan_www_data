@@ -60,7 +60,7 @@ class ClientList extends Page2Columns
 	 */
 	private function init(): void
 	{
-		$result = $this->api->get($this->urlBaseApi()."/v1/client");
+		$result = $this->api->get(urlBasePage."/v1/client");
 		if ($result->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$project = new \businessObject\Client();
