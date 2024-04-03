@@ -58,11 +58,15 @@ abstract class Page2Columns extends Page
 	 * returns a Menu object but can be overridden in subclasses to provide custom content.
 	 *
 	 * @return \iw\dom\NodeInterface|\iw\dom\Element|array The content for the left column, possibly null.
+	 * @throws \iw\service\locator\Exception
 	 */
 	function getContentLeft(): \iw\dom\NodeInterface|\iw\dom\Element|array
 	{
 		return [
-			new \page\menu\Item("Seznam klientů", urlBasePage. "/client/list/")
+			new \page\menu\Item("klienti", urlBasePage. "/client/list/"),
+			new \page\menu\Item("projekty", urlBasePage. "/project/list/"),
+			new \page\menu\Item("stavy projektů", urlBasePage. "/project/state/list/"),
+
 		];
 /**		return [
 			$this->dom->h2(N, "Projekty"),

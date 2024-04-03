@@ -15,7 +15,8 @@ class Group extends Node implements NodeInterface
 	public function __construct(
 		string $text,
 		string $link,
-		?string $id,
+		array $items,
+		?string $id= null,
 		?bool $expanded = null,
 		?bool $disabled = null,
 		?bool $invisible = null,
@@ -23,6 +24,13 @@ class Group extends Node implements NodeInterface
 	) {
 		parent::__construct($text, $link, $id, $disabled, $invisible, $notDisplayed);
 		$this->expanded = $expanded;
+	}
+
+
+	public function itemsIterator(): \Generator
+	{
+		foreach ($this->items as $item)
+			yield $item;
 	}
 
 
