@@ -8,6 +8,8 @@ namespace page\driver;
  * The RequestClassResolverUriMapper class is responsible for mapping request URIs to corresponding class names.
  * It provides a centralized mechanism for managing URI-to-class mappings, simplifying maintenance and scalability.
  * By encapsulating the mapping logic, it enhances the modularity and testability of the application.
+ *
+ * @deprecated 
  */
 class RequestClassResolverUriMapper
 {

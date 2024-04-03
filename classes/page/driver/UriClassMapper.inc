@@ -9,7 +9,7 @@ abstract class UriClassMapper
 
 
 	abstract public function defaultPageClassName(): string;
-	abstract public function map(): array;
+	abstract public function getMap(): array;
 
 
 

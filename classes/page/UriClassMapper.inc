@@ -14,7 +14,7 @@ class UriClassMapper extends \page\driver\UriClassMapper
 	}
 
 
-	public function map(): array
+	public function getMap(): array
 	{
 		return [
 			"/\/project\/list\/?/i"          => "\page\ProjectList",

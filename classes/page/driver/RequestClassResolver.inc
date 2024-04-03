@@ -54,7 +54,7 @@ class RequestClassResolver
 
 	private function getClassInfo(): array
 	{
-		foreach ($this->uriClassMapper->map() as $pattern => $className) {
+		foreach ($this->uriClassMapper->getMap() as $pattern => $className) {
 			if (preg_match($pattern, $this->requestUri, $matches)) {
 				return [
 					"className" => $className,
