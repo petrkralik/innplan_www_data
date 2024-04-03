@@ -13,9 +13,9 @@ class Document
 
 
 	/**
-	 * @var DocumentElements Holds instances of the main HTML elements (html, head, body) for easy access and manipulation.
+	 * @var DocumentHtmlElements Holds instances of the main HTML elements (html, head, body) for easy access and manipulation.
 	 */
-	private DocumentElements $elements;
+	private DocumentHtmlElements $elements;
 
 	/**
 	 * @var RequestClassResolver A resolver used to determine the appropriate page class based on the current request.
@@ -25,49 +25,19 @@ class Document
 	/**
 	 * @var \iw\dom\Document Represents the DOM document and provides methods for DOM manipulation.
 	 */
-	private \iw\dom\Document $DOM;
+	private \iw\dom\Document $dom;
 
 
 	/**
 	 * Constructor initializes the document, document elements, and class resolver.
 	 *
-	 * @throws \iw\service\locator\Exception
 	 * @throws \DOMException
 	 */
-	public function __construct()
+	public function __construct(\iw\dom\Document $document)
 	{
-		$this->getODM();
-		$this->elements = new DocumentElements($this->DOM);
+		$this->dom= $document;
+		$this->elements = new DocumentHtmlElements($this->dom);
 		$this->resolver = new RequestClassResolver();
-	}
-
-
-	/**
-	 * Provides access to the DOM document instance used within this document class.
-	 * If the DOM document is not already set, it retrieves it from the global service locator.
-	 *
-	 * @return \iw\dom\Document The DOM document instance.
-	 * @throws \iw\service\locator\Exception If there is an issue retrieving the DOM service from the locator.
-	 */
-	public function getODM(): \iw\dom\Document
-	{
-		if(!isset($this->DOM))
-			$this->DOM = self::_getDOM();
-
-		return $this->DOM;
-	}
-
-
-	/**
-	 * A static method that retrieves the DOM document instance from the global service locator.
-	 * This method is designed to be called statically to provide a centralized way of accessing the DOM document.
-	 *
-	 * @return \iw\dom\Document The DOM document instance from the service locator.
-	 * @throws \iw\service\locator\Exception If the service locator cannot provide the DOM document.
-	 */
-	public static function _getDOM(): \iw\dom\Document
-	{
-		return \World::_getServiceLocator()->getService(\World::SERVICE_DOM);
 	}
 
 
@@ -85,7 +55,7 @@ class Document
 		$page->setContent($this->elements->body);
 		$this->manageCssFiles($page);
 		$this->manageJsFiles($page);
-		echo \iw\html::DOCTYPE_5 . \EOL . $this->DOM->saveHTML();
+		echo \iw\html::DOCTYPE_5 . \EOL . $this->dom->saveHTML();
 	}
 
 
@@ -100,7 +70,7 @@ class Document
 	{
 		foreach ($page->css->filesIterator() as $file)
 			$this->elements->head->appendChild(
-				$this->DOM->element(\iw\html::E_LINK,
+				$this->dom->element(\iw\html::E_LINK,
 					[
 						\iw\html::A_REL => 'stylesheet',
 						\iw\html::A_TYPE => 'text/css',
@@ -124,7 +94,7 @@ class Document
 	{
 		foreach ($page->javascript->filesIterator() as $file)
 			$this->elements->body->appendChild(
-				$this->DOM->element(\iw\html::E_SCRIPT,
+				$this->dom->element(\iw\html::E_SCRIPT,
 					[
 						\iw\html::A_TYPE => 'text/javascript',
 						\iw\html::A_SRC => $file,

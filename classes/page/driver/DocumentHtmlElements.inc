@@ -8,7 +8,7 @@ namespace page\driver;
  * The DocumentElements class provides easy access to the main elements of an HTML document: html, head, and body.
  * It initializes these elements upon construction, using a provided iw\dom\Document instance.
  */
-class DocumentElements extends \iw\Universe
+class DocumentHtmlElements extends \iw\Universe
 {
 
 
