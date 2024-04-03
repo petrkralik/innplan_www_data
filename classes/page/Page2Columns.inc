@@ -62,14 +62,14 @@ abstract class Page2Columns extends Page
 	function getContentLeft(): \iw\dom\NodeInterface|\iw\dom\Element|array
 	{
 		return [
-			$this->DOM->h2(N, "Projekty"),
-			new MenuItem($this->DOM, N, "Klienti", $this->urlBasePage() . "/client/list"),
-			new MenuItem($this->DOM, N, "Projekty", $this->urlBasePage() . "/project/list"),
-			$this->DOM->h2(N, "Číselníky"),
-			new MenuItem($this->DOM, N, "Zdroje", $this->urlBasePage() . "/resource/list"),
-			new MenuItem($this->DOM, N, "Role", $this->urlBasePage() . "/role/list"),
-			new MenuItem($this->DOM, N, "Stavy projektů", $this->urlBasePage() . "/project/state/list"),
-			new MenuItem($this->DOM, N, "Typy prací", $this->urlBasePage() . "/workType/list"),
+			$this->dom->h2(N, "Projekty"),
+			new MenuItem($this->dom, N, "Klienti", $this->urlBasePage() . "/client/list"),
+			new MenuItem($this->dom, N, "Projekty", $this->urlBasePage() . "/project/list"),
+			$this->dom->h2(N, "Číselníky"),
+			new MenuItem($this->dom, N, "Zdroje", $this->urlBasePage() . "/resource/list"),
+			new MenuItem($this->dom, N, "Role", $this->urlBasePage() . "/role/list"),
+			new MenuItem($this->dom, N, "Stavy projektů", $this->urlBasePage() . "/project/state/list"),
+			new MenuItem($this->dom, N, "Typy prací", $this->urlBasePage() . "/workType/list"),
 		];
 	}
 
@@ -88,7 +88,7 @@ abstract class Page2Columns extends Page
 			"elementFooter" => self::EID_FOOTER,
 		];
 		foreach ($data as $var => $element) {
-			if (F == ($this->$var = $this->DOM->getElementById($element)))
+			if (F == ($this->$var = $this->dom->getElementById($element)))
 				Error::TEMPLATE_ELEMENT_MISSING->throw("The element ID \"$element\" hasn't been found in the template.");
 		}
 	}
@@ -102,7 +102,7 @@ abstract class Page2Columns extends Page
 	 */
 	private function loadTemplate(): \iw\dom\Element
 	{
-		return $this->DOM->adopt(__DIR__ . "/resource/Page2Columns.template.html");
+		return $this->dom->adopt(__DIR__ . "/resource/Page2Columns.template.html");
 	}
 
 

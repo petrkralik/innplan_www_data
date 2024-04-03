@@ -19,9 +19,9 @@ class ProjectStateList extends Page2Columns
 	{
 		$this->init();
 
-		return $this->DOM->div(
+		return $this->dom->div(
 			[\iw\html::A_CLASS=> "projectStateList"],
-			$this->DOM->h1(\N, "Číselník stavů projektů"),
+			$this->dom->h1(\N, "Číselník stavů projektů"),
 			$this->projectStates? $this->contentProjectStateList(): $this->contentNoProjects()
 		);
 	}
@@ -29,7 +29,7 @@ class ProjectStateList extends Page2Columns
 
 	private function contentProjectStateList(): \iw\dom\Element
 	{
-		$e = $this->DOM->div([\iw\html::A_CLASS => "list"]);
+		$e = $this->dom->div([\iw\html::A_CLASS => "list"]);
 		foreach ($this->projectStates as $projectState) {
 			$e->append($this->contentProjectState($projectState));
 		}
@@ -39,7 +39,7 @@ class ProjectStateList extends Page2Columns
 
 
 	private function contentProjectState(\businessObject\ProjectState $projectState): \iw\dom\Element {
-		$e = $this->DOM->div(
+		$e = $this->dom->div(
 			[\iw\html::A_CLASS=> "projectState"],
 			"#". $projectState->id. " ". $projectState->name->getValue()
 		);
@@ -50,7 +50,7 @@ class ProjectStateList extends Page2Columns
 
 	private function contentNoProjects(): \iw\dom\Element
 	{
-		return $this->DOM->div([\iw\html::A_CLASS => "noContentMessage"], "No project state found");
+		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "No project state found");
 	}
 
 

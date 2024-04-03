@@ -18,14 +18,16 @@ class RequestClassResolver
 	 * This property is initialized from the $_SERVER global variable, reflecting the current HTTP request.
 	 */
 	private string $requestUri;
+	private \iw\dom\Document $dom;
 
 
 	/**
 	 * Constructor initializes the class and sets the current request URI.
 	 * The constructor ensures that the request URI is captured at the time of object instantiation, providing a snapshot of the request state.
 	 */
-	public function __construct()
+	public function __construct(\iw\dom\Document $dom)
 	{
+		$this->dom= $dom;
 		$this->requestUri = $_SERVER["REQUEST_URI"];
 	}
 
@@ -44,7 +46,7 @@ class RequestClassResolver
 		$className = $info["className"];
 		$matches = $info["matches"];
 
-		return $this->getReflection($className)->newInstanceArgs([$matches]);
+		return $this->getReflection($className)->newInstanceArgs([$matches, $this->dom]);
 	}
 
 

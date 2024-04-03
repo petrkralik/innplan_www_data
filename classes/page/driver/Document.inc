@@ -37,7 +37,7 @@ class Document
 	{
 		$this->dom= $document;
 		$this->elements = new DocumentHtmlElements($this->dom);
-		$this->resolver = new RequestClassResolver();
+		$this->resolver = new RequestClassResolver($this->dom);
 	}
 
 

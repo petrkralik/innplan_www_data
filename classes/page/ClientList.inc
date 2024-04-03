@@ -19,9 +19,9 @@ class ClientList extends Page2Columns
 	{
 		$this->init();
 
-		return $this->DOM->div(
+		return $this->dom->div(
 			[\iw\html::A_CLASS=> "clientList"],
-			$this->DOM->h1(\N, "Seznam klientů"),
+			$this->dom->h1(\N, "Seznam klientů"),
 			$this->clients? $this->contentClientList(): $this->contentNoClients()
 		);
 	}
@@ -29,7 +29,7 @@ class ClientList extends Page2Columns
 
 	private function contentClientList(): \iw\dom\Element
 	{
-		$e = $this->DOM->div([\iw\html::A_CLASS => "list"]);
+		$e = $this->dom->div([\iw\html::A_CLASS => "list"]);
 		foreach ($this->clients as $project) {
 			$e->append($this->contentClient($project));
 		}
@@ -39,7 +39,7 @@ class ClientList extends Page2Columns
 
 
 	private function contentClient(\businessObject\Client $client): \iw\dom\Element {
-		$e = $this->DOM->div(
+		$e = $this->dom->div(
 			[\iw\html::A_CLASS=> "client"],
 			$client->name->getValue()
 		);
@@ -50,7 +50,7 @@ class ClientList extends Page2Columns
 
 	private function contentNoClients(): \iw\dom\Element
 	{
-		return $this->DOM->div([\iw\html::A_CLASS => "noContentMessage"], "No clients found");
+		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "No clients found");
 	}
 
 

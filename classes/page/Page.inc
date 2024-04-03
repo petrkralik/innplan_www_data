@@ -20,7 +20,7 @@ abstract class Page extends \World
 	/**
 	 * @var \iw\dom\Document An instance of DOMDocumentExtension to handle document manipulations.
 	 */
-	protected \iw\dom\Document $DOM;
+	protected \iw\dom\Document $dom;
 
 	/**
 	 * @var PageFiles Manages the inclusion and iteration of CSS files for the page.
@@ -54,10 +54,10 @@ abstract class Page extends \World
 	 *
 	 * @throws \iw\service\locator\Exception
 	 */
-	public function __construct(array $uriMatches)
+	public function __construct(array $uriMatches, \iw\dom\Document $dom)
 	{
 		parent::__construct();
-		$this->DOM = \page\driver\Document::_getDOM();
+		$this->dom = $dom;
 		$this->uriMatches = $uriMatches;
 		$this->css = new PageFiles();
 		$this->css->setRoot("/file/stylesheet/");
