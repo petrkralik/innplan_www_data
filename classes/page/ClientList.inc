@@ -68,8 +68,6 @@ class ClientList extends Page2Columns
 				$object = new \businessObject\Client();
 				$object->apiResultMapData($data);
 				$this->clients[] = $object;
-				var_dump($object);
-				die($object);
 			}
 		} else {
 			Error::API_READ_ERROR->throw("API Read Error (http state code {$result->statusCode->value})");
