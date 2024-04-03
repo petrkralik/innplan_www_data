@@ -22,9 +22,9 @@ enum Error: string
 	/**
 	 * @throws Exception
 	 */
-	public function throw(?string $message = \N)
+	public function throw(?string $message = N, ?string $description = N, ?\Throwable $previous = N, ?int $flags = N, ?array $additionalInfo = N)
 	{
-		throw new Exception($this, $message);
+		throw new Exception($this, $message, $description, $previous, $flags, $additionalInfo);
 	}
 
 
