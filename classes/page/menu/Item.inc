@@ -11,7 +11,16 @@ class Item extends Node
 
 	function getSelfAsDOMNode(): ?\DOMNode
 	{
-		// TODO: Implement getSelfAsDOMNode() method.
+		return $this->dom->div(
+			[
+				\iw\html::A_CLASS=> "item"
+			],
+			$this->dom->a(
+				N,
+				$this->link,
+				$this->text
+			)
+		);
 	}
 
 
