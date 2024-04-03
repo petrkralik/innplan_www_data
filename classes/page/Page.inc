@@ -56,7 +56,6 @@ abstract class Page
 	 */
 	public function __construct(array $uriMatches, \iw\dom\Document $dom)
 	{
-		parent::__construct();
 		$this->dom = $dom;
 		$this->uriMatches = $uriMatches;
 		$this->css = new PageFiles();
