@@ -40,8 +40,6 @@ class ClientList extends Page2Columns
 
 
 	private function contentClient(\businessObject\Client $client): \iw\dom\Element {
-		var_dump($client->name);
-		die();
 		$e = $this->dom->div(
 			[\iw\html::A_CLASS=> "client"],
 			$client->name->getValue()
