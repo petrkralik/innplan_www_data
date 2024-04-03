@@ -34,7 +34,7 @@ class Project extends BusinessObject
 		if (!$this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return $this->urlBaseApi() . "/v1/project/{$this->id}";
+		return urlBaseAPI . "/v1/project/{$this->id}";
 	}
 
 
@@ -46,7 +46,7 @@ class Project extends BusinessObject
 		if (!$this->clientId->isSet())
 			Error::GENERAL->throw("Attribute clientId must be set");
 
-		return $this->urlBaseApi() . "/v1/client/{$this->clientId->getValue()}/project/";
+		return urlBaseAPI . "/v1/client/{$this->clientId->getValue()}/project/";
 	}
 
 

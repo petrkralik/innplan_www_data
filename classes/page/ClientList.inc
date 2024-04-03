@@ -58,7 +58,6 @@ class ClientList extends Page2Columns
 	/**
 	 * @throws \iw\api\Exception
 	 * @throws \businessObject\Exception
-	 * @throws \page\Exception
 	 */
 	private function init(): void
 	{
