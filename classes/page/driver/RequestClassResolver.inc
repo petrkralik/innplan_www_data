@@ -36,11 +36,11 @@ class RequestClassResolver
 	 * Retrieves and instantiates the appropriate page class based on the current URI.
 	 * This method utilizes the RequestClassResolverUriMapper to determine the class to instantiate and its constructor arguments.
 	 *
-	 * @return \page\driver\Page An instance of the determined page class, ready for use.
+	 * @return \page\Page An instance of the determined page class, ready for use.
 	 * @throws Exception If the determined class does not exist or is of the incorrect type.
 	 * @throws \ReflectionException If there is an error during the class reflection process.
 	 */
-	public function getPageClass(): \page\driver\Page
+	public function getPageClass(): \page\Page
 	{
 		$info = RequestClassResolverUriMapper::_getClassInfo($this->requestUri);
 		$className = $info["className"];
@@ -66,8 +66,8 @@ class RequestClassResolver
 			Error::RESOLVER_CLASS_NOT_EXISTS->throw("Class '$className' does not exist");
 		}
 		$reflection = new \ReflectionClass($className);
-		if (!$reflection->isSubclassOf(\page\driver\Page::class)) {
-			Error::RESOLVER_CLASS_IS_NOT_SUCCESSOR_OF_REQUIRED_PARENT->throw("Class must be successor of the parent '" . \page\driver\Page::class . "'");
+		if (!$reflection->isSubclassOf(\page\Page::class)) {
+			Error::RESOLVER_CLASS_IS_NOT_SUCCESSOR_OF_REQUIRED_PARENT->throw("Class must be successor of the parent '" . \page\Page::class . "'");
 		}
 
 		return $reflection;

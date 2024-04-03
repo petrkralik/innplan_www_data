@@ -57,16 +57,19 @@ class ClientList extends Page2Columns
 	/**
 	 * @throws \iw\api\Exception
 	 * @throws \businessObject\Exception
+	 * @throws \page\Exception
 	 */
 	private function init(): void
 	{
-		$result = $this->api->get(urlBasePage."/v1/client");
+		$result = $this->api->get(urlBaseAPI."/v1/client");
 		if ($result->statusCodeType == \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$project = new \businessObject\Client();
 				$project->apiResultMapData($data);
 				$this->clients[] = $project;
 			}
+		} else {
+			Error::API_READ_ERROR->throw("API Read Error (http state code {$result->statusCode->value})");
 		}
 	}
 

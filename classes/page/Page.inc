@@ -4,7 +4,7 @@
 namespace page;
 
 
-abstract class Page extends \page\driver\Page
+abstract class Page extends \page\Page
 {
 
 
