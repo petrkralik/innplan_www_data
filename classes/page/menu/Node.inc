@@ -21,7 +21,7 @@ abstract class Node implements NodeInterface
 	/**
 	 * @throws \iw\service\locator\Exception
 	 */
-	function __construct(string $text, string $link, ?string $id, ?bool $disabled = N, ?bool $invisible = N, ?bool $notDisplayed = null)
+	function __construct(string $text, string $link, ?string $id= N, ?bool $disabled = N, ?bool $invisible = N, ?bool $notDisplayed = null)
 	{
 		$this->id = $id ?? $this->getId();
 		$this->text = $text;
@@ -29,7 +29,7 @@ abstract class Node implements NodeInterface
 		$this->disabled = $disabled;
 		$this->invisible = $invisible;
 		$this->notDisplayed = $notDisplayed;
-		$this->dom= \World::_getServiceLocator()->getService(\World::SERVICE_DOM);
+		$this->dom= \World::_serviceLocator()->getService(svcDOM);
 	}
 
 
