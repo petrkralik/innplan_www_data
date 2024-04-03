@@ -19,15 +19,17 @@ class RequestClassResolver
 	 */
 	private string $requestUri;
 	private \iw\dom\Document $dom;
+	private UriClassMapper $uriClassMapper;
 
 
 	/**
 	 * Constructor initializes the class and sets the current request URI.
 	 * The constructor ensures that the request URI is captured at the time of object instantiation, providing a snapshot of the request state.
 	 */
-	public function __construct(\iw\dom\Document $dom)
+	public function __construct(\iw\dom\Document $dom, UriClassMapper $uriClassMapper)
 	{
 		$this->dom= $dom;
+		$this->uriClassMapper= $uriClassMapper;
 		$this->requestUri = $_SERVER["REQUEST_URI"];
 	}
 

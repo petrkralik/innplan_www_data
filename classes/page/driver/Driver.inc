@@ -8,7 +8,7 @@ namespace page\driver;
  * The Document class provides a structure for creating, manipulating, and rendering an HTML document.
  * It encapsulates the creation of the fundamental HTML elements and manages the addition of CSS files.
  */
-class Document
+class Driver
 {
 
 
@@ -33,11 +33,11 @@ class Document
 	 *
 	 * @throws \DOMException
 	 */
-	public function __construct(\iw\dom\Document $document)
+	public function __construct(\iw\dom\Document $document, UriClassMapper $uriClassMapper)
 	{
 		$this->dom= $document;
 		$this->elements = new DocumentHtmlElements($this->dom);
-		$this->resolver = new RequestClassResolver($this->dom);
+		$this->resolver = new RequestClassResolver($this->dom, $uriClassMapper);
 	}
 
 
@@ -49,7 +49,7 @@ class Document
 	 * @throws Exception If there is an error during the request class resolution.
 	 * @throws \DOMException If there is an error during DOM manipulation or CSS file management.
 	 */
-	public function display(): void
+	public function displayPage(): void
 	{
 		$page = $this->resolver->getPageClass();
 		$page->setContent($this->elements->body);
