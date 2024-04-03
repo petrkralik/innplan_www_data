@@ -44,11 +44,29 @@ class RequestClassResolver
 	 */
 	public function getPageClass(): \page\Page
 	{
-		$info = RequestClassResolverUriMapper::_getClassInfo($this->requestUri);
+		$info = $this->getClassInfo();
 		$className = $info["className"];
 		$matches = $info["matches"];
 
 		return $this->getReflection($className)->newInstanceArgs([$matches, $this->dom]);
+	}
+
+
+	private function getClassInfo(): array
+	{
+		foreach ($this->uriClassMapper->map() as $pattern => $className) {
+			if (preg_match($pattern, $this->requestUri, $matches)) {
+				return [
+					"className" => $className,
+					"matches" => $matches,
+				];
+			}
+		}
+
+		return [
+			"className" => $this->uriClassMapper->defaultPageClassName(),
+			"matches" => [],
+		];
 	}
 
 
