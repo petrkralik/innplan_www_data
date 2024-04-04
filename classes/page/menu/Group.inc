@@ -14,16 +14,25 @@ class Group extends Node implements NodeInterface
 
 	public function __construct(
 		string $text,
-		string $link,
+		?string $link,
+		?string $id,
+		?bool $expanded,
 		array $items,
-		?string $id= null,
-		?bool $expanded = null,
 		?bool $disabled = null,
 		?bool $invisible = null,
 		?bool $notDisplayed = null
 	) {
 		parent::__construct($text, $link, $id, $disabled, $invisible, $notDisplayed);
 		$this->expanded = $expanded;
+		if($this)
+			foreach ($items as $item)
+				$this->addItem($item);
+	}
+
+
+	public function addItem(NodeInterface $item): void
+	{
+		$this->items[]= $item;
 	}
 
 
@@ -36,7 +45,14 @@ class Group extends Node implements NodeInterface
 
 	function getSelfAsDOMNode(): ?\DOMNode
 	{
-		// TODO: Implement getSelfAsDOMNode() method.
+
+
+		return $this->dom->div(
+			[
+				\iw\html::A_ID=> $this->id,
+				\iw\html::A_CLASS=> "node group"
+			],
+		);
 	}
 
 
