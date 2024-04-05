@@ -4,7 +4,7 @@
 namespace page;
 
 
-class UriClassMapper extends \page\driver\UriClassMapper
+class UriClassMapper extends \iw\page\driver\UriClassMapper
 {
 
 

@@ -8,7 +8,7 @@ class WorkTypeNew extends Page2Columns
 {
 
 
-	private \iw\html\page\form\Form $form;
+	private \iw\page\html\form\Form $form;
 
 
 	function getContentMain(): ?\iw\dom\Element
@@ -25,8 +25,8 @@ class WorkTypeNew extends Page2Columns
 
 	private function form(): void
 	{
-		$this->form= new \iw\html\page\form\Form($this->dom, "workTypeNewForm");
-		$this->form->addComponent(new \iw\html\page\form\component\Input("name"));
+		$this->form= new \iw\page\html\form\Form($this->dom, "workTypeNewForm");
+		$this->form->addComponent(new \iw\page\html\form\component\Input("name"));
 
 
 //		$this->form->addComponent(new \iw\html\page\form\component\Text("Název:", "name"));
