@@ -52,6 +52,7 @@ class Group extends Node implements NodeInterface
 				\iw\html::A_ID=> $this->id,
 				\iw\html::A_CLASS=> "node group"
 			],
+			"ITEMS"
 		);
 	}
 
