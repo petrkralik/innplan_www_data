@@ -13,20 +13,29 @@ class WorkTypeNew extends Page2Columns
 
 	function getContentMain(): ?\iw\dom\Element
 	{
-		$this->form();
+		//$this->form();
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS=> "workTypeNew"
 			],
-			$this->dom->h1(N, "nový typ práce")
+			$this->dom->h1(N, "nový typ práce"),
+			$this->form()
 		);
 	}
 
 
-	private function form(): void
+	private function form()
 	{
-		$this->form= new \iw\page\html\form\Form($this->dom, "workTypeNewForm");
-		$this->form->addComponent(new \iw\page\html\form\component\Input("name"));
+		$formId= "workTypeNewForm";
+		$this->form= new \iw\page\html\form\Form($this->dom, $formId);
+		$feName= new \iw\page\html\form\component\Input("{$formId}_name");
+		$feName->size= 60;
+		$this->form->addComponent($feName);
+
+		return $this->dom->div(
+			N,
+			$feName
+		);
 
 
 //		$this->form->addComponent(new \iw\html\page\form\component\Text("Název:", "name"));
