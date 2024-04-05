@@ -28,7 +28,7 @@ class WorkTypeNew extends Page2Columns
 	{
 		$formId= "workTypeNewForm";
 		$this->form= new \iw\page\html\form\Form($this->dom, $formId);
-		$feName= new \iw\page\html\form\component\Input("{$formId}_name");
+		$feName= new \iw\page\html\form\component\Text("{$formId}_name");
 		$feName->size= 60;
 		$this->form->addComponent($feName);
 
