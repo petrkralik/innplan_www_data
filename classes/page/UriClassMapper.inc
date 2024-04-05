@@ -21,6 +21,7 @@ class UriClassMapper extends \page\driver\UriClassMapper
 			"/\/project\/state\/list\/?/i"   => "\page\ProjectStateList",
 			"/\/project\/(\d+)\/detail\/?/i" => "\page\ProjectDetail",
 			"/\/client\/list\/?/i"           => "\page\ClientList",
+			"/\/resource\/list\/?/i"         => "\page\ResourceList",
 		];
 	}
 

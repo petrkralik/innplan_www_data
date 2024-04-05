@@ -50,7 +50,7 @@ class ProjectList extends Page2Columns
 
 	private function contentNoProjects(): \iw\dom\Element
 	{
-		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "No project's found");
+		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "v seznamu nejsou žádné projekty");
 	}
 
 
