@@ -4,7 +4,7 @@
 namespace page;
 
 
-class RoleList extends Page2Columns
+class ProjectRoleList extends Page2Columns
 {
 
 
