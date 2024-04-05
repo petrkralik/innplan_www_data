@@ -65,8 +65,12 @@ abstract class Page2Columns extends Page
 		return [
 			new \page\menu\Item("klienti", urlBasePage. "/client/list/"),
 			new \page\menu\Item("projekty", urlBasePage. "/project/list/"),
-			new \page\menu\Item("stavy projektů", urlBasePage. "/project/state/list/"),
-
+			new \page\menu\Group("číselníky", items: [
+				new \page\menu\Item("zdroje", urlBasePage. "/resource/list"),
+				new \page\menu\Item("role", urlBasePage. "/role/list"),
+				new \page\menu\Item("stavy projektů", urlBasePage. "/project/state/list/"),
+				new \page\menu\Item("typy prací", urlBasePage. "/workType/list")
+			])
 		];
 /**		return [
 			$this->dom->h2(N, "Projekty"),

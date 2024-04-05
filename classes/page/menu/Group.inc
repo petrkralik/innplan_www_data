@@ -14,13 +14,13 @@ class Group extends Node implements NodeInterface
 
 	public function __construct(
 		string $text,
-		?string $link,
-		?string $id,
-		?bool $expanded,
-		array $items,
+		?string $link= N,
+		?string $id= N,
 		?bool $disabled = null,
 		?bool $invisible = null,
-		?bool $notDisplayed = null
+		?bool $notDisplayed = null,
+		?bool $expanded= null,
+		array $items= []
 	) {
 		parent::__construct($text, $link, $id, $disabled, $invisible, $notDisplayed);
 		$this->expanded = $expanded;
