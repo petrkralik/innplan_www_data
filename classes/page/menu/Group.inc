@@ -54,7 +54,10 @@ class Group extends Node implements NodeInterface
 				\iw\html::A_CLASS=> implode(" ", $this->htmlClassList())
 			],
 			$this->link? $this->dom->a(N, $this->link, $this->text): $this->text,
-			$this->items
+			$this->dom->div(
+				[\iw\html::A_CLASS=> "items"],
+				$this->items
+			)
 		);
 	}
 
