@@ -22,7 +22,19 @@ class WorkTypeList extends Page2Columns {
 		return $this->dom->div(
 			[\iw\html::A_CLASS=> "workTypeList"],
 			$this->dom->h1(N, "seznam typů práce"),
+			$this->linkCreateNew(),
 			$this->workTypes? $this->contentResourceList(): $this->contentNoResources()
+		);
+	}
+
+
+	private function linkCreateNew(): \iw\dom\Element {
+		return $this->dom->div(
+			[
+				\iw\html::A_CLASS=> "workTypeNewLink",
+				\iw\html::A_ID=> "workTypeNewLink",
+			],
+			$this->dom->a(N, urlBasePage. "/workType/new", "nový typ práce")
 		);
 	}
 
