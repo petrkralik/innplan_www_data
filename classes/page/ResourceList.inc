@@ -8,7 +8,7 @@ class ResourceList extends Page2Columns
 {
 
 
-	private array $resources;
+	private array $resources= [];
 
 
 	/**

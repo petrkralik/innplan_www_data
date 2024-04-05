@@ -8,7 +8,7 @@ class ProjectRoleList extends Page2Columns
 {
 
 
-	private array $roles;
+	private array $roles= [];
 
 
 	/**

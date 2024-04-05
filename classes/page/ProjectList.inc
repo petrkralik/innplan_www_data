@@ -8,7 +8,7 @@ class ProjectList extends Page2Columns
 {
 
 
-	private array $projects;
+	private array $projects= [];
 
 
 	/**
