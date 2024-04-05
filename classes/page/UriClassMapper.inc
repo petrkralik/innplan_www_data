@@ -14,8 +14,7 @@ class UriClassMapper extends \page\driver\UriClassMapper
 	}
 
 
-	public function getMap(): array
-	{
+	public function getMap(): array {
 		return [
 			"/\/project\/list\/?/i"          => "\page\ProjectList",
 			"/\/project\/state\/list\/?/i"   => "\page\ProjectStateList",
@@ -24,6 +23,7 @@ class UriClassMapper extends \page\driver\UriClassMapper
 			"/\/resource\/list\/?/i"         => "\page\ResourceList",
 			"/\/project\/role\/list\/?/i"    => "\page\ProjectRoleList",
 			"/\/workType\/list\/?/i"         => "\page\WorkTypeList",
+			"/\/workType\/new\/?/i"          => "\page\WorkTypeNew",
 		];
 	}
 
