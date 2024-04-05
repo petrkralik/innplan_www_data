@@ -50,10 +50,11 @@ abstract class Node implements NodeInterface
 
 	protected function htmlClassList(): array {
 		$list= ["node"];
-		if($this::class== Group::class)
-			$list[]= "group";
-		elseif($this::class== Item::class)
-			$list[]= "item";
+		$list[]= match ($this::class) {
+			Menu::class=> "menu",
+			Group::class=> "group",
+			Item::class=> "item"
+		};
 		if($this->disabled)
 			$list[]= "disabled";
 		if($this->invisible)

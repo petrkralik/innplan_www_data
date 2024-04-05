@@ -9,7 +9,7 @@ class Group extends Node implements NodeInterface
 
 
 	public ?bool $expanded = null;
-	private array $items= [];
+	protected array $items= [];
 
 
 	public function __construct(
