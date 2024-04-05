@@ -57,12 +57,14 @@ abstract class Page2Columns extends Page
 	 * Provides the content for the left column of the page. This default implementation
 	 * returns a Menu object but can be overridden in subclasses to provide custom content.
 	 *
-	 * @return \iw\dom\NodeInterface|\iw\dom\Element|array The content for the left column, possibly null.
+	 * @return \page\menu\Menu The content for the left column, possibly null.
+	 *
 	 * @throws \iw\service\locator\Exception
+	 * @throws \page\Exception
 	 */
-	function getContentLeft(): \iw\dom\NodeInterface|\iw\dom\Element|array
+	function getContentLeft(): \page\menu\Menu
 	{
-		return [
+		return new \page\menu\Menu("menuMain",
 			new \page\menu\Item("klienti", urlBasePage. "/client/list/"),
 			new \page\menu\Item("projekty", urlBasePage. "/project/list/"),
 			new \page\menu\Group("číselníky", items: [
@@ -71,7 +73,7 @@ abstract class Page2Columns extends Page
 				new \page\menu\Item("stavy projektů", urlBasePage. "/project/state/list/"),
 				new \page\menu\Item("typy prací", urlBasePage. "/workType/list")
 			])
-		];
+		);
 	}
 
 
