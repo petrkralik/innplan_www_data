@@ -5,12 +5,12 @@ namespace businessObject;
 
 
 /**
- * Represents a Resource entity.
+ * Represents a Project role entity.
  *
  * @property PropertyString $name
  * @property PropertyBool   $disabled
  */
-class Resource extends BusinessObject
+class ProjectRole extends BusinessObject
 {
 
 
@@ -22,13 +22,13 @@ class Resource extends BusinessObject
 		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return urlBaseAPI."/v1/resource/{$this->id}";
+		return urlBaseAPI."/v1/project/role";
 	}
 
 
 	function apiUrlCreate(): string
 	{
-		return urlBaseAPI."/v1/resource";
+		return urlBaseAPI."/v1/project/role";
 	}
 
 
