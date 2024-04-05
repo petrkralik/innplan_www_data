@@ -45,14 +45,13 @@ class Group extends Node implements NodeInterface
 
 	function getSelfAsDOMNode(): ?\DOMNode
 	{
-
-
 		return $this->dom->div(
 			[
 				\iw\html::A_ID=> $this->id,
 				\iw\html::A_CLASS=> "node group"
 			],
-			"ITEMS"
+			$this->link? $this->dom->a(N, $this->link, $this->text): $this->text,
+			$this->items
 		);
 	}
 
