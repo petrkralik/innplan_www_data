@@ -61,11 +61,11 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
-	private function contentResource(\businessObject\Resource $resource): \iw\dom\Element
+	private function contentResource(\businessObject\WorkType $workType): \iw\dom\Element
 	{
 		return $this->dom->div(
 			[\iw\html::A_CLASS=> "workType"],
-			$resource->name->getValue()
+			$workType->name->getValue()
 		);
 	}
 

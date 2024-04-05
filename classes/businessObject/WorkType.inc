@@ -4,7 +4,12 @@
 namespace businessObject;
 
 
-class WorkType extends BusinessObject {
+/**
+ * Represents a Work Type entity.
+ *
+ * @property PropertyString $name
+ * @property PropertyBool   $disabled
+ */class WorkType extends BusinessObject {
 
 
 	/**
