@@ -16,7 +16,7 @@ class Item extends Node
 		return $this->dom->div(
 			[
 				\iw\html::A_ID=> $this->id,
-				\iw\html::A_CLASS=> "node item"
+				\iw\html::A_CLASS=> implode(" ", $this->htmlClassList())
 			],
 			$this->dom->a(
 				N,

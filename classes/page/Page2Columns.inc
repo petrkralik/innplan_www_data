@@ -72,16 +72,6 @@ abstract class Page2Columns extends Page
 				new \page\menu\Item("typy prací", urlBasePage. "/workType/list")
 			])
 		];
-/**		return [
-			$this->dom->h2(N, "Projekty"),
-			new MenuItem($this->dom, N, "Klienti", urlBasePage . "/client/list"),
-			new MenuItem($this->dom, N, "Projekty", urlBasePage . "/project/list"),
-			$this->dom->h2(N, "Číselníky"),
-			new MenuItem($this->dom, N, "Zdroje", urlBasePage . "/resource/list"),
-			new MenuItem($this->dom, N, "Role", urlBasePage . "/role/list"),
-			new MenuItem($this->dom, N, "Stavy projektů", urlBasePage . "/project/state/list"),
-			new MenuItem($this->dom, N, "Typy prací", urlBasePage . "/workType/list"),
-		];*/
 	}
 
 
