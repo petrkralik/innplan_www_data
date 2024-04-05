@@ -12,18 +12,5 @@ class Menu extends Group
 {
 
 
-	public function __construct(
-		string $text,
-		?string $link = N,
-		?string $id = N,
-		?bool $disabled = null,
-		?bool $invisible = null,
-		?bool $notDisplayed = null,
-		?bool $expanded = null,
-		array $items = []
-	) {
-		parent::__construct($text, $link, $id, $disabled, $invisible, $notDisplayed, $expanded, $items);
-	}
-
 
 }

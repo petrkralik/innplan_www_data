@@ -13,7 +13,7 @@ class Group extends Node implements NodeInterface
 
 
 	public function __construct(
-		string $text,
+		?string $text= N,
 		?string $link= N,
 		?string $id= N,
 		?bool $disabled = null,

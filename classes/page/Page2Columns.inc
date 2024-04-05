@@ -60,11 +60,10 @@ abstract class Page2Columns extends Page
 	 * @return \page\menu\Menu The content for the left column, possibly null.
 	 *
 	 * @throws \iw\service\locator\Exception
-	 * @throws \page\Exception
 	 */
 	function getContentLeft(): \page\menu\Menu
 	{
-		return new \page\menu\Menu("menuMain",
+		return new \page\menu\Menu(null, urlBasePage, "menuMain", items: [
 			new \page\menu\Item("klienti", urlBasePage. "/client/list/"),
 			new \page\menu\Item("projekty", urlBasePage. "/project/list/"),
 			new \page\menu\Group("číselníky", items: [
@@ -73,7 +72,7 @@ abstract class Page2Columns extends Page
 				new \page\menu\Item("stavy projektů", urlBasePage. "/project/state/list/"),
 				new \page\menu\Item("typy prací", urlBasePage. "/workType/list")
 			])
-		);
+		]);
 	}
 
 

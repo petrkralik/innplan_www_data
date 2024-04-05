@@ -9,7 +9,7 @@ abstract class Node implements NodeInterface
 
 
 	public string $id;
-	public string $text;
+	public ?string $text;
 	public ?string $link;
 	public ?bool $disabled;
 	public ?bool $invisible;
@@ -21,7 +21,7 @@ abstract class Node implements NodeInterface
 	/**
 	 * @throws \iw\service\locator\Exception
 	 */
-	function __construct(string $text, ?string $link, ?string $id= N, ?bool $disabled = null, ?bool $invisible = N, ?bool $notDisplayed = null)
+	function __construct(?string $text, ?string $link, ?string $id= N, ?bool $disabled = null, ?bool $invisible = N, ?bool $notDisplayed = null)
 	{
 		$this->id = $id ?? $this->getId();
 		$this->text = $text;
