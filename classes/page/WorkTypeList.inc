@@ -4,11 +4,11 @@
 namespace page;
 
 
-class ResourceList extends Page2Columns
-{
+class WorkTypeList extends Page2Columns {
 
 
-	private array $resources= [];
+
+	private array $workTypes= [];
 
 
 	/**
@@ -20,9 +20,9 @@ class ResourceList extends Page2Columns
 		$this->init();
 
 		return $this->dom->div(
-			[\iw\html::A_CLASS=> "resourceList"],
-			$this->dom->h1(N, "Seznam zdrojů"),
-			$this->resources? $this->contentResourceList(): $this->contentNoResources()
+			[\iw\html::A_CLASS=> "workTypeList"],
+			$this->dom->h1(N, "seznam typů práce"),
+			$this->workTypes? $this->contentResourceList(): $this->contentNoResources()
 		);
 	}
 
@@ -33,12 +33,12 @@ class ResourceList extends Page2Columns
 	 */
 	private function init(): void
 	{
-		$result= $this->api->get(urlBaseAPI. "/v1/resource");
+		$result= $this->api->get(urlBaseAPI. "/v1/workType");
 		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
-				$resource= new \businessObject\Resource();
-				$resource->apiResultMapData($data);
-				$this->resources[]= $resource;
+				$workType= new \businessObject\WorkType();
+				$workType->apiResultMapData($data);
+				$this->workTypes[]= $workType;
 			}
 		}
 	}
@@ -46,8 +46,8 @@ class ResourceList extends Page2Columns
 
 	private function contentResourceList(): \iw\dom\Element
 	{
-		$e= $this->dom->div([\iw\html::A_CLASS=> "resources"]);
-		foreach ($this->resources as $resource) {
+		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
+		foreach ($this->workTypes as $resource) {
 			$e->append($this->contentResource($resource));
 		}
 
@@ -57,14 +57,14 @@ class ResourceList extends Page2Columns
 
 	private function contentNoResources(): \iw\dom\Element
 	{
-		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "v seznamu nejsou žádné zdroje");
+		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "v seznamu nejsou žádné typy práce");
 	}
 
 
 	private function contentResource(\businessObject\Resource $resource): \iw\dom\Element
 	{
 		return $this->dom->div(
-			[\iw\html::A_CLASS=> "resource"],
+			[\iw\html::A_CLASS=> "workType"],
 			$resource->name->getValue()
 		);
 	}
