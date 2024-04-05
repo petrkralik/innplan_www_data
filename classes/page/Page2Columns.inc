@@ -68,7 +68,7 @@ abstract class Page2Columns extends Page
 			new \page\menu\Item("projekty", urlBasePage. "/project/list/"),
 			new \page\menu\Group("číselníky", items: [
 				new \page\menu\Item("zdroje", urlBasePage. "/resource/list"),
-				new \page\menu\Item("role", urlBasePage. "/role/list"),
+				new \page\menu\Item("role", urlBasePage. "/project/role/list"),
 				new \page\menu\Item("stavy projektů", urlBasePage. "/project/state/list/"),
 				new \page\menu\Item("typy prací", urlBasePage. "/workType/list")
 			])

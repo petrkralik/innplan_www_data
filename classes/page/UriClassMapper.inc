@@ -22,7 +22,7 @@ class UriClassMapper extends \page\driver\UriClassMapper
 			"/\/project\/(\d+)\/detail\/?/i" => "\page\ProjectDetail",
 			"/\/client\/list\/?/i"           => "\page\ClientList",
 			"/\/resource\/list\/?/i"         => "\page\ResourceList",
-			"/\/project\/role\/?/i"          => "\page\ProjectRoleList",
+			"/\/project\/role\/\/list\/?/i"          => "\page\ProjectRoleList",
 		];
 	}
 
