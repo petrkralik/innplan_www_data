@@ -14,16 +14,18 @@ class UriClassMapper extends \iw\page\driver\UriClassMapper
 	}
 
 
-	public function getMap(): array {
+	public function getMap(): array
+	{
 		return [
-			"/\/project\/list\/?/i"          => "\page\ProjectList",
-			"/\/project\/state\/list\/?/i"   => "\page\ProjectStateList",
+			"/\/project\/list\/?/i" => "\page\ProjectList",
+			"/\/project\/state\/list\/?/i" => "\page\ProjectStateList",
 			"/\/project\/(\d+)\/detail\/?/i" => "\page\ProjectDetail",
-			"/\/client\/list\/?/i"           => "\page\ClientList",
-			"/\/resource\/list\/?/i"         => "\page\ResourceList",
-			"/\/project\/role\/list\/?/i"    => "\page\ProjectRoleList",
-			"/\/workType\/list\/?/i"         => "\page\WorkTypeList",
-			"/\/workType\/new\/?/i"          => "\page\WorkTypeNew",
+			"/\/client\/list\/?/i" => "\page\ClientList",
+			"/\/resource\/list\/?/i" => "\page\ResourceList",
+			"/\/project\/role\/list\/?/i" => "\page\ProjectRoleList",
+			"/\/workType\/list\/?/i" => "\page\WorkTypeList",
+			"/\/workType\/new\/?/i" => "\page\WorkTypeNew",
+			"/\/workType\/new\/(save)\/?/i" => "\page\WorkTypeNew",
 		];
 	}
 
