@@ -24,7 +24,7 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
-	private function form()
+	private function form(): \iw\page\html\form\Form
 	{
 		$fid= "workTypeNewForm";
 		$this->form= new \iw\page\html\form\Form(
@@ -38,10 +38,7 @@ class WorkTypeNew extends Page2Columns
 		$fName->size= 60;
 		$this->form->addComponent($fName);
 
-		return $this->dom->div(
-			N,
-			$fName
-		);
+		return $this->form;
 	}
 
 
