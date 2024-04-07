@@ -9,6 +9,7 @@ class WorkTypeNew extends Page2Columns
 
 
 	private \iw\page\html\form\Form $form;
+	private string $formId = "workTypeNewForm";
 
 
 	function getContentMain(): ?\iw\dom\Element
@@ -29,14 +30,13 @@ class WorkTypeNew extends Page2Columns
 	 */
 	private function buildForm(): \iw\page\html\form\Form
 	{
-		$fid = "workTypeNewForm";
 		$this->form = new \iw\page\html\form\Form(
 			$this->dom,
-			$fid,
+			$this->formId,
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"]
 		);
-		$fName = new \iw\page\html\form\component\Text("{$fid}_name");
+		$fName = new \iw\page\html\form\component\Text("{$this->formId}_name");
 		$fName->size = 60;
 		$this->form->addComponent($fName);
 
@@ -46,16 +46,16 @@ class WorkTypeNew extends Page2Columns
 
 	public function formContent(): \iw\dom\Element
 	{
-		echo __METHOD__;
-		return $this->dom->h2(N, "form content");
-	}
-
-
-	public function formHtmlContent(): array
-	{
-		return [
-			$this->dom->h2(N, "form content")
-		];
+		return $this->dom->div(
+			[
+				\iw\html::A_CLASS => "formContent"
+			],
+			$this->dom->div(
+				[\iw\html::A_CLASS => "formItem"],
+				$this->dom->div([\iw\html::A_CLASS=> "title"], "název"),
+				$this->dom->div([\iw\html::A_CLASS=> "input"], $this->form->getComponent($this->formId. "_name"))
+			)
+		);
 	}
 
 
