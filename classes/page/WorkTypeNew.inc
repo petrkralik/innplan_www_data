@@ -16,7 +16,7 @@ class WorkTypeNew extends Page2Columns
 		//$this->buildForm();
 		return $this->dom->div(
 			[
-				\iw\html::A_CLASS=> "workTypeNew"
+				\iw\html::A_CLASS => "workTypeNew"
 			],
 			$this->dom->h1(N, "nový typ práce"),
 			$this->buildForm()
@@ -26,27 +26,26 @@ class WorkTypeNew extends Page2Columns
 
 	private function buildForm(): \iw\page\html\form\Form
 	{
-		$fid= "workTypeNewForm";
-		$this->form= new \iw\page\html\form\Form(
+		$fid = "workTypeNewForm";
+		$this->form = new \iw\page\html\form\Form(
 			$this->dom,
 			$fid,
-			urlBasePage. "/workType/new/save",
+			urlBasePage . "/workType/new/save",
 			[$this, "formContent"],
 			[]
 		);
-		$fName= new \iw\page\html\form\component\Text("{$fid}_name");
-		$fName->size= 60;
+		$fName = new \iw\page\html\form\component\Text("{$fid}_name");
+		$fName->size = 60;
 		$this->form->addComponent($fName);
 
 		return $this->form;
 	}
 
 
-	public function formContent(): array
+	public function formContent()
 	{
-		return [
-			$this->dom->h2(N, "form content")
-		];
+		return
+			$this->dom->h2(N, "form content");
 	}
 
 
@@ -56,7 +55,6 @@ class WorkTypeNew extends Page2Columns
 			$this->dom->h2(N, "form content")
 		];
 	}
-
 
 
 }
