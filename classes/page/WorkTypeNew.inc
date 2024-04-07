@@ -12,6 +12,9 @@ class WorkTypeNew extends Page2Columns
 	private string $formId = "workTypeNewForm";
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
 		//$this->buildForm();
@@ -20,7 +23,7 @@ class WorkTypeNew extends Page2Columns
 				\iw\html::A_CLASS => "workTypeNew"
 			],
 			$this->dom->h1(N, "nový typ práce"),
-			$this->buildForm()
+			$this->form()
 		);
 	}
 
@@ -28,7 +31,7 @@ class WorkTypeNew extends Page2Columns
 	/**
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function buildForm(): \iw\page\html\form\Form
+	private function form(): \iw\page\html\form\Form
 	{
 		$this->form = new \iw\page\html\form\Form(
 			$this->dom,
@@ -36,11 +39,15 @@ class WorkTypeNew extends Page2Columns
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"]
 		);
-		$fName = new \iw\page\html\form\component\Text("{$this->formId}_name");
-		$fName->size = 60;
-		$this->form->addComponent($fName);
-
+		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, [$this, "validateInputName"], null, 60));
+		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
 		return $this->form;
+	}
+
+
+	private function validateInputName(): bool
+	{
+		return T;
 	}
 
 
@@ -56,7 +63,8 @@ class WorkTypeNew extends Page2Columns
 			$this->dom->div(
 				[\iw\html::A_CLASS => "formItem"],
 				$this->dom->div([\iw\html::A_CLASS=> "title"], "název"),
-				$this->dom->div([\iw\html::A_CLASS=> "input"], $this->form->getComponent($this->formId. "_name"))
+				$this->dom->div([\iw\html::A_CLASS=> "input"], $this->form->getComponent($this->formId. "_name")),
+				$this->dom->div([\iw\html::A_CLASS=> "submit", $this->form->getComponent($this->formId. "_submit")])
 			)
 		);
 	}
