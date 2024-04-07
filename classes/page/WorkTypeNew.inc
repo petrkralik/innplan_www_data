@@ -44,6 +44,9 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 */
 	public function formContent(): \iw\dom\Element
 	{
 		return $this->dom->div(
