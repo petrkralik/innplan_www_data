@@ -24,6 +24,9 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 */
 	private function buildForm(): \iw\page\html\form\Form
 	{
 		$fid = "workTypeNewForm";
@@ -31,8 +34,7 @@ class WorkTypeNew extends Page2Columns
 			$this->dom,
 			$fid,
 			urlBasePage . "/workType/new/save",
-			[$this, "formContent"],
-			[]
+			[$this, "formContent"]
 		);
 		$fName = new \iw\page\html\form\component\Text("{$fid}_name");
 		$fName->size = 60;
@@ -42,10 +44,10 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
-	public function formContent()
+	public function formContent(): \iw\dom\Element
 	{
-		return
-			$this->dom->h2(N, "form content");
+		echo __METHOD__;
+		return $this->dom->h2(N, "form content");
 	}
 
 
