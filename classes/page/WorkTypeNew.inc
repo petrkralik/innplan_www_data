@@ -8,6 +8,10 @@ class WorkTypeNew extends Page2Columns
 {
 
 
+	private const string ACTION_NEW= "ACTION_NEW";
+	private const string ACTION_SAVE= "ACTION_SAVE";
+
+
 	private \iw\page\html\form\Form $form;
 	private string $formId = "workTypeNewForm";
 
@@ -17,29 +21,34 @@ class WorkTypeNew extends Page2Columns
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
-		$this->detectProcess();
+		$this->buildForm();
+		if($this->detectProcess()== self::ACTION_SAVE) {
+			$this->form->validate();
+		}
 
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "workTypeNew"
 			],
 			$this->dom->h1(N, "nový typ práce"),
-			$this->form()
+			$this->form
 		);
 	}
 
 
 	function detectProcess(): string
 	{
-		var_dump($this->uriMatches);
-		return "";
+		return match ($this->uriMatches[1]) {
+			"new"=> self::ACTION_NEW,
+			"save"=> self::ACTION_SAVE
+		};
 	}
 
 
 	/**
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function form(): \iw\page\html\form\Form
+	private function buildForm(): \iw\page\html\form\Form
 	{
 		$this->form = new \iw\page\html\form\Form(
 			$this->dom,
@@ -49,6 +58,7 @@ class WorkTypeNew extends Page2Columns
 		);
 		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, [$this, "formContent"], null, 60));
 		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
+
 		return $this->form;
 	}
 
