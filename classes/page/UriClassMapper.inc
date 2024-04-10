@@ -24,8 +24,8 @@ class UriClassMapper extends \iw\page\driver\UriClassMapper
 			"/\/resource\/list\/?/i" => "\page\ResourceList",
 			"/\/project\/role\/list\/?/i" => "\page\ProjectRoleList",
 			"/\/workType\/list\/?/i" => "\page\WorkTypeList",
-			"/\/workType\/new\/?/i" => "\page\WorkTypeNew",
 			"/\/workType\/new\/(save)\/?/i" => "\page\WorkTypeNew",
+			"/\/workType\/(new)\/?/i" => "\page\WorkTypeNew",
 		];
 	}
 
