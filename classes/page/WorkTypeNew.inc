@@ -17,7 +17,8 @@ class WorkTypeNew extends Page2Columns
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
-		//$this->buildForm();
+		$this->detectProcess();
+
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "workTypeNew"
@@ -25,6 +26,13 @@ class WorkTypeNew extends Page2Columns
 			$this->dom->h1(N, "nový typ práce"),
 			$this->form()
 		);
+	}
+
+
+	function detectProcess(): string
+	{
+		var_dump($this->uriMatches);
+		return "";
 	}
 
 
