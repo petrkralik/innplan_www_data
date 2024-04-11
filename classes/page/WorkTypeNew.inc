@@ -56,16 +56,16 @@ class WorkTypeNew extends Page2Columns
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"]
 		);
-		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, [$this, "formContent"], null, 60));
+		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, [$this, "validateInputName"], null, 60));
 		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
 
 		return $this->form;
 	}
 
 
-	private function validateInputName(): bool
+	private function validateInputName(): true|\iw\page\html\form\component\EntryError
 	{
-		return T;
+		return new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné");
 	}
 
 
