@@ -18,6 +18,7 @@ class WorkTypeNew extends Page2Columns
 
 	/**
 	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\page\html\form\component\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
@@ -67,7 +68,7 @@ class WorkTypeNew extends Page2Columns
 		);
 		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, function ($value) {
 			return $this->validateInputName($value);
-		}, null, 60));
+		}, size: 60));
 		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
 
 		return $this->form;
