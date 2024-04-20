@@ -8,8 +8,8 @@ class WorkTypeNew extends Page2Columns
 {
 
 
-	private const string ACTION_NEW= "ACTION_NEW";
-	private const string ACTION_SAVE= "ACTION_SAVE";
+	private const string ACTION_NEW = "ACTION_NEW";
+	private const string ACTION_SAVE = "ACTION_SAVE";
 
 
 	private \iw\page\html\form\Form $form;
@@ -22,9 +22,14 @@ class WorkTypeNew extends Page2Columns
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$this->buildForm();
-		if($this->detectProcess()== self::ACTION_SAVE) {
-			if(!$this->form->validate()) {
-				echo "ERR";
+		if ($this->detectProcess() == self::ACTION_SAVE) {
+			if (!$this->form->validate()) {
+				foreach ($this->form->getComponentIterator() as $component) {
+					if ($component->onError)
+						foreach ($component->errors as $error) {
+							echo $error->message . LF;
+						}
+				}
 			}
 		}
 
@@ -41,8 +46,8 @@ class WorkTypeNew extends Page2Columns
 	function detectProcess(): string
 	{
 		return match ($this->uriMatches[1]) {
-			"new"=> self::ACTION_NEW,
-			"save"=> self::ACTION_SAVE
+			"new" => self::ACTION_NEW,
+			"save" => self::ACTION_SAVE
 		};
 	}
 
@@ -58,7 +63,9 @@ class WorkTypeNew extends Page2Columns
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"]
 		);
-		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, function($value) {return $this->validateInputName($value);}, null, 60));
+		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, function ($value) {
+			return $this->validateInputName($value);
+		}, null, 60));
 		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
 
 		return $this->form;
@@ -82,9 +89,9 @@ class WorkTypeNew extends Page2Columns
 			],
 			$this->dom->div(
 				[\iw\html::A_CLASS => "formItem"],
-				$this->dom->div([\iw\html::A_CLASS=> "title"], "název"),
-				$this->dom->div([\iw\html::A_CLASS=> "input"], $this->form->getComponent($this->formId. "_name")),
-				$this->dom->div([\iw\html::A_CLASS=> "submit"], $this->form->getComponent($this->formId. "_submit"))
+				$this->dom->div([\iw\html::A_CLASS => "title"], "název"),
+				$this->dom->div([\iw\html::A_CLASS => "input"], $this->form->getComponent($this->formId . "_name")),
+				$this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->getComponent($this->formId . "_submit"))
 			)
 		);
 	}
