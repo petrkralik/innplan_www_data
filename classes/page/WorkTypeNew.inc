@@ -63,9 +63,9 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
-	private function validateInputName(): bool
+	private function validateInputName(): true|\iw\page\html\form\component\EntryError
 	{
-		return T;
+		return new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné");
 	}
 
 
