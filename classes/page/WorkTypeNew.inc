@@ -24,7 +24,9 @@ class WorkTypeNew extends Page2Columns
 		$this->buildForm();
 		if ($this->detectProcess() == self::ACTION_SAVE) {
 			if (!$this->form->validate()) {
+				echo "On error" . LF;
 				foreach ($this->form->getComponentIterator() as $component) {
+					echo "Compo: ". $component->id . LF;
 					if ($component->onError)
 						foreach ($component->errors as $error) {
 							echo $error->message . LF;
