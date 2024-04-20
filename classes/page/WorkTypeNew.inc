@@ -77,7 +77,7 @@ class WorkTypeNew extends Page2Columns
 
 	private function validateInputName(mixed $value): true|\iw\page\html\form\component\EntryError
 	{
-		return new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné");
+		return empty($value)? new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné"): T;
 	}
 
 
