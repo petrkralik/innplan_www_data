@@ -23,7 +23,9 @@ class WorkTypeNew extends Page2Columns
 	{
 		$this->buildForm();
 		if($this->detectProcess()== self::ACTION_SAVE) {
-			$this->form->validate();
+			if(!$this->form->validate()) {
+				echo "ERR";
+			}
 		}
 
 		return $this->dom->div(
