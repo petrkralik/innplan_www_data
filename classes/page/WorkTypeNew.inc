@@ -39,16 +39,12 @@ class WorkTypeNew extends Page2Columns
 	/**
 	 * @throws \iw\page\html\form\component\Exception
 	 */
-	private function save(): void
+	private function save(): bool
 	{
-		if (!$this->form->validate()) {
-			foreach ($this->form->componentIterator() as $component) {
-				if ($component->onError)
-					foreach ($component->errors as $error) {
-						echo $error->message . LF;
-					}
-			}
-		}
+		if (!$this->form->validate())
+			return false;
+
+		return true;
 	}
 
 
