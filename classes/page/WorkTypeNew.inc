@@ -23,18 +23,8 @@ class WorkTypeNew extends Page2Columns
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$this->buildForm();
-		if ($this->detectProcess() == self::ACTION_SAVE) {
-			if (!$this->form->validate()) {
-				echo "On error" . LF;
-				foreach ($this->form->getComponentIterator() as $component) {
-					echo "Compo: ". $component->id . LF;
-					if ($component->onError)
-						foreach ($component->errors as $error) {
-							echo $error->message . LF;
-						}
-				}
-			}
-		}
+		if ($this->detectProcess() == self::ACTION_SAVE)
+			$this->save();
 
 		return $this->dom->div(
 			[
@@ -43,6 +33,22 @@ class WorkTypeNew extends Page2Columns
 			$this->dom->h1(N, "nový typ práce"),
 			$this->form
 		);
+	}
+
+
+	/**
+	 * @throws \iw\page\html\form\component\Exception
+	 */
+	private function save(): void
+	{
+		if (!$this->form->validate()) {
+			foreach ($this->form->componentIterator() as $component) {
+				if ($component->onError)
+					foreach ($component->errors as $error) {
+						echo $error->message . LF;
+					}
+			}
+		}
 	}
 
 
@@ -77,7 +83,7 @@ class WorkTypeNew extends Page2Columns
 
 	private function validateInputName(mixed $value): true|\iw\page\html\form\component\EntryError
 	{
-		return empty($value)? new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné"): T;
+		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné") : T;
 	}
 
 
