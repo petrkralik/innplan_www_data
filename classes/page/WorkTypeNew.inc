@@ -64,7 +64,7 @@ class WorkTypeNew extends Page2Columns
 	/**
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function buildForm(): \iw\page\html\form\Form
+	private function buildForm(): void
 	{
 		$this->form = new \iw\page\html\form\Form(
 			$this->dom,
@@ -76,8 +76,6 @@ class WorkTypeNew extends Page2Columns
 			return $this->validateInputName($value);
 		}, size: 60));
 		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
-
-		return $this->form;
 	}
 
 
@@ -89,9 +87,11 @@ class WorkTypeNew extends Page2Columns
 
 	/**
 	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\dom\Exception
 	 */
 	public function formContent(): \iw\dom\Element
 	{
+		$eName= $this->form->getComponent($this->formId . "_name");
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "formContent"
@@ -99,11 +99,28 @@ class WorkTypeNew extends Page2Columns
 			$this->dom->div(
 				[\iw\html::A_CLASS => "formItem"],
 				$this->dom->div([\iw\html::A_CLASS => "title"], "název"),
-				$this->dom->div([\iw\html::A_CLASS => "input"], $this->form->getComponent($this->formId . "_name")),
+				$this->dom->div([\iw\html::A_CLASS => "input"], $eName),
+				$this->componentError($eName),
 				$this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->getComponent($this->formId . "_submit"))
 			)
 		);
 	}
+
+
+	/**
+	 * @throws \iw\dom\Exception
+	 */
+	private function componentError(\iw\page\html\form\component\Component $component): ?\iw\dom\Element
+	{
+		if(!$component->onError)
+			return null;
+		$e= $this->dom->div([\iw\html::A_CLASS=>"errs"]);
+		foreach ($component->errorsIterator() as $error)
+			$e->append($this->dom->div([\iw\html::A_CLASS=> "err"], $error->message));
+
+		return $e;
+	}
+
 
 
 }
