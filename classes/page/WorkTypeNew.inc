@@ -23,16 +23,28 @@ class WorkTypeNew extends Page2Columns
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$this->buildForm();
+		$showForm= true;
 		if ($this->detectProcess() == self::ACTION_SAVE)
-			$this->save();
+			$showForm= !$this->save();
 
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "workTypeNew"
 			],
 			$this->dom->h1(N, "nový typ práce"),
-			$this->form
+			$showForm? $this->form: $this->showOK()
 		);
+	}
+
+
+	private function showOK(): \iw\dom\Element
+	{
+		return $this->dom->div(
+    		[
+    			\iw\html::A_CLASS => "ok"
+    		],
+    		$this->dom->h2(N, "Uloženo")
+    	);
 	}
 
 
