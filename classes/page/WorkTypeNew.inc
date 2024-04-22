@@ -80,13 +80,28 @@ class WorkTypeNew extends Page2Columns
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"]
 		);
-		$this->form->addComponent(new \iw\page\html\form\component\Text("{$this->formId}_name", N, function ($value) {
-			return $this->validateInputName($value);
-		}, size: 60));
+		$this->form->addComponent($this->formComponentName());
 		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
 	}
 
 
+	private function formComponentName(): \iw\page\html\form\component\Text
+	{
+		return new \iw\page\html\form\component\Text(
+			"{$this->formId}_name",
+			validator: function ($value) {
+				return $this->validateInputName($value);
+			},
+			size: 60
+		);
+	}
+
+
+	/**
+	 * @param   mixed  $value
+	 *
+	 * @return true|\iw\page\html\form\component\EntryError
+	 */
 	private function validateInputName(mixed $value): true|\iw\page\html\form\component\EntryError
 	{
 		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "Pole nesmí být prázdné") : T;
@@ -94,8 +109,20 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
-	 * @throws \iw\page\html\form\Exception
-	 * @throws \iw\dom\Exception
+	 *
+	 * /**
+	 * This method is responsible for generating the content of the form. It first fetches the form component associated
+	 * with the name using the form's getComponent method. It then creates a new 'div' DOM element to encapsulate the form content,
+	 * with a 'formItem' and related classes for each part of the form such as the title, input, and submit sections.
+	 *
+	 * Inside each of these sections, further 'div' DOM elements are created and appropriate classes alongside respective
+	 * content are attached. For instance, the 'input' section receives the form component itself and any associated errors
+	 * as its content.
+	 *
+	 * @return \iw\dom\Element A Dom element encapsulating the entire form content along with its associated errors and submit button.
+	 *
+	 * @throws \iw\page\html\form\Exception if there is an error fetching a component from the form.
+	 * @throws \iw\dom\Exception If there is an error with DOM manipulation
 	 */
 	public function formContent(): \iw\dom\Element
 	{
@@ -115,7 +142,20 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
-	 * @throws \iw\dom\Exception
+	 *
+	 * /**
+	 * This is a private helper function that is responsible for handling form component errors.
+	 * It takes an instance of the Component class as argument and checks if any error has occurred using the onError property of the component.
+	 *
+	 * If there is no error, it returns null. Otherwise, it creates a new 'div' DOM element with the class 'errs'.
+	 * It then loops over each error in the component's error iterator and appends a new 'div' DOM element to 'errs' div,
+	 * with an 'err' class and the error message as content.
+	 *
+	 * @param   \iw\page\html\form\component\Component  $component  The form component to check for errors
+	 *
+	 * @return ?\iw\dom\Element A DOM element containing error messages or null if there are no errors
+	 *
+	 * @throws \iw\dom\Exception If there is an error with DOM manipulation
 	 */
 	private function componentError(\iw\page\html\form\component\Component $component): ?\iw\dom\Element
 	{
