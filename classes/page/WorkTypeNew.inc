@@ -135,6 +135,7 @@ class WorkTypeNew extends Page2Columns
 				[\iw\html::A_CLASS => "formItem"],
 				$this->dom->div([\iw\html::A_CLASS => "title"], "název"),
 				$this->dom->div([\iw\html::A_CLASS => "input"], $eName, $this->componentError($eName)),
+				$this->form->getInnerIdComponent(),
 				$this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->getComponent($this->formId . "_submit"))
 			)
 		);
