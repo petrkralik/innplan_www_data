@@ -123,6 +123,7 @@ class WorkTypeNew extends Page2Columns
 	 *
 	 * @throws \iw\page\html\form\Exception if there is an error fetching a component from the form.
 	 * @throws \iw\dom\Exception If there is an error with DOM manipulation
+	 * @throws \Random\RandomException
 	 */
 	public function formContent(): \iw\dom\Element
 	{
@@ -135,7 +136,7 @@ class WorkTypeNew extends Page2Columns
 				[\iw\html::A_CLASS => "formItem"],
 				$this->dom->div([\iw\html::A_CLASS => "title"], "název"),
 				$this->dom->div([\iw\html::A_CLASS => "input"], $eName, $this->componentError($eName)),
-				//$this->form->getInnerIdComponent(),
+				$this->form->getInnerIdComponent(),
 				$this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->getComponent($this->formId . "_submit"))
 			)
 		);
