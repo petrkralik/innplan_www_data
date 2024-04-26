@@ -127,7 +127,7 @@ class WorkTypeNew extends Page2Columns
 	 */
 	public function formContent(): \iw\dom\Element
 	{
-		$eName= $this->form->getComponent($this->formId . "_name");
+		$eName= $this->form->components->getComponent($this->formId . "_name");
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "formContent"
@@ -137,7 +137,7 @@ class WorkTypeNew extends Page2Columns
 				$this->dom->div([\iw\html::A_CLASS => "title"], "název"),
 				$this->dom->div([\iw\html::A_CLASS => "input"], $eName, $this->componentError($eName)),
 				$this->form->getInnerIdComponent(),
-				$this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->getComponent($this->formId . "_submit"))
+				$this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->components->getComponent($this->formId . "_submit"))
 			)
 		);
 	}
