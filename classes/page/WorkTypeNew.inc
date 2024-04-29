@@ -80,8 +80,8 @@ class WorkTypeNew extends Page2Columns
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"]
 		);
-		$this->form->addComponent($this->formComponentName());
-		$this->form->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
+		$this->form->components->addComponent($this->formComponentName());
+		$this->form->components->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
 	}
 
 
