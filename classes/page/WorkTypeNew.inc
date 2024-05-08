@@ -28,8 +28,12 @@ class WorkTypeNew extends Page2Columns
 	{
 		$this->buildForm();
 		$showForm= true;
-		if ($this->detectProcess() == self::ACTION_SAVE)
-			$showForm= !$this->form->save();
+		if ($this->detectProcess() == self::ACTION_SAVE) {
+			if($this->form->isSaved())
+				$showForm= false;
+			else
+				$showForm = !$this->form->save();
+		}
 
 		return $this->dom->div(
 			[
@@ -60,12 +64,16 @@ class WorkTypeNew extends Page2Columns
 	/**
 	 * Saves the form. Operation is stubbed out in this method.
 	 *
-	 * @return bool Always false as save operation is not implemented.
+	 * @return bool Always false as a save operation is not implemented.
+	 * @throws \iw\api\Exception
+	 * @throws \iw\page\html\form\Exception
 	 */
-	public function save(): bool
+	public function formSave(): bool
 	{
-		echo "SAVE";
-		return true;
+		$data= ["name"=> $this->form->components->getComponent($this->formId. "_name")->value];
+		//$result= $this->api->post(urlBaseAPI. "/v1/workType", $data);
+		var_dump($data);
+		return false;
 	}
 
 
@@ -95,7 +103,7 @@ class WorkTypeNew extends Page2Columns
 			$this->formId,
 			urlBasePage . "/workType/new/save",
 			[$this, "formContent"],
-			[$this, "save"]
+			[$this, "formSave"]
 		);
 		$this->form->components->addComponent($this->formComponentName());
 		$this->form->components->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
