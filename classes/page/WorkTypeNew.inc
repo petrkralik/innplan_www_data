@@ -25,7 +25,7 @@ class WorkTypeNew extends Page2Columns
 		$this->buildForm();
 		$showForm= true;
 		if ($this->detectProcess() == self::ACTION_SAVE)
-			$showForm= !$this->save();
+			$showForm= !$this->form->save();
 
 		return $this->dom->div(
 			[
@@ -49,14 +49,10 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
-	 * @throws \iw\page\html\form\component\Exception
 	 */
 	private function save(): bool
 	{
-		if (!$this->form->validate())
-			return false;
-
-		return true;
+		return false;
 	}
 
 
@@ -78,7 +74,8 @@ class WorkTypeNew extends Page2Columns
 			$this->dom,
 			$this->formId,
 			urlBasePage . "/workType/new/save",
-			[$this, "formContent"]
+			[$this, "formContent"],
+			[$this, "save"]
 		);
 		$this->form->components->addComponent($this->formComponentName());
 		$this->form->components->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
