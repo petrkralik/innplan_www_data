@@ -154,18 +154,30 @@ abstract class Property
 	 */
 	public function setValue(mixed $value): void
 	{
-		echo "Set '$value'". LF;
-		if ($this->isSet() && $this->getValue() === $value)
+		// If the property is already set and the new value is the same as the old, there's no need to do anything
+		if ($this->isSet() && ($this->getValue() === $value))
 			return;
+
+		// Validate the new value with custom check depending on each concrete property
+		// If validation fails, an error is thrown
 		if (!$this->valueCheckOnSet($value))
 			Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
+
+		// If the property was previously set, store it as a changed value and mark the property as changed
 		if ($this->isSet()) {
 			$this->valueChanged = $value;
 			$this->isChanged = T;
+
+			// If the property was not previously set, store it as the original value and mark the property as set
 		} else {
 			$this->valueOriginal = $value;
 			$this->isSet = T;
 		}
+
+		// For each object that refers this property (referrals), we are going to remove the cached object value
+		// Each referral knows how to assemble the object from the database based on the property's value
+		// So, when the property changes, as it happened now, we need to clear the cached object to make sure the object
+		// is reassembled with up-to-date data when it is requested next time.
 		foreach ($this->getReferrals() as $referral)
 			$referral->emptyObject();
 	}

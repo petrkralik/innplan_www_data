@@ -36,6 +36,7 @@ class WorkType extends BusinessObject
 	{
 		return [
 			"name" => new PropertyString(),
+			"workTypeSeniorityId"=> new PropertyInt(),
 			"disabled" => new PropertyBool(F, T),
 		];
 	}
