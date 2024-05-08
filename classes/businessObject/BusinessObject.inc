@@ -95,11 +95,12 @@ abstract class BusinessObject extends \World
 	 *                   or if the API response does not include an ID for the newly created object.
 	 *
 	 */
-	public function create(array $attributes): void
+	public function create(?array $attributes): void
 	{
 		if (isset($this->id))
 			Error::CANNOT_CREATE->throw("Object of " . $this::class . " cannot be created because it exists.");
-		$this->setAttributes($attributes);
+		if($attributes)
+			$this->setAttributes($attributes);
 		foreach ($this->propertyListForCreate() as $propertyName => $property)
 			if ($property->required && !$property->isSet())
 				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
@@ -154,6 +155,7 @@ abstract class BusinessObject extends \World
 	public function setAttributes(array $attributes): void
 	{
 		foreach ($attributes as $propertyName => $value) {
+			echo "set attribute '$propertyName' to value '$value'". LF;
 			if (!array_key_exists($propertyName, $this->properties))
 				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object " . $this::class);
 			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)
