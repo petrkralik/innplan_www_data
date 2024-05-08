@@ -155,7 +155,6 @@ abstract class BusinessObject extends \World
 	public function setAttributes(array $attributes): void
 	{
 		foreach ($attributes as $propertyName => $value) {
-			echo "set attribute '$propertyName' to value '$value'". LF;
 			if (!array_key_exists($propertyName, $this->properties))
 				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object " . $this::class);
 			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)

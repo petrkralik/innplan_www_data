@@ -154,6 +154,7 @@ abstract class Property
 	 */
 	public function setValue(mixed $value): void
 	{
+		echo "Set '$value'". LF;
 		if ($this->isSet() && $this->getValue() === $value)
 			return;
 		if (!$this->valueCheckOnSet($value))
