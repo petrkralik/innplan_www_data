@@ -158,7 +158,6 @@ abstract class Property
 		if ($this->isSet() && ($this->getValue() === $value))
 			return;
 
-		echo "set value {$value}". LF;
 		// Validate the new value with custom check depending on each concrete property
 		// If validation fails, an error is thrown
 		if (!$this->valueCheckOnSet($value))
@@ -174,6 +173,10 @@ abstract class Property
 			$this->valueOriginal = $value;
 			$this->isSet = T;
 		}
+
+
+		echo sprintf("Property isSet: %s\n", var_export($this->isSet(), true));
+		echo sprintf("Property isChanged: %s\n", var_export($this->isChanged(), true));
 
 		// For each object that refers this property (referrals), we are going to remove the cached object value
 		// Each referral knows how to assemble the object from the database based on the property's value
