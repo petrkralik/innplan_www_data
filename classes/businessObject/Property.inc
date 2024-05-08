@@ -158,6 +158,7 @@ abstract class Property
 		if ($this->isSet() && ($this->getValue() === $value))
 			return;
 
+		echo "set value {$value}". LF;
 		// Validate the new value with custom check depending on each concrete property
 		// If validation fails, an error is thrown
 		if (!$this->valueCheckOnSet($value))
