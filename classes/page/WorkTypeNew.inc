@@ -17,8 +17,12 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
-	 * @throws \iw\page\html\form\Exception
+	 * Build and setup form for the Page.
+	 * Depending on the detected process, form is either shown or saved.
+	 *
+	 * @return ?\iw\dom\Element Return form DOM element or show a success message when saved.
 	 * @throws \iw\page\html\form\component\Exception
+	 * @throws \iw\page\html\form\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
@@ -37,6 +41,11 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
+	/**
+	 * Return success message DOM element after save operation
+	 *
+	 * @return \iw\dom\Element Success message DOM element
+	 */
 	private function showOK(): \iw\dom\Element
 	{
 		return $this->dom->div(
@@ -49,13 +58,21 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
+	 * Saves the form. Operation is stubbed out in this method.
+	 *
+	 * @return bool Always false as save operation is not implemented.
 	 */
-	private function save(): bool
+	public function save(): bool
 	{
 		return false;
 	}
 
 
+	/**
+	 * Detects the action based on uriMatches[1].
+	 *
+	 * @return string Returns detected action
+	 */
 	function detectProcess(): string
 	{
 		return match ($this->uriMatches[1]) {
@@ -66,7 +83,9 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
-	 * @throws \iw\page\html\form\Exception
+	 * Constructs the form object and adds components to the form.
+	 *
+	 * @throws \iw\page\html\form\Exception Exception thrown in form methods
 	 */
 	private function buildForm(): void
 	{
@@ -82,6 +101,11 @@ class WorkTypeNew extends Page2Columns
 	}
 
 
+	/**
+	 * Returns a new instance of Text component for the form.
+	 *
+	 * @return \iw\page\html\form\component\Text Returns Text component.
+	 */
 	private function formComponentName(): \iw\page\html\form\component\Text
 	{
 		return new \iw\page\html\form\component\Text(
@@ -95,7 +119,9 @@ class WorkTypeNew extends Page2Columns
 
 
 	/**
-	 * @param   mixed  $value
+	 * Validates if input is empty or not. If empty an error is thrown.
+	 *
+	 * @param mixed $value Value to be validated.
 	 *
 	 * @return true|\iw\page\html\form\component\EntryError
 	 */
@@ -124,7 +150,8 @@ class WorkTypeNew extends Page2Columns
 	 */
 	public function formContent(): \iw\dom\Element
 	{
-		$eName= $this->form->components->getComponent($this->formId . "_name");
+		$eName = $this->form->components->getComponent($this->formId . "_name");
+
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "formContent"
