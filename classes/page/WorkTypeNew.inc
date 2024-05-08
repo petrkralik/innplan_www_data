@@ -67,11 +67,13 @@ class WorkTypeNew extends Page2Columns
 	 * @return bool Always false as a save operation is not implemented.
 	 * @throws \iw\api\Exception
 	 * @throws \iw\page\html\form\Exception
+	 * @throws \businessObject\Exception
 	 */
 	public function formSave(): bool
 	{
 		$data= ["name"=> $this->form->components->getComponent($this->formId. "_name")->value];
-		//$result= $this->api->post(urlBaseAPI. "/v1/workType", $data);
+		$obj= new \businessObject\WorkType();
+		$obj->create($data);
 		var_dump($data);
 		return false;
 	}

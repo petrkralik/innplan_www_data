@@ -9,7 +9,9 @@ namespace businessObject;
  *
  * @property PropertyString $name
  * @property PropertyBool   $disabled
- */class WorkType extends BusinessObject {
+ */
+class WorkType extends BusinessObject
+{
 
 
 	/**
@@ -17,23 +19,23 @@ namespace businessObject;
 	 */
 	function apiUrlGet(): string
 	{
-		if (! $this->id)
+		if (!$this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return urlBaseAPI."/v1/workType/{$this->id}";
+		return urlBaseAPI . "/v1/workType/{$this->id}";
 	}
 
 
 	function apiUrlCreate(): string
 	{
-		return urlBaseAPI."/v1/workType";
+		return urlBaseAPI . "/v1/workType";
 	}
 
 
 	function propertyList(): array
 	{
 		return [
-			"name"     => new PropertyString(),
+			"name" => new PropertyString(),
 			"disabled" => new PropertyBool(F, T),
 		];
 	}
@@ -43,5 +45,6 @@ namespace businessObject;
 	{
 		return $this->propertyList();
 	}
+
 
 }
