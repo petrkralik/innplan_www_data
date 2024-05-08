@@ -64,6 +64,7 @@ class WorkTypeNew extends Page2Columns
 	 */
 	public function save(): bool
 	{
+		echo "SAVE";
 		return false;
 	}
 
