@@ -97,22 +97,63 @@ abstract class BusinessObject extends \World
 	 */
 	public function create(?array $attributes): void
 	{
-		if (isset($this->id))
-			Error::CANNOT_CREATE->throw("Object of " . $this::class . " cannot be created because it exists.");
-		if($attributes)
+		// Checking if the current object already has an ID assigned.
+		// If an ID is already assigned, it means the object already exists.
+		if (isset($this->id)) {
+			// Throwing an exception as it will be an incorrect action
+			// to attempt creating an existing object again.
+			Error::CANNOT_CREATE->throw("Object of type " . $this::class .
+				" cannot be created because it already exists.");
+		}
+
+		// Check if attributes are provided for creating the object.
+		if ($attributes) {
+			// If attributes are provided, then assign these attributes to the properties of
+			// the object being created. This is done using the 'setAttributes' method
+			// which matches up attribute values with the object's properties.
 			$this->setAttributes($attributes);
-		foreach ($this->propertyListForCreate() as $propertyName => $property)
-			if ($property->required && !$property->isSet())
-				Error::PROPERTY_NOT_SET->throw("Required property '$propertyName' is not set in object of " . $this::class);
+		}
+
+		// Here we start iterating over each property that’s required for object creation
+		foreach ($this->propertyListForCreate() as $propertyName => $property) {
+			// Checking if a property that has been marked as 'required' has been set or not.
+			if ($property->required && !$property->isSet()) {
+				// If a required property is not set, then throw an error.
+				// As it is mandatory for all required properties to exist for successful object creation.
+				Error::PROPERTY_NOT_SET->throw("The required property '$propertyName' " .
+					"is not set in object of type " . $this::class);
+			}
+		}
+
+		// After all the required properties have been successfully set, we proceed with making a POST
+		// request to the API to finally create the object.
 		$response = $this->getApi()->post($this->apiUrlCreate(), $this->createCollectData());
-		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS)
-			Error::API_DATA_POST->throw("Failed to create object of " . $this::class . " due to API error {$response->statusCode->value}.");
+
+		// Checking to see if the API call resulted in a successful response.
+		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS) {
+			// If the API call did not succeed, throw an error message that includes the HTTP status code.
+			Error::API_DATA_POST->throw("Failed to create an object of type " . $this::class .
+				" due to an error encountered by API. HTTP error code is {$response->statusCode->value}.");
+		}
+
+		// Verify whether the API response includes an ID for the object that was created just now.
 		if (isset($response->body->id)) {
+			// If an ID was included in the API response, assign it to the object's ID property
 			$this->id = $response->body->id;
+
+			// Then proceed to load the rest of the data from the API response into
+			// the corresponding properties of the object using the 'apiResultMapData' method.
 			$this->apiResultMapData($response->body);
+
+			// Lastly, we set the 'dataInitiated' flag to true to signify that the object’s
+			// data has been imported and initialized.
 			$this->dataInitiated = T;
-		} else
-			Error::API_RESPONSE_MISSING_ID->throw("API response does not include an 'id' for the newly created " . $this::class . ".");
+		} else {
+			// If an ID was NOT included in the API response after object creation,
+			// throw an error because the ID is crucial for object identification and tracking.
+			Error::API_RESPONSE_MISSING_ID->throw("The API response does not contain an 'id' for the new " .
+				$this::class . " object that was expected to be created.");
+		}
 	}
 
 
@@ -218,7 +259,6 @@ abstract class BusinessObject extends \World
 	}
 
 
-
 	/**
 	 * Resets the list of changed properties. This method should be called after changes have been persisted,
 	 * ensuring that the object reflects the current state without pending changes.
@@ -310,7 +350,7 @@ abstract class BusinessObject extends \World
 	 * Maps the data from the API response to the object's properties. This method iterates over the response data
 	 * and assigns the data to the respective properties of the object.
 	 *
-	 * @param   \stdClass  $body  The response from the API containing the data.
+	 * @param \stdClass $body The response from the API containing the data.
 	 *
 	 * @throws \businessObject\Exception If there is an issue with setting the property values.
 	 */
@@ -332,11 +372,10 @@ abstract class BusinessObject extends \World
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
-		if($propertyName== "id") {
-			if(!isset($this->id))
-				$this->id= $value;
-		}
-		elseif (key_exists($propertyName, $this->properties)) {
+		if ($propertyName == "id") {
+			if (!isset($this->id))
+				$this->id = $value;
+		} elseif (key_exists($propertyName, $this->properties)) {
 			if ($this->properties[$propertyName] instanceof Property) {
 				$value = match ($this->properties[$propertyName]::class) {
 					PropertyDate::class => $this->convertValueStrToDate($value),
