@@ -174,10 +174,6 @@ abstract class Property
 			$this->isSet = T;
 		}
 
-
-		echo sprintf("Property isSet: %s\n", var_export($this->isSet(), true));
-		echo sprintf("Property isChanged: %s\n", var_export($this->isChanged(), true));
-
 		// For each object that refers this property (referrals), we are going to remove the cached object value
 		// Each referral knows how to assemble the object from the database based on the property's value
 		// So, when the property changes, as it happened now, we need to clear the cached object to make sure the object
