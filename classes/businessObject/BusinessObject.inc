@@ -123,7 +123,7 @@ abstract class BusinessObject extends \World
 			// Checking if a property that has been marked as 'required' has been set or not.
 			if ($property->required && !$property->isSet()) {
 
-				echo "Property Name: {$propertyName} id {$this->id}\n";
+				echo "Property Name: {$propertyName} id {$property->id}\n";
 				echo "Is Set: ".($property->isSet() ?'Yes': 'No')."\n";
 
 				// If a required property is not set, then throw an error.
