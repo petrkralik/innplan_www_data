@@ -176,7 +176,6 @@ abstract class Property
 		} else {
 			$this->valueOriginal = $value;
 			$this->isSet = true;
-			echo "Set value ". $value;
 		}
 
 		// For each object that refers this property (referrals), we are going to remove the cached object value
