@@ -105,7 +105,7 @@ abstract class BusinessObject extends \World
 
 			// Throwing an exception as it will be an incorrect action
 			// to attempt creating an existing object again.
-			Error::CANNOT_CREATE->throw("Object of type {$this::class} cannot be created because it already exists.");
+			Error::CANNOT_CREATE->throw("Object of type ". $this::class. " cannot be created because it already exists.");
 		}
 
 		// Check if attributes are provided for creating the object.
@@ -128,7 +128,7 @@ abstract class BusinessObject extends \World
 
 				// If a required property is not set, then throw an error.
 				// As it is mandatory for all required properties to exist for successful object creation.
-				Error::PROPERTY_NOT_SET->throw("The required property '$propertyName' is not set in object of type {$this::class}");
+				Error::PROPERTY_NOT_SET->throw("The required property '$propertyName' is not set in object of type ". $this::class);
 			}
 		}
 
