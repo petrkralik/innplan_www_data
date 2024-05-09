@@ -34,7 +34,6 @@ class WorkType extends BusinessObject
 
 	function propertyList(): array
 	{
-		echo __METHOD__. LF;
 		return [
 			"name"                => new PropertyString(),
 			"workTypeSeniorityId" => new PropertyInt(),
@@ -45,11 +44,7 @@ class WorkType extends BusinessObject
 
 	public function propertyListForCreation(): array
 	{
-		return [
-			"name"                => $this->properties["name"],
-			"workTypeSeniorityId" => $this->properties["workTypeSeniorityId"],
-			"disabled"            => $this->properties["disabled"],
-		];
+		return $this->properties;
 	}
 
 

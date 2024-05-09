@@ -140,8 +140,7 @@ abstract class BusinessObject extends \World
 		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS) {
 
 			// If the API call did not succeed, throw an error message that includes the HTTP status code.
-			Error::API_DATA_POST->throw("Failed to create an object of type " . $this::class .
-				" due to an error encountered by API. HTTP error code is {$response->statusCode->value}.");
+			Error::API_DATA_POST->throw("Failed to create an object of type " . $this::class . " due to an error encountered by API. HTTP error code is {$response->statusCode->value}.");
 		}
 
 		// Verify whether the API response includes an ID for the object that was created just now.
