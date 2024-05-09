@@ -14,6 +14,11 @@ class WorkType extends BusinessObject
 {
 
 
+	public const string PROPERTY_NAME= "name";
+	public const string PROPERTY_SENIORITY_ID= "workTypeSeniorityId";
+	public const string PROPERTY_DISABLED= "disabled";
+
+
 	/**
 	 * @throws \businessObject\Exception
 	 */
@@ -35,9 +40,9 @@ class WorkType extends BusinessObject
 	function propertyList(): array
 	{
 		return [
-			"name"                => new PropertyString(),
-			"workTypeSeniorityId" => new PropertyInt(),
-			"disabled"            => new PropertyBool(F, T),
+			self::PROPERTY_NAME         => new PropertyString(),
+			self::PROPERTY_SENIORITY_ID => new PropertyInt(),
+			self::PROPERTY_DISABLED     => new PropertyBool(F, T),
 		];
 	}
 

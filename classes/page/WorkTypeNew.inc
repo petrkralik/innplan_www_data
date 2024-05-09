@@ -71,7 +71,10 @@ class WorkTypeNew extends Page2Columns
 	 */
 	public function formSave(): bool
 	{
-		$data= ["name"=> $this->form->components->getComponent($this->formId. "_name")->value];
+		$data = [
+			\businessObject\WorkType::PROPERTY_NAME         => $this->form->components->getComponent($this->formId."_name")->value,
+			\businessObject\WorkType::PROPERTY_SENIORITY_ID => 1,
+		];
 		$obj= new \businessObject\WorkType();
 		$obj->create($data);
 		var_dump($data);
