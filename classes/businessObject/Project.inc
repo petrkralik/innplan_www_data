@@ -56,7 +56,7 @@ class Project extends BusinessObject
 	 *
 	 * @return array List of Property objects required for creating a Project, excluding 'clientId'.
 	 */
-	#[\Override] public function propertyListForCreate(): array
+	#[\Override] public function propertyListForCreation(): array
 	{
 		$requiredPropertiesForCreate = [];
 		foreach ($this->properties as $propertyName => $propertyObject)

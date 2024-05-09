@@ -19,32 +19,36 @@ class WorkType extends BusinessObject
 	 */
 	function apiUrlGet(): string
 	{
-		if (!$this->id)
+		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return urlBaseAPI . "/v1/workType/{$this->id}";
+		return urlBaseAPI."/v1/workType/{$this->id}";
 	}
 
 
 	function apiUrlCreate(): string
 	{
-		return urlBaseAPI . "/v1/workType";
+		return urlBaseAPI."/v1/workType";
 	}
 
 
 	function propertyList(): array
 	{
 		return [
-			"name" => new PropertyString(),
-			"workTypeSeniorityId"=> new PropertyInt(),
-			"disabled" => new PropertyBool(F, T),
+			"name"                => new PropertyString(),
+			"workTypeSeniorityId" => new PropertyInt(),
+			"disabled"            => new PropertyBool(F, T),
 		];
 	}
 
 
-	public function propertyListForCreate(): array
+	public function propertyListForCreation(): array
 	{
-		return $this->propertyList();
+		return [
+			"name"                => $this->properties["name"],
+			"workTypeSeniorityId" => $this->properties["workTypeSeniorityId"],
+			"disabled"            => $this->properties["disabled"],
+		];
 	}
 
 

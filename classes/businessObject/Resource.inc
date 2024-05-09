@@ -41,7 +41,7 @@ class Resource extends BusinessObject
 	}
 
 
-	public function propertyListForCreate(): array
+	public function propertyListForCreation(): array
 	{
 		return $this->propertyList();
 	}

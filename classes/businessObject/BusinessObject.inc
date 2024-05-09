@@ -56,7 +56,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @return array List of attribute names required for object creation.
 	 */
-	abstract public function propertyListForCreate(): array;
+	abstract public function propertyListForCreation(): array;
 
 
 	/**
@@ -118,7 +118,7 @@ abstract class BusinessObject extends \World
 		}
 
 		// Here we start iterating over each property that’s required for object creation
-		foreach ($this->propertyListForCreate() as $propertyName => $property) {
+		foreach ($this->propertyListForCreation() as $propertyName => $property) {
 
 			// Checking if a property that has been marked as 'required' has been set or not.
 			if ($property->required && !$property->isSet()) {
@@ -183,7 +183,7 @@ abstract class BusinessObject extends \World
 	private function createCollectData(): array
 	{
 		$data = [];
-		foreach ($this->propertyListForCreate() as $propertyName => $property)
+		foreach ($this->propertyListForCreation() as $propertyName => $property)
 			if (!$property instanceof PropertyObjectReferral && $property->isSet())
 				$data[$propertyName] = match ($property::class) {
 					PropertyDate::class => $property->getValue() ? $property->getValue()->format("Y-m-d") : N,

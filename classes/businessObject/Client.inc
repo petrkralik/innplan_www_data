@@ -40,7 +40,7 @@ class Client extends BusinessObject
 	}
 
 
-	#[\Override] public function propertyListForCreate(): array
+	#[\Override] public function propertyListForCreation(): array
 	{
 		return $this->propertyList();
 	}
