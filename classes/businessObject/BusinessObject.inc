@@ -206,10 +206,23 @@ abstract class BusinessObject extends \World
 	public function setAttributes(array $attributes): void
 	{
 		foreach ($attributes as $propertyName => $value) {
-			if (!array_key_exists($propertyName, $this->properties))
-				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object " . $this::class);
-			if ($this->properties[$propertyName] instanceof PropertyObjectReferral)
+
+			// Check if the provided property name exists in the object properties
+			if (! array_key_exists($propertyName, $this->properties)) {
+
+				// Throw an error if the provided property does not exist
+				Error::NONEXISTENT_PROPERTY->throw("Attribute '$propertyName' doesn't exist in the object ".$this::class);
+			}
+
+			// Check if the property is an instance of PropertyObjectReferral class
+			if ($this->properties[$propertyName] instanceof PropertyObjectReferral) {
+
+				// Throw an error if the provided property is an instance of PropertyObjectReferral class.
+				// Such properties cannot be set directly, instead, their ID attribute should be set.
 				Error::PROPERTY_TYPE_ERROR->throw("Attribute '$propertyName' cannot be set directly as it is a PropertyObjectReferral. Set its id directly in related attribute");
+			}
+
+			// Set the value of the property using the provided value
 			$this->properties[$propertyName]->setValue($value);
 		}
 	}

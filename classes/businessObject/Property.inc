@@ -13,6 +13,9 @@ abstract class Property
 {
 
 
+	public readonly string $id;
+
+
 	/**
 	 * @var PropertyObjectReferral[] An array of PropertyObjectReferral instances that reference this property.
 	 * This array allows the property to keep track of all PropertyObjectReferral instances that are linked to it,
@@ -88,6 +91,7 @@ abstract class Property
 	 */
 	public function __construct(bool $required = T, bool $nullable = F)
 	{
+		$this->id = uniqid();
 		$this->required = $required;
 		$this->nullable = $nullable;
 	}
@@ -171,7 +175,8 @@ abstract class Property
 			// If the property was not previously set, store it as the original value and mark the property as set
 		} else {
 			$this->valueOriginal = $value;
-			$this->isSet = T;
+			$this->isSet = true;
+			echo "Set value ". $value;
 		}
 
 		// For each object that refers this property (referrals), we are going to remove the cached object value
