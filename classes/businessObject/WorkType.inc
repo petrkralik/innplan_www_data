@@ -34,6 +34,7 @@ class WorkType extends BusinessObject
 
 	function propertyList(): array
 	{
+		echo __METHOD__. LF;
 		return [
 			"name"                => new PropertyString(),
 			"workTypeSeniorityId" => new PropertyInt(),
