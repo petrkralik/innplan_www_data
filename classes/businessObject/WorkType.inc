@@ -40,9 +40,9 @@ class WorkType extends BusinessObject
 	function propertyList(): array
 	{
 		return [
-			self::PROPERTY_NAME         => new PropertyString(),
-			self::PROPERTY_SENIORITY_ID => new PropertyInt(),
-			self::PROPERTY_DISABLED     => new PropertyBool(F, T),
+			\entity\WorkType::ATTRIBUTE_NAME         => new PropertyString(),
+			\entity\WorkType::ATTRIBUTE_SENIORITY_ID => new PropertyInt(),
+			\entity\WorkType::ATTRIBUTE_DISABLED     => new PropertyBool(F, T),
 		];
 	}
 
