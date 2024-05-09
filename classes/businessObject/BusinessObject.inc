@@ -86,28 +86,31 @@ abstract class BusinessObject extends \World
 	 * If the response includes an ID, it sets the object's ID and loads the data from the response.
 	 * If the ID is missing in the response, it throws an exception.
 	 *
-	 * @param array $attributes Associative array of attributes to set on the object. The keys should
-	 *                          match the property names, and the values should be the property values.
+	 * @param   array|null  $attributes  Associative array of attributes to set on the object. The keys should
+	 *                                   match the property names, and the values should be the property values.
 	 *
 	 * @return void
-	 * @throws Exception|\iw\api\Exception Throws an exception if the object already has an ID (indicating it exists),
+	 * @throws \businessObject\Exception Throws an exception if the object already has an ID (indicating it exists),
 	 *                   if a required property is not set, if the API call is unsuccessful,
 	 *                   or if the API response does not include an ID for the newly created object.
-	 *
+	 * @throws \iw\api\Exception Throws an exception if the object already has an ID (indicating it exists),
+	 *                   if a required property is not set, if the API call is unsuccessful,
+	 *                   or if the API response does not include an ID for the newly created object.
 	 */
 	public function create(?array $attributes): void
 	{
 		// Checking if the current object already has an ID assigned.
 		// If an ID is already assigned, it means the object already exists.
 		if (isset($this->id)) {
+
 			// Throwing an exception as it will be an incorrect action
 			// to attempt creating an existing object again.
-			Error::CANNOT_CREATE->throw("Object of type " . $this::class .
-				" cannot be created because it already exists.");
+			Error::CANNOT_CREATE->throw("Object of type {$this::class} cannot be created because it already exists.");
 		}
 
 		// Check if attributes are provided for creating the object.
 		if ($attributes) {
+
 			// If attributes are provided, then assign these attributes to the properties of
 			// the object being created. This is done using the 'setAttributes' method
 			// which matches up attribute values with the object's properties.
@@ -116,12 +119,16 @@ abstract class BusinessObject extends \World
 
 		// Here we start iterating over each property that’s required for object creation
 		foreach ($this->propertyListForCreate() as $propertyName => $property) {
+
 			// Checking if a property that has been marked as 'required' has been set or not.
 			if ($property->required && !$property->isSet()) {
+
+				echo "Property Name: {$propertyName}\n";
+				echo "Is Set: ".($property->isSet() ?'Yes': 'No')."\n";
+
 				// If a required property is not set, then throw an error.
 				// As it is mandatory for all required properties to exist for successful object creation.
-				Error::PROPERTY_NOT_SET->throw("The required property '$propertyName' " .
-					"is not set in object of type " . $this::class);
+				Error::PROPERTY_NOT_SET->throw("The required property '$propertyName' is not set in object of type {$this::class}");
 			}
 		}
 
@@ -131,6 +138,7 @@ abstract class BusinessObject extends \World
 
 		// Checking to see if the API call resulted in a successful response.
 		if ($response->statusCodeType != \iw\HttpStatusCodeType::SUCCESS) {
+
 			// If the API call did not succeed, throw an error message that includes the HTTP status code.
 			Error::API_DATA_POST->throw("Failed to create an object of type " . $this::class .
 				" due to an error encountered by API. HTTP error code is {$response->statusCode->value}.");
@@ -138,6 +146,7 @@ abstract class BusinessObject extends \World
 
 		// Verify whether the API response includes an ID for the object that was created just now.
 		if (isset($response->body->id)) {
+
 			// If an ID was included in the API response, assign it to the object's ID property
 			$this->id = $response->body->id;
 
@@ -149,6 +158,7 @@ abstract class BusinessObject extends \World
 			// data has been imported and initialized.
 			$this->dataInitiated = T;
 		} else {
+
 			// If an ID was NOT included in the API response after object creation,
 			// throw an error because the ID is crucial for object identification and tracking.
 			Error::API_RESPONSE_MISSING_ID->throw("The API response does not contain an 'id' for the new " .
