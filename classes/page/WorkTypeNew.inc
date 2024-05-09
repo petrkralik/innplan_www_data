@@ -77,7 +77,6 @@ class WorkTypeNew extends Page2Columns
 		];
 		$obj= new \businessObject\WorkType();
 		$obj->create($data);
-		var_dump($data);
 		return false;
 	}
 
