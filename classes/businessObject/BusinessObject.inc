@@ -220,8 +220,6 @@ abstract class BusinessObject extends \World
 			}
 
 			// Set the value of the property using the provided value
-			echo $this->properties[$propertyName]->id. LF;
-			echo "set $propertyName= '$value'". LF;
 			$this->properties[$propertyName]->setValue($value);
 		}
 	}
