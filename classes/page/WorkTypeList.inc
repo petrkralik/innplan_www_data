@@ -67,6 +67,8 @@ class WorkTypeList extends Page2Columns {
 	{
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
 		foreach ($this->workTypes as $resource) {
+			var_dump($resource);
+			die();
 			$e->append($this->contentResource($resource));
 		}
 

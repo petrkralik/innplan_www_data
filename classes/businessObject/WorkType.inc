@@ -14,11 +14,6 @@ class WorkType extends BusinessObject
 {
 
 
-	public const string PROPERTY_NAME= "name";
-	public const string PROPERTY_SENIORITY_ID= "workTypeSeniorityId";
-	public const string PROPERTY_DISABLED= "disabled";
-
-
 	/**
 	 * @throws \businessObject\Exception
 	 */
