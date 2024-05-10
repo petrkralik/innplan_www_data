@@ -89,7 +89,7 @@ abstract class BusinessObject extends \World
 	 * @param   array|null  $attributes  Associative array of attributes to set on the object. The keys should
 	 *                                   match the property names, and the values should be the property values.
 	 *
-	 * @return void
+	 * @return bool
 	 * @throws \businessObject\Exception Throws an exception if the object already has an ID (indicating it exists),
 	 *                   if a required property is not set, if the API call is unsuccessful,
 	 *                   or if the API response does not include an ID for the newly created object.
@@ -97,7 +97,7 @@ abstract class BusinessObject extends \World
 	 *                   if a required property is not set, if the API call is unsuccessful,
 	 *                   or if the API response does not include an ID for the newly created object.
 	 */
-	public function create(?array $attributes): void
+	public function create(?array $attributes): bool
 	{
 		// Checking if the current object already has an ID assigned.
 		// If an ID is already assigned, it means the object already exists.
@@ -157,9 +157,10 @@ abstract class BusinessObject extends \World
 
 			// If an ID was NOT included in the API response after object creation,
 			// throw an error because the ID is crucial for object identification and tracking.
-			Error::API_RESPONSE_MISSING_ID->throw("The API response does not contain an 'id' for the new " .
-				$this::class . " object that was expected to be created.");
+			Error::API_RESPONSE_MISSING_ID->throw("The API response does not contain an 'id' for the new " . $this::class . " object that was expected to be created.");
 		}
+
+		return true;
 	}
 
 

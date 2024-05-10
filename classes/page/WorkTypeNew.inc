@@ -21,7 +21,6 @@ class WorkTypeNew extends Page2Columns
 	 * Depending on the detected process, form is either shown or saved.
 	 *
 	 * @return ?\iw\dom\Element Return form DOM element or show a success message when saved.
-	 * @throws \iw\page\html\form\component\Exception
 	 * @throws \iw\page\html\form\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
@@ -76,8 +75,15 @@ class WorkTypeNew extends Page2Columns
 			\entity\WorkType::ATTRIBUTE_SENIORITY_ID => 1,
 		];
 		$obj= new \businessObject\WorkType();
-		$obj->create($data);
-		return false;
+		$result= $obj->create($data);
+
+		if ($result) {
+			echo "Operation successful.";
+		} else {
+			echo "Operation failed.";
+		}
+
+		return $result
 	}
 
 
