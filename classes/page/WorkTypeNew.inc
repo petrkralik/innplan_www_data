@@ -77,12 +77,6 @@ class WorkTypeNew extends Page2Columns
 		$obj= new \businessObject\WorkType();
 		$result= $obj->create($data);
 
-		if ($result) {
-			echo "Operation successful.";
-		} else {
-			echo "Operation failed.";
-		}
-
 		return $result;
 	}
 
