@@ -75,9 +75,8 @@ class WorkTypeNew extends Page2Columns
 			\entity\WorkType::ATTRIBUTE_SENIORITY_ID => 1,
 		];
 		$obj= new \businessObject\WorkType();
-		$result= $obj->create($data);
 
-		return $result;
+		return $obj->create($data);
 	}
 
 

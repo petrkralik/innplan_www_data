@@ -14,6 +14,7 @@ class WorkTypeList extends Page2Columns {
 	/**
 	 * @throws \businessObject\Exception
 	 * @throws \iw\api\Exception
+	 * @throws \iw\dom\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
@@ -28,6 +29,9 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
+	/**
+	 * @throws \DOMException
+	 */
 	private function linkCreateNew(): \iw\dom\Element {
 		return $this->dom->div(
 			[
@@ -56,6 +60,9 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
+	/**
+	 * @throws \iw\dom\Exception
+	 */
 	private function contentResourceList(): \iw\dom\Element
 	{
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
