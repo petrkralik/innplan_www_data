@@ -83,7 +83,7 @@ class WorkTypeNew extends Page2Columns
 			echo "Operation failed.";
 		}
 
-		return $result
+		return $result;
 	}
 
 
