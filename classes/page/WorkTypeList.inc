@@ -85,7 +85,7 @@ class WorkTypeList extends Page2Columns {
 	{
 		return $this->dom->div(
 			[\iw\html::A_CLASS=> "workType"],
-			"#{$workType->id}:"//: {$workType->name->getValue()}"
+			"#{$workType->id}: {$workType->name->getValue()}"
 		);
 	}
 
