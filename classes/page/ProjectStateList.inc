@@ -14,6 +14,7 @@ class ProjectStateList extends Page2Columns
 	/**
 	 * @throws \iw\api\Exception
 	 * @throws \businessObject\Exception
+	 * @throws \iw\dom\Exception
 	 */
 	#[\Override] function getContentMain(): \iw\dom\Element
 	{
@@ -27,6 +28,9 @@ class ProjectStateList extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \iw\dom\Exception
+	 */
 	private function contentProjectStateList(): \iw\dom\Element
 	{
 		$e = $this->dom->div([\iw\html::A_CLASS => "list"]);

@@ -379,6 +379,7 @@ abstract class BusinessObject extends \World
 	{
 		foreach ($body as $property => $value)
 			$this->setProperty($property, $value);
+		$this->dataInitiated= true;
 	}
 
 
