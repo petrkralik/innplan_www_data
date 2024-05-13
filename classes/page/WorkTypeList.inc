@@ -51,7 +51,6 @@ class WorkTypeList extends Page2Columns {
 	private function init(): void
 	{
 		$result= $this->api->get(urlBaseAPI. "/v1/workType");
-		var_dump($result);
 		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$workType= new \businessObject\WorkType();
