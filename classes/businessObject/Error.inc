@@ -84,8 +84,22 @@ enum Error: string
 	 * Commonly thrown during data cleanup operations.
 	 */
 	case PROPERTY_CANNOT_BE_ERASED = "PROPERTY_CANNOT_BE_ERASED";
-	case OBJECT_ALREADY_INITIATED= "OBJECT_ALREADY_INITIATED";
+	/**
+	 * Used when an object is already initiated but another initiation is attempted.
+	 * Commonly thrown during the duplicate object initiation process.
+	 */
+	case OBJECT_ALREADY_INITIATED = "OBJECT_ALREADY_INITIATED";
+
+	/**
+	 * Used when a property is already initialized but an attempt is made to
+	 * reinitialize it. Thrown commonly during property reinitialization attempts.
+	 */
 	case PROPERTY_ALREADY_INITIALIZED = "PROPERTY_ALREADY_INITIALIZED";
+
+	/**
+	 * Used when an attempt is made to access a property that has not been
+	 * initialized yet. Frequently thrown during property access operations.
+	 */
 	case PROPERTY_NOT_INITIALIZED = "PROPERTY_NOT_INITIALIZED";
 
 

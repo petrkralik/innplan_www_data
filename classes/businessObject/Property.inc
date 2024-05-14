@@ -96,6 +96,11 @@ abstract class Property
 	}
 
 
+	/**
+	 * Checks if the property has been initialized.
+	 *
+	 * @return bool Returns true if the property has been initialized, false otherwise.
+	 */
 	public function isInitialized(): bool
 	{
 		return $this->isInitialized;
@@ -103,11 +108,13 @@ abstract class Property
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * Checks if a property has been initialized. If not, an exception is thrown.
+	 *
+	 * @throws \businessObject\Exception If the property has not been initialized.
 	 */
 	private function checkInitialization(): void
 	{
-		if(!$this->isInitialized)
+		if (! $this->isInitialized)
 			Error::PROPERTY_NOT_INITIALIZED->throw("Property is not initialized.");
 	}
 
@@ -124,13 +131,16 @@ abstract class Property
 
 
 	/**
-	 * Resets the change status of the property, effectively acknowledging the change.
+	 * Resets the change status of the property. Empties the changed value and sets the changed
+	 * flag to false, effectively acknowledging the change.
+	 *
+	 * Used to revert the property to its original state.
 	 */
 	public function dropChange(): void
 	{
 		if ($this->isChanged) {
 			unset($this->valueChanged);
-			$this->isChanged = F;
+			$this->isChanged = false;
 		}
 	}
 
@@ -153,16 +163,23 @@ abstract class Property
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 * This method is used to initialize the property with a value. It also sets the isInitialized
+	 * and isChanged flags. If the property is already initialized, it will throw an exception.
+	 *
+	 * @param   mixed  $value  The value to initialize the property with.
+	 *
+	 * @return void
+	 * @throws \businessObject\Exception If the property is already initialized.
+	 *
 	 */
 	public function initialize(mixed $value): void
 	{
-		if($this->isInitialized)
+		if ($this->isInitialized)
 			Error::PROPERTY_ALREADY_INITIALIZED->throw("Property already initialized.");
-		$this->valueOriginal= $value;
-		$this->isInitialized= true;
+		$this->valueOriginal = $value;
+		$this->isInitialized = true;
 		unset($this->valueChanged);
-		$this->isChanged= false;
+		$this->isChanged = false;
 	}
 
 
