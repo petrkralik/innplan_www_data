@@ -183,7 +183,7 @@ abstract class BusinessObject extends \World
 	{
 		$data = [];
 		foreach ($this->propertyListForCreation() as $propertyName => $property)
-			if (!$property instanceof PropertyObjectReferral && $property->isSet())
+			if (!$property instanceof PropertyObjectReferral && $property->isInitialized())
 				$data[$propertyName] = match ($property::class) {
 					PropertyDate::class => $property->getValue() ? $property->getValue()->format("Y-m-d") : N,
 					default => $property->getValue()
