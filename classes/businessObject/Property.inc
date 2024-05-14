@@ -56,20 +56,19 @@ abstract class Property
 	public readonly bool $nullable;
 
 	/**
-	 * Indicates if the property has been set with an initial value.
-	 * This flag is used to determine if the property has been initialized.
-	 *
-	 * @var bool
-	 */
-	private bool $isSet = false;
-
-	/**
 	 * Indicates if the property has been changed from its original value.
 	 * This flag is used to track modifications to the property value.
 	 *
 	 * @var bool
 	 */
 	private bool $isChanged = false;
+
+	/**
+	 * This flag denotes if the property has been initialized.
+	 *
+	 * @var bool
+	 */
+	private bool $isInitialized = false;
 
 
 	/**
@@ -97,14 +96,19 @@ abstract class Property
 	}
 
 
-	/**
-	 * Checks if the property has been set.
-	 *
-	 * @return bool Returns true if the property is set, false otherwise.
-	 */
-	public function isSet(): bool
+	public function isInitialized(): bool
 	{
-		return $this->isSet;
+		return $this->isInitialized;
+	}
+
+
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	private function checkInitialization(): void
+	{
+		if(!$this->isInitialized)
+			Error::PROPERTY_NOT_INITIALIZED->throw("Property is not initialized.");
 	}
 
 
@@ -137,14 +141,28 @@ abstract class Property
 	 *
 	 * @throws Exception If the property is required and cannot be erased.
 	 */
-	public function erase(): void
+	public function clear(): void
 	{
 		if ($this->required)
 			Error::PROPERTY_CANNOT_BE_ERASED->throw("Property cannot be erase as it is required.");
 		unset($this->valueOriginal);
 		unset($this->valueChanged);
-		$this->isSet = F;
-		$this->isChanged = F;
+		$this->isInitialized = false;
+		$this->isChanged = false;
+	}
+
+
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	public function initialize(mixed $value): void
+	{
+		if($this->isInitialized)
+			Error::PROPERTY_ALREADY_INITIALIZED->throw("Property already initialized.");
+		$this->valueOriginal= $value;
+		$this->isInitialized= true;
+		unset($this->valueChanged);
+		$this->isChanged= false;
 	}
 
 
@@ -158,32 +176,42 @@ abstract class Property
 	 */
 	public function setValue(mixed $value): void
 	{
-		// If the property is already set and the new value is the same as the old, there's no need to do anything
-		if ($this->isSet() && ($this->getValue() === $value))
+		// If the property has not been initialized
+		if (! $this->isInitialized) {
+
+			// Initialize it with the provided value
+			$this->initialize($value);
+
+			// Exit the function to avoid additional processing
 			return;
-
-		// Validate the new value with custom check depending on each concrete property
-		// If validation fails, an error is thrown
-		if (!$this->valueCheckOnSet($value))
-			Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
-
-		// If the property was previously set, store it as a changed value and mark the property as changed
-		if ($this->isSet()) {
-			$this->valueChanged = $value;
-			$this->isChanged = T;
-
-			// If the property was not previously set, store it as the original value and mark the property as set
-		} else {
-			$this->valueOriginal = $value;
-			$this->isSet = true;
 		}
 
-		// For each object that refers this property (referrals), we are going to remove the cached object value
-		// Each referral knows how to assemble the object from the database based on the property's value
-		// So, when the property changes, as it happened now, we need to clear the cached object to make sure the object
-		// is reassembled with up-to-date data when it is requested next time.
-		foreach ($this->getReferrals() as $referral)
+		// If the property is already initialized and the new value is identical to the old value,
+		// then there is no need to make any changes. Therefore, we return from the function.
+		if ($this->getValue() === $value)
+			return;
+
+		// Verify the new value against custom checks, based on the specific implementation of each property.
+		// If the validation fails, it indicates that the new value does not adhere to the required type for this property,
+		// hence an error is thrown.
+		if (! $this->valueCheckOnSet($value))
+			Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
+
+		// Assign the new value to the 'valueChanged' field. This signifies that the property has been updated
+		// with a new value (which was verified to be of the correct type in the previous step).
+		$this->valueChanged = $value;
+
+		// Update 'isChanged' status, setting it to true, indicating that the property has been modified.
+		$this->isChanged = T;
+
+		// Loop through each object that refers to this property (referrals).
+		// Each referral contains information about how to build the object from the database,
+		// based on the value of this property.
+		// So, when this property changes, as is the case now, we need to clear the cached object data for each referral.
+		// This ensures that the next time the object is needed, it will be reconstructed with the most up-to-date data.
+		foreach ($this->getReferrals() as $referral) {
 			$referral->emptyObject();
+		} // Clear existing cached data
 	}
 
 
@@ -192,9 +220,12 @@ abstract class Property
 	 * otherwise the original value.
 	 *
 	 * @return mixed The current value of the property.
+	 * @throws \businessObject\Exception
 	 */
 	public function getValue(): mixed
 	{
+		$this->checkInitialization();
+
 		return $this->isChanged ? $this->valueChanged : $this->valueOriginal;
 	}
 
@@ -203,9 +234,12 @@ abstract class Property
 	 * Gets the original value of the property.
 	 *
 	 * @return mixed The original value of the property.
+	 * @throws \businessObject\Exception
 	 */
 	public function getValueOriginal(): mixed
 	{
+		$this->checkInitialization();
+
 		return $this->valueOriginal;
 	}
 
@@ -214,9 +248,12 @@ abstract class Property
 	 * Gets the changed value of the property if there is one.
 	 *
 	 * @return mixed The changed value of the property, or null if no change has been made.
+	 * @throws \businessObject\Exception
 	 */
 	public function getValueChanged(): mixed
 	{
+		$this->checkInitialization();
+
 		return $this->valueChanged;
 	}
 
@@ -226,12 +263,15 @@ abstract class Property
 	 * This method allows tracking of all PropertyObjectReferral instances that are linked to this property,
 	 * enabling a bidirectional relationship between the property and its referrals.
 	 *
-	 * @param PropertyObjectReferral $referral The PropertyObjectReferral instance to add to the referrals list.
+	 * @param   PropertyObjectReferral  $referral  The PropertyObjectReferral instance to add to the referrals list.
 	 *
 	 * @return void
+	 * @throws \businessObject\Exception
 	 */
 	public function addReferral(PropertyObjectReferral $referral): void
 	{
+		$this->checkInitialization();
+
 		$this->referrals[] = $referral;
 	}
 
@@ -242,9 +282,12 @@ abstract class Property
 	 * for understanding the dependencies and relationships this property has with other business objects.
 	 *
 	 * @return array An array of PropertyObjectReferral instances that are linked to this property.
+	 * @throws \businessObject\Exception
 	 */
 	public function getReferrals(): array
 	{
+		$this->checkInitialization();
+
 		return $this->referrals;
 	}
 

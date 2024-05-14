@@ -177,6 +177,7 @@ abstract class BusinessObject extends \World
 	 * @return array An associative array where each key is a property name and the value is the property's
 	 *               value formatted for the API request. This array is used as the payload in the API call
 	 *               to create or update the object.
+	 * @throws \businessObject\Exception
 	 */
 	private function createCollectData(): array
 	{
