@@ -121,7 +121,7 @@ abstract class BusinessObject extends \World
 		foreach ($this->propertyListForCreation() as $propertyName => $property) {
 
 			// Checking if a property that has been marked as 'required' has been set or not.
-			if ($property->required && !$property->isSet()) {
+			if ($property->required && !$property->isInitialized()) {
 
 				// If a required property is not set, then throw an error.
 				// As it is mandatory for all required properties to exist for successful object creation.
