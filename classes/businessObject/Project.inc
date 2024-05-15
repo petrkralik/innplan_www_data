@@ -4,6 +4,8 @@
 namespace businessObject;
 
 
+use businessObject\Property\PropertyDate;
+use businessObject\Property\PropertyInt;
 use businessObject\Property\PropertyString;
 
 

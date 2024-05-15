@@ -5,6 +5,7 @@ namespace businessObject;
 
 
 use businessObject\Property\Property;
+use businessObject\Property\PropertyDate;
 
 
 /**

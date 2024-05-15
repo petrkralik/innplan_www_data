@@ -4,6 +4,8 @@
 namespace businessObject;
 
 
+use businessObject\Property\PropertyBool;
+use businessObject\Property\PropertyInt;
 use businessObject\Property\PropertyString;
 
 
