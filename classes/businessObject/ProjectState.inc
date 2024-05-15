@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\PropertyString;
+
+
 /**
  * Represents the state of a project.
  *

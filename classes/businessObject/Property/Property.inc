@@ -1,13 +1,50 @@
 <?php
 
 
-namespace businessObject;
+namespace businessObject\Property;
 
 
 /**
- * Abstract class Property serves as a base for different types of properties in a business object.
- * It manages the original and potentially changed values of a property, tracks if a property is set,
- * and whether it has been changed.
+ * The `Property` abstract class serves as a blueprint for creating various types of properties
+ * involved in a business object. It provides an infrastructure for operational functions such as
+ * tracking, validating, and handling changes in property values.
+ *
+ * The class has several noteworthy properties. The `$id` is a readonly string that unambiguously
+ * identifies the property. The `$referrals` property is a private array that contains instances of
+ * the `PropertyObjectReferral` class, providing a comprehensive record of all the references to the
+ * property. The `$valueOriginal` and `$valueChanged` properties hold the original and new values of
+ * the property respectively, allowing the class to track changes.
+ *
+ * The `$isChanged` property is a boolean flag that indicates if the property value has been changed
+ * from its original value. The class also offers getters and setters for these properties. The `$required`
+ * and `$nullable` properties are boolean flags indicating whether a property value is required and
+ * whether it can be set to null, respectively.
+ *
+ * The class provides several methods for managing the property state. These methods include `isInitialized()`
+ * and `isChanged()`, which verify if the property is initialized and if its value has been altered, respectively.
+ * Further methods are `initialize()`, which initializes the property with a value, `setValue()` which sets a
+ * new value to the property, and `clear()`, which erases the property value.
+ *
+ * If the property is already initialized and the attempted new value is identical to the old value, no changes
+ * are made. Additionally, the class implements the protected abstract method valueCheckOnSet($value), which ensures
+ * that any input is validated according to rules specific to each subclass.
+ *
+ * Data is kept consistent through references to the `PropertyObjectReferral` class, and methods are provided to add
+ * referrals (addReferral()) and get all referrals (getReferrals()).
+ *
+ * The class is designed to handle necessary business object operations while maintaining robustness and consistency,
+ * providing the necessary foundation upon which specialized property classes can be built.
+ *
+ *
+ * @property-read string $id            The unique identifier of the property.
+ * @property-read bool   $required      Indicates if the property is required.
+ * @property-read bool   $nullable      Indicates if the property can be set to null.
+ * @property bool        $isChanged     Indicates if the property has been changed from its original value.
+ * @property bool        $isInitialized Denotes if the property has been initialized.
+ * @property mixed       $valueOriginal The original value of the property before any changes.
+ * @property mixed       $valueChanged  The new value of the property if it has been changed.
+ *
+ * @package businessObject\Property
  */
 abstract class Property
 {
@@ -17,7 +54,7 @@ abstract class Property
 
 
 	/**
-	 * @var PropertyObjectReferral[] An array of PropertyObjectReferral instances that reference this property.
+	 * @var \businessObject\PropertyObjectReferral An array of PropertyObjectReferral instances that reference this property.
 	 * This array allows the property to keep track of all PropertyObjectReferral instances that are linked to it,
 	 * facilitating a clear understanding of how this property is referenced throughout the business object model.
 	 */
@@ -88,7 +125,7 @@ abstract class Property
 	 * @param bool $required Specifies if the property is required.
 	 * @param bool $nullable Specifies if the property can be null.
 	 */
-	public function __construct(bool $required = T, bool $nullable = F)
+	public function __construct(bool $required = \T, bool $nullable = \F)
 	{
 		$this->id = uniqid();
 		$this->required = $required;
@@ -115,7 +152,7 @@ abstract class Property
 	private function checkInitialization(): void
 	{
 		if (! $this->isInitialized)
-			Error::PROPERTY_NOT_INITIALIZED->throw("Property is not initialized.");
+			\businessObject\Error::PROPERTY_NOT_INITIALIZED->throw("Property is not initialized.");
 	}
 
 
@@ -149,12 +186,12 @@ abstract class Property
 	 * Erases the value of the property if it's not required. Throws an exception if
 	 * trying to erase a required property.
 	 *
-	 * @throws Exception If the property is required and cannot be erased.
+	 * @throws \businessObject\Exception If the property is required and cannot be erased.
 	 */
 	public function clear(): void
 	{
 		if ($this->required)
-			Error::PROPERTY_CANNOT_BE_ERASED->throw("Property cannot be erase as it is required.");
+			\businessObject\Error::PROPERTY_CANNOT_BE_ERASED->throw("Property cannot be erase as it is required.");
 		unset($this->valueOriginal);
 		unset($this->valueChanged);
 		$this->isInitialized = false;
@@ -175,7 +212,7 @@ abstract class Property
 	public function initialize(mixed $value): void
 	{
 		if ($this->isInitialized)
-			Error::PROPERTY_ALREADY_INITIALIZED->throw("Property already initialized.");
+			\businessObject\Error::PROPERTY_ALREADY_INITIALIZED->throw("Property already initialized.");
 		$this->valueOriginal = $value;
 		$this->isInitialized = true;
 		unset($this->valueChanged);
@@ -189,7 +226,7 @@ abstract class Property
 	 *
 	 * @param mixed $value The new value to set.
 	 *
-	 * @throws Exception If the value is not valid according to valueCheckOnSet.
+	 * @throws \businessObject\Exception If the value is not valid according to valueCheckOnSet.
 	 */
 	public function setValue(mixed $value): void
 	{
@@ -212,14 +249,14 @@ abstract class Property
 		// If the validation fails, it indicates that the new value does not adhere to the required type for this property,
 		// hence an error is thrown.
 		if (! $this->valueCheckOnSet($value))
-			Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
+			\businessObject\Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
 
 		// Assign the new value to the 'valueChanged' field. This signifies that the property has been updated
 		// with a new value (which was verified to be of the correct type in the previous step).
 		$this->valueChanged = $value;
 
 		// Update 'isChanged' status, setting it to true, indicating that the property has been modified.
-		$this->isChanged = T;
+		$this->isChanged = \T;
 
 		// Loop through each object that refers to this property (referrals).
 		// Each referral contains information about how to build the object from the database,
@@ -280,12 +317,12 @@ abstract class Property
 	 * This method allows tracking of all PropertyObjectReferral instances that are linked to this property,
 	 * enabling a bidirectional relationship between the property and its referrals.
 	 *
-	 * @param   PropertyObjectReferral  $referral  The PropertyObjectReferral instance to add to the referrals list.
+	 * @param   \businessObject\PropertyObjectReferral  $referral  The PropertyObjectReferral instance to add to the referrals list.
 	 *
 	 * @return void
 	 * @throws \businessObject\Exception
 	 */
-	public function addReferral(PropertyObjectReferral $referral): void
+	public function addReferral(\businessObject\PropertyObjectReferral $referral): void
 	{
 		$this->checkInitialization();
 

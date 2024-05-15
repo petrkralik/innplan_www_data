@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\PropertyString;
+
+
 /**
  * Represents a Project within a business object model. This class extends the BusinessObject
  * class and includes properties and methods specific to a project entity.

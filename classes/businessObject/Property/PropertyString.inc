@@ -1,7 +1,7 @@
 <?php
 
 
-namespace businessObject;
+namespace businessObject\Property;
 
 
 /**

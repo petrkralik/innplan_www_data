@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\PropertyString;
+
+
 /**
  * Represents a Resource entity.
  *

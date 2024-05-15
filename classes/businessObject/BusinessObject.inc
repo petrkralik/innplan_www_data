@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\Property;
+
+
 /**
  * Abstract class BusinessObject serves as a base class for all business entities within the application.
  * It provides common functionalities such as API interactions and property management.

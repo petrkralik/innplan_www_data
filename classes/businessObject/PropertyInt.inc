@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\Property;
+
+
 /**
  * PropertyInt is a subclass of Property designed to handle integer values,
  * providing additional validation to ensure the value falls within an optional specified range.

@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\Property;
+
+
 /**
  * The PropertyObjectReferral class extends the Property class to enable object-oriented references
  * within the business object model. It allows properties to refer to entire business objects,

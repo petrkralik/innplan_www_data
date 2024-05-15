@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\Property;
+
+
 /**
  * PropertyBool is a specialized version of Property designed to handle boolean values.
  * It ensures that only valid boolean values (or null if nullable) are set to the property.

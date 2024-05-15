@@ -4,6 +4,9 @@
 namespace businessObject;
 
 
+use businessObject\Property\Property;
+
+
 /**
  * PropertyDate is a subclass of Property intended to handle date values.
  * Currently, it does not implement specific validation in valueCheckOnSet,
