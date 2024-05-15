@@ -43,7 +43,7 @@ class Project extends BusinessObject
 	 */
 	public function apiUrlCreate(): string
 	{
-		if (! $this->clientId->isSet())
+		if (! $this->clientId->isInitialized())
 			Error::GENERAL->throw("Attribute clientId must be set");
 
 		return urlBaseAPI."/v1/client/{$this->clientId->getValue()}/project/";
@@ -73,6 +73,7 @@ class Project extends BusinessObject
 	 * a specific type that dictates how the property should be handled and validated.
 	 *
 	 * @return array An associative array where keys are property names and values are property types.
+	 * @throws \businessObject\property\Exception
 	 */
 	#[\Override] public function propertyList(): array
 	{
