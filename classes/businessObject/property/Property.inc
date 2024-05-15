@@ -1,7 +1,7 @@
 <?php
 
 
-namespace businessObject\Property;
+namespace businessObject\property;
 
 
 /**
@@ -147,12 +147,12 @@ abstract class Property
 	/**
 	 * Checks if a property has been initialized. If not, an exception is thrown.
 	 *
-	 * @throws \businessObject\Exception If the property has not been initialized.
+	 * @throws \businessObject\property\Exception If the property has not been initialized.
 	 */
 	private function checkInitialization(): void
 	{
 		if (! $this->isInitialized)
-			\businessObject\Error::PROPERTY_NOT_INITIALIZED->throw("Property is not initialized.");
+			Error::PROPERTY_NOT_INITIALIZED->throw("Property is not initialized.");
 	}
 
 
@@ -186,12 +186,12 @@ abstract class Property
 	 * Erases the value of the property if it's not required. Throws an exception if
 	 * trying to erase a required property.
 	 *
-	 * @throws \businessObject\Exception If the property is required and cannot be erased.
+	 * @throws \businessObject\property\Exception If the property is required and cannot be erased.
 	 */
 	public function clear(): void
 	{
 		if ($this->required)
-			\businessObject\Error::PROPERTY_CANNOT_BE_ERASED->throw("Property cannot be erase as it is required.");
+			Error::PROPERTY_CANNOT_BE_ERASED->throw("Property cannot be erase as it is required.");
 		unset($this->valueOriginal);
 		unset($this->valueChanged);
 		$this->isInitialized = false;
@@ -206,13 +206,13 @@ abstract class Property
 	 * @param   mixed  $value  The value to initialize the property with.
 	 *
 	 * @return void
-	 * @throws \businessObject\Exception If the property is already initialized.
+	 * @throws \businessObject\property\Exception If the property is already initialized.
 	 *
 	 */
 	public function initialize(mixed $value): void
 	{
 		if ($this->isInitialized)
-			\businessObject\Error::PROPERTY_ALREADY_INITIALIZED->throw("Property already initialized.");
+			Error::PROPERTY_ALREADY_INITIALIZED->throw("Property already initialized.");
 		$this->valueOriginal = $value;
 		$this->isInitialized = true;
 		unset($this->valueChanged);
@@ -226,7 +226,7 @@ abstract class Property
 	 *
 	 * @param mixed $value The new value to set.
 	 *
-	 * @throws \businessObject\Exception If the value is not valid according to valueCheckOnSet.
+	 * @throws \businessObject\property\Exception If the value is not valid according to valueCheckOnSet.
 	 */
 	public function setValue(mixed $value): void
 	{
@@ -274,7 +274,7 @@ abstract class Property
 	 * otherwise the original value.
 	 *
 	 * @return mixed The current value of the property.
-	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function getValue(): mixed
 	{
@@ -288,7 +288,7 @@ abstract class Property
 	 * Gets the original value of the property.
 	 *
 	 * @return mixed The original value of the property.
-	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function getValueOriginal(): mixed
 	{
@@ -302,7 +302,7 @@ abstract class Property
 	 * Gets the changed value of the property if there is one.
 	 *
 	 * @return mixed The changed value of the property, or null if no change has been made.
-	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function getValueChanged(): mixed
 	{
@@ -320,7 +320,7 @@ abstract class Property
 	 * @param   \businessObject\PropertyObjectReferral  $referral  The PropertyObjectReferral instance to add to the referrals list.
 	 *
 	 * @return void
-	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function addReferral(\businessObject\PropertyObjectReferral $referral): void
 	{
@@ -336,7 +336,7 @@ abstract class Property
 	 * for understanding the dependencies and relationships this property has with other business objects.
 	 *
 	 * @return array An array of PropertyObjectReferral instances that are linked to this property.
-	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function getReferrals(): array
 	{
