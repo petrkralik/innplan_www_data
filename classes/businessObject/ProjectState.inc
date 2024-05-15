@@ -4,15 +4,11 @@
 namespace businessObject;
 
 
-use businessObject\Property\PropertyBool;
-use businessObject\Property\PropertyString;
-
-
 /**
  * Represents the state of a project.
  *
- * @property PropertyString $name
- * @property PropertyBool   $disabled
+ * @property \businessObject\property\PropertyString $name
+ * @property \businessObject\property\PropertyBool   $disabled
  *
  */
 class ProjectState extends BusinessObject
@@ -34,8 +30,8 @@ class ProjectState extends BusinessObject
 	#[\Override] function propertyList(): array
 	{
 		return [
-			"name"     => new PropertyString(),
-			"disabled" => new PropertyBool(F, T),
+			"name"     => new \businessObject\property\PropertyString(),
+			"disabled" => new \businessObject\property\PropertyBool(F, T),
 		];
 	}
 

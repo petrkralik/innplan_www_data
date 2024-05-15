@@ -4,15 +4,11 @@
 namespace businessObject;
 
 
-use businessObject\Property\PropertyBool;
-use businessObject\Property\PropertyString;
-
-
 /**
  * Represents a client entity.
  *
- * @property PropertyString $name
- * @property PropertyBool   $disabled
+ * @property \businessObject\property\PropertyString $name
+ * @property \businessObject\property\PropertyBool   $disabled
  */
 class Client extends BusinessObject
 {
@@ -23,24 +19,25 @@ class Client extends BusinessObject
 	 */
 	#[\Override] function apiUrlGet(): string
 	{
-		if (!$this->id)
+		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
-		return urlBaseAPI. "/v1/client/{$this->id}";
+
+		return urlBaseAPI."/v1/client/{$this->id}";
 	}
 
 
 	#[\Override] function propertyList(): array
 	{
 		return [
-			"name"     => new PropertyString(),
-			"disabled" => new PropertyBool(F, T),
+			"name"     => new \businessObject\property\PropertyString(),
+			"disabled" => new \businessObject\property\PropertyBool(F, T),
 		];
 	}
 
 
 	#[\Override] function apiUrlCreate(): string
 	{
-		return urlBaseAPI. "/v1/client/";
+		return urlBaseAPI."/v1/client/";
 	}
 
 

@@ -4,15 +4,11 @@
 namespace businessObject;
 
 
-use businessObject\Property\PropertyBool;
-use businessObject\Property\PropertyString;
-
-
 /**
  * Represents a Project role entity.
  *
- * @property PropertyString $name
- * @property PropertyBool   $disabled
+ * @property \businessObject\property\PropertyString $name
+ * @property \businessObject\property\PropertyBool   $disabled
  */
 class ProjectRole extends BusinessObject
 {
@@ -39,8 +35,8 @@ class ProjectRole extends BusinessObject
 	function propertyList(): array
 	{
 		return [
-			"name"     => new PropertyString(),
-			"disabled" => new PropertyBool(F, T),
+			"name"     => new \businessObject\property\PropertyString(),
+			"disabled" => new \businessObject\property\PropertyBool(F, T),
 		];
 	}
 

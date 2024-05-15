@@ -4,24 +4,19 @@
 namespace businessObject;
 
 
-use businessObject\Property\PropertyDate;
-use businessObject\Property\PropertyInt;
-use businessObject\Property\PropertyString;
-
-
 /**
  * Represents a Project within a business object model. This class extends the BusinessObject
  * class and includes properties and methods specific to a project entity.
  *
  * Attributes:
  *
- * @property PropertyString $name           Name of the project.
- * @property PropertyDate   $dateStart      The start date of the project.
- * @property PropertyDate   $dateEnd        The end date of the project.
- * @property PropertyInt    $projectStateId The unique identifier for the project state.
- * @property ProjectState   $projectState   An object representing the state of the project.
- * @property PropertyInt    $clientId       The unique identifier for the client associated with the project.
- * @property Client         $client         An object representing the client associated with the project.
+ * @property \businessObject\property\PropertyString $name           Name of the project.
+ * @property \businessObject\property\PropertyDate   $dateStart      The start date of the project.
+ * @property \businessObject\property\PropertyDate   $dateEnd        The end date of the project.
+ * @property \businessObject\property\PropertyInt    $projectStateId The unique identifier for the project state.
+ * @property ProjectState                            $projectState   An object representing the state of the project.
+ * @property \businessObject\property\PropertyInt    $clientId       The unique identifier for the client associated with the project.
+ * @property Client                                  $client         An object representing the client associated with the project.
  */
 class Project extends BusinessObject
 {
@@ -36,22 +31,22 @@ class Project extends BusinessObject
 	 */
 	#[\Override] public function apiUrlGet(): string
 	{
-		if (!$this->id)
+		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return urlBaseAPI . "/v1/project/{$this->id}";
+		return urlBaseAPI."/v1/project/{$this->id}";
 	}
 
 
 	/**
-	 * @throws Exception
+	 * @throws \businessObject\property\Exception|\businessObject\Exception
 	 */
 	public function apiUrlCreate(): string
 	{
-		if (!$this->clientId->isSet())
+		if (! $this->clientId->isSet())
 			Error::GENERAL->throw("Attribute clientId must be set");
 
-		return urlBaseAPI . "/v1/client/{$this->clientId->getValue()}/project/";
+		return urlBaseAPI."/v1/client/{$this->clientId->getValue()}/project/";
 	}
 
 
@@ -64,9 +59,10 @@ class Project extends BusinessObject
 	#[\Override] public function propertyListForCreation(): array
 	{
 		$requiredPropertiesForCreate = [];
-		foreach ($this->properties as $propertyName => $propertyObject)
+		foreach ($this->properties as $propertyName => $propertyObject) {
 			if ($propertyName !== 'clientId')
 				$requiredPropertiesForCreate[$propertyName] = $propertyObject;
+		}
 
 		return $requiredPropertiesForCreate;
 	}
@@ -80,17 +76,17 @@ class Project extends BusinessObject
 	 */
 	#[\Override] public function propertyList(): array
 	{
-		$propProjectStateId = new PropertyInt(minimum: 1);
-		$propClientId = new PropertyInt(minimum: 1);
+		$propProjectStateId = new \businessObject\property\PropertyInt(minimum: 1);
+		$propClientId = new \businessObject\property\PropertyInt(minimum: 1);
 
 		return [
-			"name" => new PropertyString(),
-			"dateStart" => new PropertyDate(F, T),
-			"dateEnd" => new PropertyDate(F, T),
+			"name"           => new \businessObject\property\PropertyString(),
+			"dateStart"      => new \businessObject\property\PropertyDate(F, T),
+			"dateEnd"        => new \businessObject\property\PropertyDate(F, T),
 			"projectStateId" => $propProjectStateId,
-			"projectState" => new PropertyObjectReferral($propProjectStateId, __NAMESPACE__ . "\ProjectState"),
-			"clientId" => $propClientId,
-			"client" => new PropertyObjectReferral($propClientId, __NAMESPACE__ . "\Client")
+			"projectState"   => new PropertyObjectReferral($propProjectStateId, __NAMESPACE__."\ProjectState"),
+			"clientId"       => $propClientId,
+			"client"         => new PropertyObjectReferral($propClientId, __NAMESPACE__."\Client"),
 		];
 	}
 
