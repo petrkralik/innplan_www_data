@@ -98,6 +98,7 @@ abstract class BusinessObject extends \World
 	 *                   if a required property is not set, if the API call is unsuccessful,
 	 *                   or if the API response does not include an ID for the newly created object.
 	 * @throws \iw\api\Exception Throws an exception if the object already has an ID (indicating it exists),
+	 * @throws \businessObject\property\Exception
 	 *                   if a required property is not set, if the API call is unsuccessful,
 	 *                   or if the API response does not include an ID for the newly created object.
 	 */
@@ -182,6 +183,7 @@ abstract class BusinessObject extends \World
 	 *               value formatted for the API request. This array is used as the payload in the API call
 	 *               to create or update the object.
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	private function createCollectData(): array
 	{
@@ -202,9 +204,10 @@ abstract class BusinessObject extends \World
 	 * This method iterates over each entry in the array, where the key represents the property name
 	 * and the value represents the value to be set for that property.
 	 *
-	 * @param array $attributes Associative array of property names and values to be set.
+	 * @param   array  $attributes  Associative array of property names and values to be set.
 	 *
 	 * @throws Exception if the property does not exist or if the value is not valid for the property type.
+	 * @throws \businessObject\property\Exception
 	 */
 	public function setAttributes(array $attributes): void
 	{
@@ -238,7 +241,7 @@ abstract class BusinessObject extends \World
 	 * @param string $propertyName The name of the property to access.
 	 *
 	 * @return Property|BusinessObject The value of the requested property.
-	 * @throws Exception If the property is not defined or cannot be accessed.
+	 * @throws Exception|\businessObject\property\Exception If the property is not defined or cannot be accessed.
 	 */
 	public function __get(string $propertyName): Property|BusinessObject
 	{
@@ -253,7 +256,7 @@ abstract class BusinessObject extends \World
 	 * @param string $propertyName The name of the property to set.
 	 * @param mixed  $value        The value to set to the property.
 	 *
-	 * @throws Exception If the property is not defined or the value is invalid.
+	 * @throws Exception|\businessObject\property\Exception If the property is not defined or the value is invalid.
 	 */
 	public function __set(string $propertyName, mixed $value): void
 	{
@@ -336,6 +339,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @throws \iw\api\Exception If the API call fails.
 	 * @throws Exception If the response status code is not successful.
+	 * @throws \businessObject\property\Exception
 	 */
 	private function loadDataFromAPI(): void
 	{
@@ -378,7 +382,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param \stdClass $body The response from the API containing the data.
 	 *
-	 * @throws \businessObject\Exception If there is an issue with setting the property values.
+	 * @throws \businessObject\Exception|\businessObject\property\Exception If there is an issue with setting the property values.
 	 */
 	public function apiResultMapData(\stdClass $body): void
 	{
@@ -395,7 +399,7 @@ abstract class BusinessObject extends \World
 	 * @param string $propertyName The name of the property to set.
 	 * @param mixed  $value        The value to set for the property.
 	 *
-	 * @throws Exception If the property does not exist or the value is not valid.
+	 * @throws Exception|\businessObject\property\Exception If the property does not exist or the value is not valid.
 	 */
 	public function setProperty(string $propertyName, mixed $value): void
 	{
@@ -422,10 +426,11 @@ abstract class BusinessObject extends \World
 	 * Retrieves the Property object for a given property name. This method is used to access
 	 * the Property object associated with a specific property of the business object.
 	 *
-	 * @param string $propertyName The name of the property to retrieve.
+	 * @param   string  $propertyName  The name of the property to retrieve.
 	 *
 	 * @return Property|BusinessObject The Property object associated with the given property name.
 	 * @throws Exception If the property name is not registered in the object.
+	 * @throws \businessObject\property\Exception
 	 */
 	public function getProperty(string $propertyName): Property|BusinessObject
 	{
@@ -439,9 +444,10 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @param Property $property
+	 * @param   Property  $property
 	 *
 	 * @return Property|BusinessObject
+	 * @throws \businessObject\property\Exception
 	 */
 	private function getPropertyConverted(Property $property): Property|BusinessObject
 	{

@@ -67,6 +67,7 @@ class WorkTypeNew extends Page2Columns
 	 * @throws \iw\api\Exception
 	 * @throws \iw\page\html\form\Exception
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function formSave(): bool
 	{
