@@ -47,6 +47,7 @@ class WorkTypeList extends Page2Columns {
 	/**
 	 * @throws \businessObject\Exception
 	 * @throws \iw\api\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	private function init(): void
 	{
@@ -66,21 +67,17 @@ class WorkTypeList extends Page2Columns {
      * @throws \iw\table\Exception
      * @throws \businessObject\property\Exception
      */
-	private function contentResourceList()
+	private function contentResourceList(): \iw\page\html\TableDecorator
 	{
         $t= new \iw\table\Table();
-        $t->addField("id", function ($value): bool {return is_int($value);});
+        $t->addField("id");
         $t->addField("název");
         $t->addField("akce");
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
-		foreach ($this->workTypes as $workType) {
+		foreach ($this->workTypes as $workType)
             $t->addRow($workType->id, $workType->name->getValue(), null);
-			$e->append($this->contentResource($workType));
-		}
 
-        $e= new \iw\page\html\TableDecorator($this->dom, $t);
-
-		return $e;
+        return new \iw\page\html\TableDecorator($this->dom, $t);
 	}
 
 
@@ -88,19 +85,6 @@ class WorkTypeList extends Page2Columns {
 	{
 		return $this->dom->div([\iw\html::A_CLASS => "noContentMessage"], "v seznamu nejsou žádné typy práce");
 	}
-
-
-    /**
-     * @throws \businessObject\property\Exception
-     */
-    private function contentResource(\businessObject\WorkType $workType): \iw\dom\Element
-	{
-		return $this->dom->div(
-			[\iw\html::A_CLASS=> "workType"],
-			"#{$workType->id}: {$workType->name->getValue()}"
-		);
-	}
-
 
 
 }
