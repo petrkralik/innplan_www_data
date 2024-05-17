@@ -66,7 +66,7 @@ class WorkTypeList extends Page2Columns {
      * @throws \iw\table\Exception
      * @throws \businessObject\property\Exception
      */
-	private function contentResourceList(): \iw\dom\Element
+	private function contentResourceList()
 	{
         $t= new \iw\table\Table();
         $t->addField("id", function ($value): bool {return is_int($value);});
@@ -78,7 +78,7 @@ class WorkTypeList extends Page2Columns {
 			$e->append($this->contentResource($workType));
 		}
 
-        $e->append($t);
+        $e= new \iw\page\html\TableDecorator($this->dom, $t);
 
 		return $e;
 	}
