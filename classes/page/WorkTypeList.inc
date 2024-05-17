@@ -61,13 +61,20 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
-	/**
-	 * @throws \iw\dom\Exception
-	 */
+    /**
+     * @throws \iw\dom\Exception
+     * @throws \iw\table\Exception
+     * @throws \businessObject\property\Exception
+     */
 	private function contentResourceList(): \iw\dom\Element
 	{
+        $t= new \iw\table\Table();
+        $t->addField("id", function ($value): bool {return false;});
+        $t->addField("název");
+        $t->addField("akce");
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
 		foreach ($this->workTypes as $resource) {
+            $t->addRow("aaa");
 			$e->append($this->contentResource($resource));
 		}
 
@@ -81,7 +88,10 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
-	private function contentResource(\businessObject\WorkType $workType): \iw\dom\Element
+    /**
+     * @throws \businessObject\property\Exception
+     */
+    private function contentResource(\businessObject\WorkType $workType): \iw\dom\Element
 	{
 		return $this->dom->div(
 			[\iw\html::A_CLASS=> "workType"],
