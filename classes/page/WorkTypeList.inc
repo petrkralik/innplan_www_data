@@ -69,14 +69,16 @@ class WorkTypeList extends Page2Columns {
 	private function contentResourceList(): \iw\dom\Element
 	{
         $t= new \iw\table\Table();
-        $t->addField("id", function ($value): bool {var_dump($value); return is_int($value);});
+        $t->addField("id", function ($value): bool {return is_int($value);});
         $t->addField("název");
         $t->addField("akce");
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
 		foreach ($this->workTypes as $workType) {
-            $t->addRow(1, $workType->name->getValue(), null);
+            $t->addRow($workType->id, $workType->name->getValue(), null);
 			$e->append($this->contentResource($workType));
 		}
+
+        $e= $t;
 
 		return $e;
 	}
