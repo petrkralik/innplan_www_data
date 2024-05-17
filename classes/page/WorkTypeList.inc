@@ -69,7 +69,7 @@ class WorkTypeList extends Page2Columns {
 	private function contentResourceList(): \iw\dom\Element
 	{
         $t= new \iw\table\Table();
-        $t->addField("id", function ($value): bool {return is_int($value);});
+        $t->addField("id");//, function ($value): bool {return is_int($value);});
         $t->addField("název");
         $t->addField("akce");
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
