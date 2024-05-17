@@ -73,9 +73,9 @@ class WorkTypeList extends Page2Columns {
         $t->addField("název");
         $t->addField("akce");
 		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
-		foreach ($this->workTypes as $resource) {
-            $t->addRow(1);
-			$e->append($this->contentResource($resource));
+		foreach ($this->workTypes as $workType) {
+            $t->addRow(1, $workType->name->getValue(), null);
+			$e->append($this->contentResource($workType));
 		}
 
 		return $e;
