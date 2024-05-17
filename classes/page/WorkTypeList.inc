@@ -78,7 +78,7 @@ class WorkTypeList extends Page2Columns {
 			$e->append($this->contentResource($workType));
 		}
 
-        $e= $t;
+        $e->append($t);
 
 		return $e;
 	}
