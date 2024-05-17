@@ -187,7 +187,7 @@ class WorkTypeNew extends Page2Columns
     #[NoReturn]
     public function onSaveSuccess(): void
     {
-        $this->dom->redirect(urlBasePage . "/workType");
+        $this->dom->redirect(urlBasePage . "/workType/list");
     }
 
 
