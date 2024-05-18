@@ -67,17 +67,29 @@ class WorkTypeList extends Page2Columns {
      * @throws \iw\table\Exception
      * @throws \businessObject\property\Exception
      */
-	private function contentResourceList(): \iw\page\html\TableDecorator
+	private function contentResourceList(): \iw\page\html\arrayDecorator\ArrayDecorator
 	{
-        $t= new \iw\table\Table();
-        $t->addField("id");
-        $t->addField("název");
-        $t->addField("akce");
-		$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
-		foreach ($this->workTypes as $workType)
-            $t->addRow($workType->id, $workType->name->getValue(), null);
+        //$t= new \iw\table\Table();
+        //$t->addField("id");
+        //$t->addField("název");
+        //$t->addField("akce");
+		//$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
+		$data= [];
+		foreach ($this->workTypes as $workType) {
+			$data[]= [
+				$workType->id,
+				$workType->name->getValue(),
+				$this->workTypeActions($workType)
+			];
+		}
 
-        return new \iw\page\html\TableDecorator($this->dom, $t);
+        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data);
+	}
+
+
+	private function workTypeActions(\businessObject\WorkType $workType): mixed
+	{
+		return null;
 	}
 
 
