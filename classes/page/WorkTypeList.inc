@@ -69,7 +69,7 @@ class WorkTypeList extends Page2Columns {
      */
 	private function contentResourceList(): \iw\page\html\arrayDecorator\ArrayDecorator
 	{
-		$data= ["id", "název", "akce"];
+		$data= [["id", "název", "akce"]];
 		foreach ($this->workTypes as $workType) {
 			$data[]= [
 				$workType->id,
