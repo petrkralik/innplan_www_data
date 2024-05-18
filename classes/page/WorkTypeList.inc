@@ -69,12 +69,7 @@ class WorkTypeList extends Page2Columns {
      */
 	private function contentResourceList(): \iw\page\html\arrayDecorator\ArrayDecorator
 	{
-        //$t= new \iw\table\Table();
-        //$t->addField("id");
-        //$t->addField("název");
-        //$t->addField("akce");
-		//$e= $this->dom->div([\iw\html::A_CLASS=> "workTypes"]);
-		$data= [];
+		$data= ["id", "název", "akce"];
 		foreach ($this->workTypes as $workType) {
 			$data[]= [
 				$workType->id,
