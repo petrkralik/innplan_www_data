@@ -78,7 +78,7 @@ class WorkTypeList extends Page2Columns {
 			];
 		}
 
-        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data);
+        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, flags: \iw\page\html\arrayDecorator\ArrayDecorator::HEADER_ROW);
 	}
 
 
