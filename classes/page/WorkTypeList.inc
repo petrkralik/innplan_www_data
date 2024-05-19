@@ -16,6 +16,8 @@ class WorkTypeList extends Page2Columns {
 	 * @throws \iw\api\Exception
 	 * @throws \iw\dom\Exception
 	 * @throws \DOMException
+	 * @throws \businessObject\property\Exception
+	 * @throws \iw\table\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{

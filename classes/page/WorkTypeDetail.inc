@@ -13,7 +13,7 @@ class WorkTypeDetail extends Page2Columns
 
 	function getContentMain(): ?\iw\dom\Element
 	{
-		var_dump($this->uriMatches);
+		$this->workType= new \businessObject\WorkType($this->uriMatches[1]);
 		return $this->dom->div();
 	}
 
