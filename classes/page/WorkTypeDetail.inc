@@ -46,6 +46,8 @@ class WorkTypeDetail extends Page2Columns
 	{
 		if($row== 0 && $col== 1)
 			$value= $value ?? "bez popisu";
+		if($row== 2 && $col== 1)
+			$value= $value? "ano": "ne";
 	}
 
 
