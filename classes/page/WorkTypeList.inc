@@ -78,7 +78,13 @@ class WorkTypeList extends Page2Columns {
 			];
 		}
 
-        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, flags: \iw\page\html\arrayDecorator\ArrayDecorator::HEADER_ROW);
+        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "aaa"], flags: \iw\page\html\arrayDecorator\ArrayDecorator::HEADER_ROW);
+	}
+
+
+	public function aaa($rowIndex, $cellIndex, &$value): void
+	{
+		echo $value;
 	}
 
 
