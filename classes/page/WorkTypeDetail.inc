@@ -13,7 +13,6 @@ class WorkTypeDetail extends Page2Columns
 
 
 	/**
-	 * @throws \businessObject\Exception
 	 * @throws \businessObject\property\Exception
 	 * @throws \iw\dom\Exception
 	 */
@@ -31,9 +30,13 @@ class WorkTypeDetail extends Page2Columns
 		catch (\businessObject\Exception $ex) {
 			$e->append($this->domObjectLoadError());
 		}
-
 		$e->append($this->dom->h2(N, $this->workType->name->getValue()));
-		$e->append($this->dom->p(N, $this->workType->workTypeSeniorityId->getValue()));
+		$data= [
+				["popis", null],
+				["seniorita", $this->workType->workTypeSeniorityId->getValue()],
+				["uzamčeno", $this->workType->disabled->getValue()],
+			];
+		$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data));
 
 		return $e;
 	}
