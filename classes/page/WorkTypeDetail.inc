@@ -14,6 +14,8 @@ class WorkTypeDetail extends Page2Columns
 
 	/**
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 * @throws \iw\dom\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
@@ -28,8 +30,11 @@ class WorkTypeDetail extends Page2Columns
 		}
 		catch (\businessObject\Exception $ex) {
 			$e->append($this->domObjectLoadError());
-			throw $ex;
 		}
+
+		$e->append($this->dom->h2(N, $this->workType->name->getValue()));
+		$e->append($this->dom->p(N, $this->workType->workTypeSeniorityId->getValue()));
+
 		return $e;
 	}
 

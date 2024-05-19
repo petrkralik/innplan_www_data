@@ -10,6 +10,7 @@ namespace businessObject;
  * Represents a Work Type entity.
  *
  * @property \businessObject\property\PropertyString $name
+ * @property \businessObject\property\PropertyInt $workTypeSeniorityId
  * @property \businessObject\property\PropertyBool $disabled
  */
 class WorkType extends BusinessObject
