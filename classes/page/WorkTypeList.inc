@@ -78,19 +78,16 @@ class WorkTypeList extends Page2Columns {
 			];
 		}
 
-        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "aaa"], flags: \iw\page\html\arrayDecorator\ArrayDecorator::HEADER_ROW);
-	}
-
-
-	public function aaa($rowIndex, $cellIndex, &$value): void
-	{
-		$value= "aaa";
+        return new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, flags: \iw\page\html\arrayDecorator\ArrayDecorator::HEADER_ROW);
 	}
 
 
 	private function workTypeActions(\businessObject\WorkType $workType): mixed
 	{
-		return null;
+		return [
+			$this->dom->a(N, urlBasePage. "/workType/{$workType->id}/edit", "upravit"),
+			$this->dom->a(N, urlBasePage. "/workType/{$workType->id}/delete", "smazat")
+		];
 	}
 
 
