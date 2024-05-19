@@ -18,25 +18,25 @@ class WorkTypeDetail extends Page2Columns
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
-		$this->workTypeId= $this->uriMatches[1];
-		$e= $this->dom->div(
+		$this->workTypeId = $this->uriMatches[1];
+		$e = $this->dom->div(
 			N,
 			$this->dom->h1(N, "detail typu práce")
 		);
-		$this->workType= new \businessObject\WorkType($this->workTypeId);
+		$this->workType = new \businessObject\WorkType($this->workTypeId);
 		try {
 			$this->workType->loadData();
-		}
-		catch (\businessObject\Exception $ex) {
-			$e->append($this->domObjectLoadError());
-		}
-		$e->append($this->dom->h2(N, $this->workType->name->getValue()));
-		$data= [
+			$e->append($this->dom->h2(N, $this->workType->name->getValue()));
+			$data = [
 				["popis", null],
 				["seniorita", $this->workType->workTypeSeniorityId->getValue()],
 				["uzamčeno", $this->workType->disabled->getValue()],
 			];
-		$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "tableDataCallback"]));
+			$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "tableDataCallback"]));
+		} catch (\businessObject\Exception $ex) {
+			$e->append($this->domObjectLoadError());
+		}
+
 
 		return $e;
 	}
@@ -44,17 +44,17 @@ class WorkTypeDetail extends Page2Columns
 
 	public function tableDataCallback($row, $col, &$value): void
 	{
-		if($row== 0 && $col== 1)
-			$value= $value ?? "bez popisu";
-		if($row== 2 && $col== 1)
-			$value= $value? "ano": "ne";
+		if ($row == 0 && $col == 1)
+			$value = $value ?? "bez popisu";
+		if ($row == 2 && $col == 1)
+			$value = $value ? "ano" : "ne";
 	}
 
 
 	private function domObjectLoadError(): \iw\dom\Element
 	{
 		return $this->dom->p(
-			[\iw\html::A_CLASS=> "error"],
+			[\iw\html::A_CLASS => "error"],
 			"nepodařilo se najít, nebo nahrát data objektu"
 		);
 	}
