@@ -28,6 +28,7 @@ class WorkTypeDetail extends Page2Columns
 		}
 		catch (\businessObject\Exception $ex) {
 			$e->append($this->domObjectLoadError());
+			throw $ex;
 		}
 		return $e;
 	}
