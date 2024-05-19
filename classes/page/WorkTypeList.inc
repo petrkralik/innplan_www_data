@@ -62,18 +62,19 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
-    /**
-     * @throws \iw\dom\Exception
-     * @throws \iw\table\Exception
-     * @throws \businessObject\property\Exception
-     */
+	/**
+	 * @throws \iw\dom\Exception
+	 * @throws \iw\table\Exception
+	 * @throws \businessObject\property\Exception
+	 * @throws \DOMException
+	 */
 	private function contentResourceList(): \iw\page\html\arrayDecorator\ArrayDecorator
 	{
 		$data= [["id", "název", "akce"]];
 		foreach ($this->workTypes as $workType) {
 			$data[]= [
 				$workType->id,
-				$workType->name->getValue(),
+				$this->dom->a(N, urlBasePage. "/workType/{$workType->id}", $workType->name->getValue()),
 				$this->workTypeActions($workType)
 			];
 		}
@@ -82,6 +83,9 @@ class WorkTypeList extends Page2Columns {
 	}
 
 
+	/**
+	 * @throws \DOMException
+	 */
 	private function workTypeActions(\businessObject\WorkType $workType): mixed
 	{
 		return [
