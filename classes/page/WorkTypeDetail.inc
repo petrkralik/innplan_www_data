@@ -36,9 +36,16 @@ class WorkTypeDetail extends Page2Columns
 				["seniorita", $this->workType->workTypeSeniorityId->getValue()],
 				["uzamčeno", $this->workType->disabled->getValue()],
 			];
-		$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data));
+		$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "tableDataCallback"]));
 
 		return $e;
+	}
+
+
+	public function tableDataCallback($row, $col, &$value): void
+	{
+		if($row== 0 && $col== 1)
+			$value= $value ?? "bez popisu";
 	}
 
 
