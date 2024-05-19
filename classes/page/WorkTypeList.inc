@@ -84,7 +84,7 @@ class WorkTypeList extends Page2Columns {
 
 	public function aaa($rowIndex, $cellIndex, &$value): void
 	{
-		echo $value;
+		$value= "aaa";
 	}
 
 
