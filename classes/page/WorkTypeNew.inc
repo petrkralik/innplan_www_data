@@ -163,6 +163,7 @@ class WorkTypeNew extends Page2Columns
      */
     private function formNewComponentDescription(): \iw\page\html\form\component\Textarea
     {
+		echo "new component textarea";
         return new \iw\page\html\form\component\Textarea(
             "{$this->formId}_description"
         );
