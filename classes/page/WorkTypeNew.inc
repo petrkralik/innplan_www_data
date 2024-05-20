@@ -98,7 +98,7 @@ class WorkTypeNew extends Page2Columns
             N
         );
         $this->form->components->addComponent($this->formNewComponentName());
-		$this->form->components->addComponent($this->formNewComponentDescription());
+		$this->form->components->addComponent($this->formNewComponentName());
         $this->form->components->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
     }
 
