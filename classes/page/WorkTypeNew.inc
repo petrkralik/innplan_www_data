@@ -125,6 +125,19 @@ class WorkTypeNew extends Page2Columns
         $eName = $this->form->components->getComponent($this->formId . "_name");
 		$eDescription= $this->form->components->getComponent($this->formId . "_description");
 
+		$table= [
+			["název", $eName],
+			["popis", $eDescription],
+			["seniorita", null],
+			["uzamčeno", null],
+			[null, $this->form->components->getComponent($this->formId . "_submit")]
+		];
+
+		return [
+				new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $table),
+				$this->form->getInnerIdComponent()
+			];
+
         return $this->dom->div(
             [
                 \iw\html::A_CLASS => "formContent"
@@ -198,9 +211,7 @@ class WorkTypeNew extends Page2Columns
      * On success, this method redirects the user to the base work type page.
      *
      * @return void
-     * @throws \iw\dom\Exception if there is an error redirecting
-     *
-     */
+	 */
     #[NoReturn]
     public function onSaveSuccess(): void
     {
