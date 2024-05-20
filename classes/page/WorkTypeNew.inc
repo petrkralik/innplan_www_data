@@ -98,8 +98,9 @@ class WorkTypeNew extends Page2Columns
             N
         );
         $this->form->components->addComponent($this->formNewComponentName());
-		$this->form->components->addComponent($this->formNewComponentName());
+		$this->form->components->addComponent($this->formNewComponentDescription());
         $this->form->components->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
+		echo $this->form->components->componentsCount(). LF;
     }
 
 
@@ -151,7 +152,7 @@ class WorkTypeNew extends Page2Columns
             validator: function ($value) {
                 return $this->validateInputName($value);
             },
-            size: 60
+            size: 50
         );
     }
 
@@ -163,7 +164,6 @@ class WorkTypeNew extends Page2Columns
      */
     private function formNewComponentDescription(): \iw\page\html\form\component\Textarea
     {
-		echo "new component textarea";
         return new \iw\page\html\form\component\Textarea(
             "{$this->formId}_description"
         );
