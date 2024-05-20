@@ -169,6 +169,7 @@ class WorkTypeNew extends Page2Columns
     }
 
 
+
     /**
      * Saves the form. Operation is stubbed out in this method.
      *
