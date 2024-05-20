@@ -100,7 +100,6 @@ class WorkTypeNew extends Page2Columns
         $this->form->components->addComponent($this->formNewComponentName());
 		$this->form->components->addComponent($this->formNewComponentDescription());
         $this->form->components->addComponent(new \iw\page\html\form\component\Submit("{$this->formId}_submit", "zapsat"));
-		echo $this->form->components->componentsCount(). LF;
     }
 
 
@@ -124,6 +123,7 @@ class WorkTypeNew extends Page2Columns
     public function formOnGetContent(): \iw\dom\Element
     {
         $eName = $this->form->components->getComponent($this->formId . "_name");
+		$eDescription= $this->form->components->getComponent($this->formId . "_description");
 
         return $this->dom->div(
             [
@@ -133,6 +133,7 @@ class WorkTypeNew extends Page2Columns
                 [\iw\html::A_CLASS => "formItem"],
                 $this->dom->div([\iw\html::A_CLASS => "title"], "název"),
                 $this->dom->div([\iw\html::A_CLASS => "input"], $eName, $this->componentError($eName)),
+				$this->dom->div([\iw\html::A_CLASS, "textarea"], $eDescription, $this->componentError($eDescription)),
                 $this->form->getInnerIdComponent(),
                 $this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->components->getComponent($this->formId . "_submit"))
             )
