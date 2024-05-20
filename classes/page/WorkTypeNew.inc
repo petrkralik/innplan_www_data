@@ -114,13 +114,13 @@ class WorkTypeNew extends Page2Columns
      * content are attached. For instance, the 'input' section receives the form component itself and any associated errors
      * as its content.
      *
-     * @return \iw\dom\Element A Dom element encapsulating the entire form content along with its associated errors and submit button.
+     * @return mixed
      *
      * @throws \iw\page\html\form\Exception if there is an error fetching a component from the form.
      * @throws \iw\dom\Exception If there is an error with DOM manipulation
      * @throws \Random\RandomException
      */
-    public function formOnGetContent(): \iw\dom\Element
+    public function formOnGetContent(): mixed
     {
         $eName = $this->form->components->getComponent($this->formId . "_name");
 		$eDescription= $this->form->components->getComponent($this->formId . "_description");
