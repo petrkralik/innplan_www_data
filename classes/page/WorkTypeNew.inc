@@ -126,7 +126,7 @@ class WorkTypeNew extends Page2Columns
 		$eDescription= $this->form->components->getComponent($this->formId . "_description");
 
 		$table= [
-			["název", $eName],
+			["název", [$eName, $this->componentError($eName)]],
 			["popis", $eDescription],
 			["seniorita", null],
 			["uzamčeno", null],
@@ -137,20 +137,6 @@ class WorkTypeNew extends Page2Columns
 				new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $table),
 				$this->form->getInnerIdComponent()
 			];
-
-        return $this->dom->div(
-            [
-                \iw\html::A_CLASS => "formContent"
-            ],
-            $this->dom->div(
-                [\iw\html::A_CLASS => "formItem"],
-                $this->dom->div([\iw\html::A_CLASS => "title"], "název"),
-                $this->dom->div([\iw\html::A_CLASS => "input"], $eName, $this->componentError($eName)),
-				$this->dom->div([\iw\html::A_CLASS => "textarea"], $eDescription, $this->componentError($eDescription)),
-                $this->form->getInnerIdComponent(),
-                $this->dom->div([\iw\html::A_CLASS => "submit"], $this->form->components->getComponent($this->formId . "_submit"))
-            )
-        );
     }
 
 
