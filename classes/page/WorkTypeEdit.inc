@@ -15,6 +15,7 @@ class WorkTypeEdit extends Page2Columns
 
 	function getContentMain(): ?\iw\dom\Element
 	{
+		$this->loadObject();
 		$this->buildForm();
 		return $this->dom->div(N, "Edit");
 	}
@@ -36,15 +37,82 @@ class WorkTypeEdit extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \businessObject\property\Exception
+	 */
+	private function getFormComponentName(): \iw\page\html\form\component\Component
+	{
+		if($this->form->components->componentExists($this->getFormComponentNameName()))
+			$this->form->components->addComponent(new \iw\page\html\form\component\Text(
+					$this->getFormComponentNameName(),
+					validator: [$this, "formComponentNameValidator"],
+					value: $this->workType->name->getValue(),
+					size: 50
+				));
+
+		return $this->form->components->getComponent($this->getFormComponentNameName());
+	}
+
+
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \businessObject\property\Exception
+	 */
+	private function getFormComponentDescription(): \iw\page\html\form\component\Component
+	{
+		if($this->form->components->componentExists($this->getFormComponentNameName()))
+			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
+					$this->getFormComponentDescriptionName(),
+					value: $this->workType->description->getValue()
+				));
+
+		return $this->form->components->getComponent($this->getFormComponentNameName());
+	}
+
+
+	public function formComponentNameValidator(string $value): true|\iw\page\html\form\component\EntryError
+	{
+		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : T;
+	}
+
+
+	private function getFormComponentNameName(): string
+	{
+		return $this->formId. "_name";
+	}
+
+
+	private function getFormComponentDescriptionName(): string
+	{
+		return $this->formId . "_description";
+	}
+
+
 	private function getWorkTypeId(): int
 	{
 		return $this->workTypeId= (int)$this->uriMatches[1];
 	}
 
 
+	/**
+	 * @throws \businessObject\property\Exception
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\dom\Exception
+	 * @throws \Random\RandomException
+	 */
 	public function formOnGetContent(): mixed
 	{
-		return null;
+		$table= [
+			["název", [$this->getFormComponentName(), $this->componentError($this->getFormComponentName())]],
+			["popis", [$this->getFormComponentDescription(), $this->componentError($this->getFormComponentDescription())]],
+			[]
+		];
+
+		return [
+			new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $table),
+			$this->form->getInnerIdComponent()
+		];
 	}
 
 
@@ -59,5 +127,29 @@ class WorkTypeEdit extends Page2Columns
 		// code here
 	}
 
-	
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	private function loadObject(): void
+	{
+		$this->workType = new \businessObject\WorkType($this->getWorkTypeId());
+    	$this->workType->loadData();
+	}
+
+
+	/**
+	 * @throws \iw\dom\Exception
+	 */
+	private function componentError(\iw\page\html\form\component\Component $component): ?\iw\dom\Element
+	{
+		if (!$component->onError)
+			return null;
+		$e = $this->dom->div([\iw\html::A_CLASS => "errs"]);
+		foreach ($component->errorsIterator() as $error)
+			$e->append($this->dom->div([\iw\html::A_CLASS => "err"], $error->message));
+
+		return $e;
+	}
+
+
 }
