@@ -33,7 +33,7 @@ class WorkTypeNew extends Page2Columns
      * Identifier for the form
      * @var string
      */
-    private string $formId = "workTypeNewForm";
+    private string $formId = "workTypeFormNew";
 
 
     /**
