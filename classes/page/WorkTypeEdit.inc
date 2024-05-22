@@ -54,7 +54,7 @@ class WorkTypeEdit extends Page2Columns
 	 */
 	private function getFormComponentName(): \iw\page\html\form\component\Component
 	{
-		if($this->form->components->componentExists($this->getFormComponentNameName()))
+		if(!$this->form->components->componentExists($this->getFormComponentNameName()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Text(
 					$this->getFormComponentNameName(),
 					validator: [$this, "formComponentNameValidator"],
@@ -72,7 +72,7 @@ class WorkTypeEdit extends Page2Columns
 	 */
 	private function getFormComponentDescription(): \iw\page\html\form\component\Component
 	{
-		if($this->form->components->componentExists($this->getFormComponentNameName()))
+		if(!$this->form->components->componentExists($this->getFormComponentNameName()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
 					$this->getFormComponentDescriptionName(),
 					value: $this->workType->description->getValue()
