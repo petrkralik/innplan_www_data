@@ -24,7 +24,7 @@ class WorkTypeEdit extends Page2Columns
 		$this->form= new \iw\page\html\form\Form(
 			$this->dom,
 			$this->formId,
-			urlBasePage. "/workType/{$this->workTypeId}/edit/save",
+			urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save",
 			[$this, "formOnGetContent"],
 			[$this, "formOnSave"],
 			null,
