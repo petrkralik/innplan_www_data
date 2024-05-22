@@ -9,7 +9,7 @@ class WorkTypeEdit extends Page2Columns
 
 	function getContentMain(): ?\iw\dom\Element
 	{
-		// TODO: Implement getContentMain() method.
+		return $this->dom->div(N, "Edit");
 	}
 
 
