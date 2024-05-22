@@ -75,7 +75,9 @@ class WorkTypeEdit extends Page2Columns
 		if(!$this->form->components->componentExists($this->getFormComponentDescriptionName()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
 					$this->getFormComponentDescriptionName(),
-					value: $this->workType->description->getValue()
+					value: $this->workType->description->getValue(),
+					cols: 50,
+					rows: 8
 				));
 
 		return $this->form->components->getComponent($this->getFormComponentDescriptionName());
