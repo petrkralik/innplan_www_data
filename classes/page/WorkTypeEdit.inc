@@ -13,11 +13,22 @@ class WorkTypeEdit extends Page2Columns
 	private int $workTypeId;
 
 
+	/**
+	 * @throws \businessObject\Exception
+	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$this->loadObject();
 		$this->buildForm();
-		return $this->dom->div(N, "Edit");
+		$showForm = true;
+
+		return $this->dom->div(
+			[
+				\iw\html::A_CLASS => "workTypeNew"
+			],
+			$this->dom->h1(N, "úprava typu práce"),
+			$showForm ? $this->form : N
+		);
 	}
 
 	private function buildForm(): void
