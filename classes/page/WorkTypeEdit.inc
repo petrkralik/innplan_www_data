@@ -72,13 +72,13 @@ class WorkTypeEdit extends Page2Columns
 	 */
 	private function getFormComponentDescription(): \iw\page\html\form\component\Component
 	{
-		if(!$this->form->components->componentExists($this->getFormComponentNameName()))
+		if(!$this->form->components->componentExists($this->getFormComponentDescriptionName()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
 					$this->getFormComponentDescriptionName(),
 					value: $this->workType->description->getValue()
 				));
 
-		return $this->form->components->getComponent($this->getFormComponentNameName());
+		return $this->form->components->getComponent($this->getFormComponentDescriptionName());
 	}
 
 
