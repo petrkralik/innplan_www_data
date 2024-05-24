@@ -76,7 +76,7 @@ class WorkTypeEdit extends Page2Columns
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
 					$this->getFormComponentDescriptionName(),
 					value: $this->workType->description->getValue(),
-					cols: 45,
+					cols: 47,
 					rows: 8
 				));
 
@@ -84,9 +84,34 @@ class WorkTypeEdit extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\page\html\form\component\Exception
+	 */
+	private function getFormComponentSeniority(): \iw\page\html\form\component\Component
+	{
+		if(!$this->form->components->componentExists($this->getFormComponentSeniorityName())) {
+			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
+				$this->getFormComponentSeniorityName(),
+				optionSet: new \iw\page\html\form\component\OptionSet(
+					new \iw\page\html\form\component\Option("1", "Junior")
+				)
+			));
+		}
+
+		return $this->form->components->getComponent($this->getFormComponentSeniorityName());
+	}
+
+
 	public function formComponentNameValidator(string $value): true|\iw\page\html\form\component\EntryError
 	{
 		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : T;
+	}
+
+
+	private function getFormComponentSeniorityName(): string
+	{
+		return $this->formId . "_seniority";
 	}
 
 
@@ -113,13 +138,14 @@ class WorkTypeEdit extends Page2Columns
 	 * @throws \iw\page\html\form\Exception
 	 * @throws \iw\dom\Exception
 	 * @throws \Random\RandomException
+	 * @throws \iw\page\html\form\component\Exception
 	 */
 	public function formOnGetContent(): mixed
 	{
 		$table= [
 			["název", [$this->getFormComponentName(), $this->componentError($this->getFormComponentName())]],
 			["popis", [$this->getFormComponentDescription(), $this->componentError($this->getFormComponentDescription())]],
-			[]
+			["seniorita"], [$this->getFormComponentSeniority(), $this->componentError($this->getFormComponentSeniority())],
 		];
 
 		return [
