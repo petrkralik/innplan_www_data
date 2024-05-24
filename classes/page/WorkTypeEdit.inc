@@ -94,7 +94,7 @@ class WorkTypeEdit extends Page2Columns
 			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
 				$this->getFormComponentSeniorityName(),
 				optionSet: new \iw\page\html\form\component\OptionSet(
-					new \iw\page\html\form\component\Option("1", "Junior")
+					new \iw\page\html\form\component\Option(null, "1", "Junior")
 				)
 			));
 		}
