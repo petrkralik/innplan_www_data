@@ -19,19 +19,16 @@ class WorkTypeDetail extends Page2Columns
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$this->workTypeId = $this->uriMatches[1];
-		$e = $this->dom->div(
-			N,
-			$this->dom->h1(N, "detail typu práce")
-		);
-		$this->workType = new \businessObject\WorkType($this->workTypeId);
+		$e = $this->dom->div(N, $this->dom->h1(N, "detail typu práce"));
+		$workType = new \businessObject\WorkType($this->workTypeId);
 		try {
-			$this->workType->loadData();
-			$e->append($this->dom->h2(N, $this->workType->name->getValue()));
+			$workType->loadData();
+			$e->append($this->dom->h2(N, $workType->name->getValue()));
 			$data = [
 				["popis", null],
-				["seniorita", $this->workType->workTypeSeniorityId->getValue()],
-				["uzamčeno", $this->workType->disabled->getValue()],
-				[null, [$this->buttonEdit(), $this->buttonDelete()]]
+				["seniorita", $workType->workTypeSeniorityId->getValue()],
+				["uzamčeno", $workType->disabled->getValue()],
+				[null, [$this->buttonEdit(), $this->buttonDelete()]],
 			];
 			$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "tableDataCallback"]));
 		} catch (\businessObject\Exception $ex) {
@@ -74,7 +71,7 @@ class WorkTypeDetail extends Page2Columns
 		if ($row == 0 && $col == 1)
 			$value = $value ?? "bez popisu";
 		if ($row == 2 && $col == 1)
-			$value = $value ? "ano" : "ne";
+			$value = $value ?"ano": "ne";
 	}
 
 
