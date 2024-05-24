@@ -86,15 +86,18 @@ class WorkTypeEdit extends Page2Columns
 
 	/**
 	 * @throws \iw\page\html\form\Exception
-	 * @throws \iw\page\html\form\component\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	private function getFormComponentSeniority(): \iw\page\html\form\component\Component
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentSeniorityName())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
 				$this->getFormComponentSeniorityName(),
+				selectedValue: $this->workType->workTypeSeniorityId->getValue(),
 				optionSet: new \iw\page\html\form\component\OptionSet(
-					new \iw\page\html\form\component\Option("1", "Junior")
+					new \iw\page\html\form\component\Option("1", "Junior"),
+					new \iw\page\html\form\component\Option("2", "Medior"),
+					new \iw\page\html\form\component\Option("3", "Senior"),
 				)
 			));
 		}
