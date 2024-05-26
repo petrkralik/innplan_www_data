@@ -15,7 +15,6 @@ abstract class Node implements NodeInterface
 	public ?bool $invisible;
 	public ?bool $notDisplayed;
 	private static int $_menuIdCounter = 1;
-	protected \iw\dom\Document $dom;
 
 
 	/**
@@ -29,7 +28,6 @@ abstract class Node implements NodeInterface
 		$this->disabled = $disabled;
 		$this->invisible = $invisible;
 		$this->notDisplayed = $notDisplayed;
-		$this->dom= \World::_serviceLocator()->getService(svcDOM);
 	}
 
 
