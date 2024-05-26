@@ -66,6 +66,24 @@ class WorkTypeDetail extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \DOMException
+	 */
+	private function domButtonEdit(): \iw\dom\Element
+	{
+		return $this->dom->a(N, urlBasePage. "/worktype/{$this->workTypeId}/edit", "editovat");
+	}
+
+
+	/**
+	 * @throws \DOMException
+	 */
+	private function domButtonDelete(): \iw\dom\Element
+	{
+		return $this->dom->a(N, urlBasePage . "/worktype/{$this->workTypeId}/delete", 'smazat');
+	}
+
+
 	public function tableDataCallback($row, $col, &$value): void
 	{
 		if ($row == 0 && $col == 1)
