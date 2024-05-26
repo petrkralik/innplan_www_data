@@ -34,7 +34,6 @@ class WorkTypeEdit extends Page2Columns
 	private function buildForm(): void
 	{
 		$this->form= new \iw\page\html\form\Form(
-			$this->dom,
 			$this->formId,
 			urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save",
 			[$this, "formOnGetContent"],
@@ -155,7 +154,7 @@ class WorkTypeEdit extends Page2Columns
 		];
 
 		return [
-			new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $table),
+			new \iw\page\html\arrayDecorator\ArrayDecorator($table),
 			$this->form->getInnerIdComponent()
 		];
 	}

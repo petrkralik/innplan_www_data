@@ -86,7 +86,6 @@ class WorkTypeNew extends Page2Columns
     private function buildForm(): void
     {
         $this->form = new \iw\page\html\form\Form(
-            $this->dom,
             $this->formId,
             urlBasePage . "/workType/new/save",
             [$this, "formOnGetContent"],
@@ -134,7 +133,7 @@ class WorkTypeNew extends Page2Columns
 		];
 
 		return [
-				new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $table),
+				new \iw\page\html\arrayDecorator\ArrayDecorator($table),
 				$this->form->getInnerIdComponent()
 			];
     }

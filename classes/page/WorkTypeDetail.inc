@@ -30,7 +30,7 @@ class WorkTypeDetail extends Page2Columns
 				["uzamčeno", $workType->disabled->getValue()],
 				[null, [$this->buttonEdit(), $this->buttonDelete()]],
 			];
-			$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($this->dom, $data, [$this, "tableDataCallback"]));
+			$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($data, [$this, "tableDataCallback"]));
 		} catch (\businessObject\Exception $ex) {
 			$e->append($this->domObjectLoadError());
 		}

@@ -4,11 +4,10 @@
 namespace page;
 
 
-class MenuItem implements \iw\dom\NodeInterface
+class MenuItem implements \iw\dom\Component
 {
 
 
-	protected \iw\dom\Document $doc;
 	public string $id;
 	public string $text;
 	public string $link;
@@ -19,15 +18,13 @@ class MenuItem implements \iw\dom\NodeInterface
 	/**
 	 * Constructs a new MenuItem instance.
 	 *
-	 * @param \iw\dom\Document  $document  An instance of DocumentProvider for DOM manipulation.
 	 * @param string            $text      The text of the menu item.
 	 * @param MenuItem          ...$items  An array of MenuItem instances to be added as children.
 	 *
 	 * @throws \InvalidArgumentException If any of the provided items are not instances of MenuItem.
 	 */
-	public function __construct(\iw\dom\Document $document, ?string $id, string $text, string $link, ...$items)
+	public function __construct(?string $id, string $text, string $link, ...$items)
 	{
-		$this->doc = $document;
 		$this->id = $id ?? $this->getId();
 		$this->text = $text;
 		$this->link = $link;
@@ -38,20 +35,22 @@ class MenuItem implements \iw\dom\NodeInterface
 
 
 	/**
-	 * @param   \iw\dom\Document|null  $doc  *
+	 * @param \iw\dom\Document|null $dom
 	 *
+	 * @return \DOMNode|array
 	 * @throws \DOMException
+	 * @throws \iw\dom\Exception
 	 */
-	public function getSelfAsDOMNode(?\iw\dom\Document $doc = N): ?\DOMNode
+	public function getDomComponent(?\iw\dom\Document $dom): \DOMNode|array
 	{
-		$e = $this->doc->div(
+		$e = $dom->div(
 			[
 				\iw\html::A_ID => $this->id,
 			],
-			$this->doc->a(N, $this->link, $this->text)
+			$dom->a(N, $this->link, $this->text)
 		);
 		if ($this->hasItems()) {
-			$e->append($children = $this->doc->div([\iw\html::A_CLASS => "children"]));
+			$e->append($children = $dom->div([\iw\html::A_CLASS => "children"]));
 			foreach ($this->items as $item)
 				$children->appendChild($item->getSelfAsDOMNode());
 		}
