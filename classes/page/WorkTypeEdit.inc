@@ -145,12 +145,12 @@ class WorkTypeEdit extends Page2Columns
 	 * @throws \Random\RandomException
 	 * @throws \iw\page\html\form\component\Exception
 	 */
-	public function formOnGetContent(): mixed
+	public function formOnGetContent(): array
 	{
 		$table= [
 			["název", [$this->getFormComponentName(), $this->componentError($this->getFormComponentName())]],
 			["popis", [$this->getFormComponentDescription(), $this->componentError($this->getFormComponentDescription())]],
-			["seniorita"], [$this->getFormComponentSeniority(), $this->componentError($this->getFormComponentSeniority())],
+			["seniorita", [$this->getFormComponentSeniority(), $this->componentError($this->getFormComponentSeniority())]],
 		];
 
 		return [
