@@ -11,14 +11,14 @@ class Item extends Node
 	/**
 	 * @throws \DOMException
 	 */
-	function getSelfAsDOMNode(): ?\DOMNode
+	function getDomComponent(\iw\dom\Document $dom): \DOMNode|array
 	{
-		return $this->dom->div(
+		return $dom->div(
 			[
 				\iw\html::A_ID=> $this->id,
 				\iw\html::A_CLASS=> implode(" ", $this->htmlClassList())
 			],
-			$this->dom->a(
+			$dom->a(
 				N,
 				$this->link,
 				$this->text
