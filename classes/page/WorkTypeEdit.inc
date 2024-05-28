@@ -24,7 +24,7 @@ class WorkTypeEdit extends Page2Columns
 
 		return $this->dom->div(
 			[
-				\iw\html::A_CLASS => "workTypeNew"
+				\iw\html::A_CLASS => "workTypeNew",
 			],
 			$this->dom->h1(N, "úprava typu práce"),
 			$showForm ? $this->form : N
@@ -108,6 +108,19 @@ class WorkTypeEdit extends Page2Columns
 	}
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 */
+	private function getFormComponentDisabled(): \iw\page\html\form\Components
+	{
+		if(!$this->form->components->componentExists($this->getFormComponentDisabledName())) {
+			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
+				$this->getFormComponentDisabledName()
+			));
+		}
+	}
+
+
 	public function formComponentNameValidator(string $value): true|\iw\page\html\form\component\EntryError
 	{
 		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : T;
@@ -132,6 +145,12 @@ class WorkTypeEdit extends Page2Columns
 	}
 
 
+	private function getFormComponentDisabledName(): string
+	{
+		return $this->formId . "_disabled";
+	}
+
+
 	private function getWorkTypeId(): int
 	{
 		return $this->workTypeId= (int)$this->uriMatches[1];
@@ -151,11 +170,12 @@ class WorkTypeEdit extends Page2Columns
 			["název", [$this->getFormComponentName(), $this->componentError($this->getFormComponentName())]],
 			["popis", [$this->getFormComponentDescription(), $this->componentError($this->getFormComponentDescription())]],
 			["seniorita", [$this->getFormComponentSeniority(), $this->componentError($this->getFormComponentSeniority())]],
+			["uzamčeno", [$this->getFormComponentDisabled(),  $this->componentError($this->getFormComponentDisabled())]],
 		];
 
 		return [
 			new \iw\page\html\arrayDecorator\ArrayDecorator($table),
-			$this->form->getInnerIdComponent()
+			$this->form->getInnerIdComponent(),
 		];
 	}
 
