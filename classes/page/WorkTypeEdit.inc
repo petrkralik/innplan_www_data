@@ -111,7 +111,7 @@ class WorkTypeEdit extends Page2Columns
 	/**
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function getFormComponentDisabled(): \iw\page\html\form\Components
+	private function getFormComponentDisabled(): \iw\page\html\form\component\Component
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentDisabledName())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
