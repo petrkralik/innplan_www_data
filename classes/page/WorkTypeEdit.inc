@@ -118,6 +118,8 @@ class WorkTypeEdit extends Page2Columns
 				$this->getFormComponentDisabledName()
 			));
 		}
+
+		return $this->form->components->getComponent($this->getFormComponentDisabledName());
 	}
 
 
