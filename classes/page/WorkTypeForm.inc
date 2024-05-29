@@ -4,7 +4,7 @@
 namespace page;
 
 
-abstract class WorkTypeFormPage extends Page2Columns
+abstract class WorkTypeForm extends Page2Columns
 {
 
 

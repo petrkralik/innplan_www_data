@@ -7,7 +7,7 @@ namespace page;
 use JetBrains\PhpStorm\NoReturn;
 
 
-class WorkTypeNew extends WorkTypeFormPage
+class WorkTypeNew extends WorkTypeForm
 {
 
 

@@ -4,7 +4,7 @@
 namespace page;
 
 
-class WorkTypeEdit extends WorkTypeFormPage
+class WorkTypeEdit extends WorkTypeForm
 {
 
 
