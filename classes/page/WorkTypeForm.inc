@@ -113,6 +113,7 @@ abstract class WorkTypeForm extends Page2Columns
 			["popis", [$this->getFormComponentDescription(), $this->componentError($this->getFormComponentDescription())]],
 			["seniorita", [$this->getFormComponentSeniority(), $this->componentError($this->getFormComponentSeniority())]],
 			["uzamčeno", [$this->getFormComponentDisabled(),  $this->componentError($this->getFormComponentDisabled())]],
+			[null, $this->getFormComponentSubmit()],
 		];
 
 		return [
@@ -230,6 +231,22 @@ abstract class WorkTypeForm extends Page2Columns
 
 
 	/**
+	 * @throws \iw\page\html\form\Exception
+	 */
+	protected function getFormComponentSubmit(): \iw\page\html\form\component\Component
+	{
+		if(!$this->form->components->componentExists($this->getFormComponentSubmitName())) {
+			$this->form->components->addComponent(new \iw\page\html\form\component\Submit(
+				$this->getFormComponentSubmitName(),
+				"uložit"
+			));
+		}
+
+		return $this->form->components->getComponent($this->getFormComponentSubmitName());
+	}
+
+
+	/**
 	 * Get the name of the form seniority component
 	 *
 	 * @return string - the name of the form seniority component
@@ -270,6 +287,12 @@ abstract class WorkTypeForm extends Page2Columns
 	private function getFormComponentDisabledName(): string
 	{
 		return $this->formId . "_disabled";
+	}
+
+
+	protected function getFormComponentSubmitName(): string
+	{
+		return $this->formId . "_submit";
 	}
 
 
