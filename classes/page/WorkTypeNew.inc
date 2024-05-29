@@ -86,8 +86,10 @@ class WorkTypeNew extends WorkTypeForm
     public function formOnSaveFn(): bool
     {
         $data = [
-            \entity\WorkType::ATTRIBUTE_NAME => $this->form->components->getComponent($this->formId . "_name")->value,
-            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => 1,
+            \entity\WorkType::ATTRIBUTE_NAME => $this->form->components->getComponent($this->getFormComponentNameName())->value,
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->form->components->getComponent($this->getFormComponentDescriptionName())->value,
+            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->form->components->getComponent($this->getFormComponentSeniorityName())->value,
+			\entity\WorkType::ATTRIBUTE_DISABLED => $this->form->components->getComponent($this->getFormComponentDisabledName())->value,
         ];
         $obj = new \businessObject\WorkType();
 

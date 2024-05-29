@@ -251,7 +251,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - the name of the form seniority component
 	 */
-	private function getFormComponentSeniorityName(): string
+	protected function getFormComponentSeniorityName(): string
 	{
 		return $this->formId . "_seniority";
 	}
@@ -262,7 +262,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - Returns the name of the form component, which is the formId appended with '_name'
 	 */
-	private function getFormComponentNameName(): string
+	protected function getFormComponentNameName(): string
 	{
 		return $this->formId."_name";
 	}
@@ -273,7 +273,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - Returns the name of the description component, which is the formId appended with '_description'
 	 */
-	private function getFormComponentDescriptionName(): string
+	protected function getFormComponentDescriptionName(): string
 	{
 		return $this->formId . "_description";
 	}
@@ -284,7 +284,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - Returns the name of the disabled component of the form, which is the formId appended with '_disabled'
 	 */
-	private function getFormComponentDisabledName(): string
+	protected function getFormComponentDisabledName(): string
 	{
 		return $this->formId . "_disabled";
 	}
