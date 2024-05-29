@@ -125,7 +125,7 @@ class WorkTypeNew extends WorkTypeForm
 	 *
 	 * @return ?int Returns null as no value is given
 	 */
-	protected function getFormComponentSeniorityValue(): ?int
+	protected function getFormComponentSeniorityValue(): mixed
 	{
 		return $this->request->{$this->getFormComponentSeniorityId()};
 	}
