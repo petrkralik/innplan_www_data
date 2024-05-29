@@ -123,9 +123,9 @@ class WorkTypeNew extends WorkTypeForm
 	/**
 	 * This method retrieves the seniority id value
 	 *
-	 * @return int Returns null as no value is given
+	 * @return int|null Returns null as no value is given
 	 */
-	protected function getFormComponentSeniorityValue(): int
+	protected function getFormComponentSeniorityValue(): ?int
 	{
 		return (int) $this->request->{$this->getFormComponentSeniorityId()};
 	}

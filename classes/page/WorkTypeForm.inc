@@ -44,9 +44,9 @@ abstract class WorkTypeForm extends Page2Columns
 	/**
 	 * Abstract method to get Form Component Seniority.
 	 *
-	 * @return int the seniority of the component
+	 * @return int|null the seniority of the component
 	 */
-	abstract protected function getFormComponentSeniorityValue(): int;
+	abstract protected function getFormComponentSeniorityValue(): ?int;
 
 
 	/**
