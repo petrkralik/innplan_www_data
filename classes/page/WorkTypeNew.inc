@@ -52,7 +52,7 @@ class WorkTypeNew extends WorkTypeForm
 
         return $this->dom->div(
             [
-                \iw\html::A_CLASS => "workTypeNew"
+                \iw\html::A_CLASS => "workTypeNew",
             ],
             $this->dom->h1(N, "nový typ práce"),
             $showForm ? $this->form : N
@@ -116,7 +116,7 @@ class WorkTypeNew extends WorkTypeForm
 	 */
 	protected function getFormComponentNameValue(): ?string
 	{
-		return $this->request->{$this->getFormComponentNameId()} ?? null;
+		return $this->request->{$this->getFormComponentNameId()};
 	}
 
 
@@ -127,7 +127,7 @@ class WorkTypeNew extends WorkTypeForm
 	 */
 	protected function getFormComponentSeniorityValue(): ?int
 	{
-		return null;
+		return $this->request->{$this->getFormComponentSeniorityId()};
 	}
 
 
@@ -138,7 +138,13 @@ class WorkTypeNew extends WorkTypeForm
 	 */
 	protected function getFormComponentDescriptionValue(): ?string
 	{
-		return null;
+		return $this->request->{$this->getFormComponentDescriptionId()};
+	}
+
+
+	protected function getFormComponentDisabledValue(): ?bool
+	{
+		return $this->request->{$this->getFormComponentDisabledId()}? true: null;
 	}
 
 

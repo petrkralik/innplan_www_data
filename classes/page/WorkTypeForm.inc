@@ -55,6 +55,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 * @return ?string the description of the component
 	 */
 	abstract protected function getFormComponentDescriptionValue(): ?string;
+	abstract protected function getFormComponentDisabledValue(): ?bool;
 
 
 	/**
@@ -171,15 +172,15 @@ abstract class WorkTypeForm extends Page2Columns
 	 */
 	protected function getFormComponentDescription(): \iw\page\html\form\component\ComponentWithValue
 	{
-		if(!$this->form->components->componentExists($this->getFormComponentDescriptionName()))
+		if(!$this->form->components->componentExists($this->getFormComponentDescriptionId()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
-				$this->getFormComponentDescriptionName(),
+				$this->getFormComponentDescriptionId(),
 				value: $this->getFormComponentDescriptionValue(),
 				cols: 47,
 				rows: 8
 			));
 
-		return $this->form->components->getComponent($this->getFormComponentDescriptionName());
+		return $this->form->components->getComponent($this->getFormComponentDescriptionId());
 	}
 
 
@@ -191,9 +192,9 @@ abstract class WorkTypeForm extends Page2Columns
 	 */
 	protected function getFormComponentSeniority(): \iw\page\html\form\component\ComponentWithValue
 	{
-		if(!$this->form->components->componentExists($this->getFormComponentSeniorityName())) {
+		if(!$this->form->components->componentExists($this->getFormComponentSeniorityId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
-				$this->getFormComponentSeniorityName(),
+				$this->getFormComponentSeniorityId(),
 				optionSet: $optionSet= new \iw\page\html\form\component\OptionSet(
 					false,
 					new \iw\page\html\form\component\Option("", ""),
@@ -205,7 +206,7 @@ abstract class WorkTypeForm extends Page2Columns
 			$optionSet->selectOptionByValue($this->getFormComponentSeniorityValue());
 		}
 
-		return $this->form->components->getComponent($this->getFormComponentSeniorityName());
+		return $this->form->components->getComponent($this->getFormComponentSeniorityId());
 	}
 
 
@@ -217,13 +218,13 @@ abstract class WorkTypeForm extends Page2Columns
 	 */
 	protected function getFormComponentDisabled(): \iw\page\html\form\component\ComponentWithValue
 	{
-		if(!$this->form->components->componentExists($this->getFormComponentDisabledName())) {
+		if(!$this->form->components->componentExists($this->getFormComponentDisabledId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
-				$this->getFormComponentDisabledName()
+				$this->getFormComponentDisabledId()
 			));
 		}
 
-		return $this->form->components->getComponent($this->getFormComponentDisabledName());
+		return $this->form->components->getComponent($this->getFormComponentDisabledId());
 	}
 
 
@@ -248,7 +249,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - the name of the form seniority component
 	 */
-	protected function getFormComponentSeniorityName(): string
+	protected function getFormComponentSeniorityId(): string
 	{
 		return $this->formId . "_seniority";
 	}
@@ -270,7 +271,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - Returns the name of the description component, which is the formId appended with '_description'
 	 */
-	protected function getFormComponentDescriptionName(): string
+	protected function getFormComponentDescriptionId(): string
 	{
 		return $this->formId . "_description";
 	}
@@ -281,7 +282,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - Returns the name of the disabled component of the form, which is the formId appended with '_disabled'
 	 */
-	protected function getFormComponentDisabledName(): string
+	protected function getFormComponentDisabledId(): string
 	{
 		return $this->formId . "_disabled";
 	}
