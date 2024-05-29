@@ -74,22 +74,23 @@ class WorkTypeNew extends WorkTypeForm
     }
 
 
-     /**
-     * Saves the form. Operation is stubbed out in this method.
-     *
-     * @return bool Always false as a save operation is not implemented.
-     * @throws \iw\api\Exception
-     * @throws \iw\page\html\form\Exception
-     * @throws \businessObject\Exception
-     * @throws \businessObject\property\Exception
-     */
+	/**
+	 * Saves the form. Operation is stubbed out in this method.
+	 *
+	 * @return bool Always false as a save operation is not implemented.
+	 * @throws \iw\api\Exception
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 * @throws \iw\page\html\form\component\Exception
+	 */
     public function formOnSaveFn(): bool
     {
         $data = [
-            \entity\WorkType::ATTRIBUTE_NAME => $this->form->components->getComponent($this->getFormComponentNameName())->value,
-			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->form->components->getComponent($this->getFormComponentDescriptionName())->value,
-            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->form->components->getComponent($this->getFormComponentSeniorityName())->value,
-			\entity\WorkType::ATTRIBUTE_DISABLED => $this->form->components->getComponent($this->getFormComponentDisabledName())->value,
+            \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->value,
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->value,
+            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->value,
+			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->value,
         ];
         $obj = new \businessObject\WorkType();
 

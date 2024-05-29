@@ -146,11 +146,10 @@ abstract class WorkTypeForm extends Page2Columns
 	/**
 	 * Get the form component name
 	 *
-	 * @return \iw\page\html\form\component\Component - the component of the form's name
+	 * @return \iw\page\html\form\component\ComponentWithValue - the component of the form's name
 	 * @throws \iw\page\html\form\Exception
-	 *
 	 */
-	private function getFormComponentName(): \iw\page\html\form\component\Component
+	protected function getFormComponentName(): \iw\page\html\form\component\ComponentWithValue
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentNameName()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Text(
@@ -167,11 +166,10 @@ abstract class WorkTypeForm extends Page2Columns
 	/**
 	 * Get the form component description
 	 *
-	 * @return \iw\page\html\form\component\Component - the description component of the form
+	 * @return \iw\page\html\form\component\ComponentWithValue - the description component of the form
 	 * @throws \iw\page\html\form\Exception
-	 *
 	 */
-	private function getFormComponentDescription(): \iw\page\html\form\component\Component
+	protected function getFormComponentDescription(): \iw\page\html\form\component\ComponentWithValue
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentDescriptionName()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
@@ -191,7 +189,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function getFormComponentSeniority(): \iw\page\html\form\component\Component
+	protected function getFormComponentSeniority(): \iw\page\html\form\component\ComponentWithValue
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentSeniorityName())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
@@ -214,11 +212,10 @@ abstract class WorkTypeForm extends Page2Columns
 	/**
 	 * Get the form component disabled
 	 *
-	 * @return \iw\page\html\form\component\Component - the disabled component of the form
+	 * @return \iw\page\html\form\component\ComponentWithValue - the disabled component of the form
 	 * @throws \iw\page\html\form\Exception
-	 *
 	 */
-	protected function getFormComponentDisabled(): \iw\page\html\form\component\Component
+	protected function getFormComponentDisabled(): \iw\page\html\form\component\ComponentWithValue
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentDisabledName())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
