@@ -151,15 +151,15 @@ abstract class WorkTypeForm extends Page2Columns
 	 */
 	protected function getFormComponentName(): \iw\page\html\form\component\ComponentWithValue
 	{
-		if(!$this->form->components->componentExists($this->getFormComponentNameName()))
+		if(!$this->form->components->componentExists($this->getFormComponentNameId()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Text(
-				$this->getFormComponentNameName(),
+				$this->getFormComponentNameId(),
 				validator: [$this, "formComponentNameValidator"],
 				value: $this->getFormComponentNameValue(),
 				size: 50
 			));
 
-		return $this->form->components->getComponent($this->getFormComponentNameName());
+		return $this->form->components->getComponent($this->getFormComponentNameId());
 	}
 
 
@@ -259,7 +259,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return string - Returns the name of the form component, which is the formId appended with '_name'
 	 */
-	protected function getFormComponentNameName(): string
+	protected function getFormComponentNameId(): string
 	{
 		return $this->formId."_name";
 	}

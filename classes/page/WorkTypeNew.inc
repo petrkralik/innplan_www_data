@@ -116,7 +116,7 @@ class WorkTypeNew extends WorkTypeForm
 	 */
 	protected function getFormComponentNameValue(): ?string
 	{
-		return null;
+		return $this->request->{$this->getFormComponentNameId()} ?? null;
 	}
 
 
