@@ -7,21 +7,29 @@ namespace page;
 use JetBrains\PhpStorm\NoReturn;
 
 
+/**
+ * Class WorkTypeNew
+ * This class extends WorkTypeForm and provides functionality to create a new work type.
+ *
+ * @package page
+ */
 class WorkTypeNew extends WorkTypeForm
 {
 
 
-    /**
-     * Identifier for the 'New' action in the page
-     * @var string
-     */
-    private const string ACTION_NEW = "ACTION_NEW";
+	/**
+	 * ACTION_NEW is a constant to denote the 'New' action on the page
+	 *
+	 * @var string
+	 */
+	private const string ACTION_NEW = "ACTION_NEW";
 
-    /**
-     * Identifier for the 'Save' action in the page
-     * @var string
-     */
-    private const string ACTION_SAVE = "ACTION_SAVE";
+	/**
+	 * ACTION_SAVE is a constant to denote the 'Save' action on the page
+	 *
+	 * @var string
+	 */
+	private const string ACTION_SAVE = "ACTION_SAVE";
 
 
     /**
@@ -94,18 +102,33 @@ class WorkTypeNew extends WorkTypeForm
     }
 
 
+	/**
+	 * This method retrieves the name component of the form
+	 *
+	 * @return ?string Returns null as no name is provided
+	 */
 	protected function getFormComponentNameValue(): ?string
 	{
 		return null;
 	}
 
 
+	/**
+	 * This method retrieves the seniority id value
+	 *
+	 * @return ?int Returns null as no value is given
+	 */
 	protected function getFormComponentSeniorityValue(): ?int
 	{
 		return null;
 	}
 
 
+	/**
+	 * This method retrieves the description of the work type.
+	 *
+	 * @return ?string Returns null as no description is provided.
+	 */
 	protected function getFormComponentDescriptionValue(): ?string
 	{
 		return null;
