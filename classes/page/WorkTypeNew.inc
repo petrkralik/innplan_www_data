@@ -47,7 +47,6 @@ class WorkTypeNew extends WorkTypeForm
             if ($this->form->isSaved())
                 $showForm = false;
             else {
-				echo "SAVE";
 				$showForm = ! $this->form->save();
 			}
         }
