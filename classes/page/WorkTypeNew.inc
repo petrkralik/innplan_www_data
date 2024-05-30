@@ -46,8 +46,10 @@ class WorkTypeNew extends WorkTypeForm
         if ($this->detectProcess() == self::ACTION_SAVE) {
             if ($this->form->isSaved())
                 $showForm = false;
-            else
-                $showForm = !$this->form->save();
+            else {
+				echo "SAVE";
+				$showForm = ! $this->form->save();
+			}
         }
 
         return $this->dom->div(
