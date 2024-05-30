@@ -310,6 +310,7 @@ abstract class WorkTypeForm extends Page2Columns
 
 	public function formComponentSeniorityValidator(string $value): true|\iw\page\html\form\component\EntryError
 	{
+		var_dump($value);
 		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"): true;
 	}
 
