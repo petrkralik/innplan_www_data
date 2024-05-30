@@ -57,6 +57,15 @@ class WorkTypeEdit extends WorkTypeForm
 	}
 
 
+	/**
+	 * @throws \businessObject\property\Exception
+	 */
+	protected function getFormComponentDisabledValue(): ?bool
+	{
+		return $this->workType->disabled->getValue();
+	}
+
+
 	private function getWorkTypeId(): int
 	{
 		return $this->workTypeId= (int)$this->uriMatches[1];
