@@ -212,7 +212,7 @@ abstract class WorkTypeForm extends Page2Columns
 				validator: [$this, "formComponentSeniorityValidator"],
 				optionSet: $optionSet= new \iw\page\html\form\component\OptionSet(
 					false,
-					new \iw\page\html\form\component\Option("", ""),
+					new \iw\page\html\form\component\Option("0", ""),
 					new \iw\page\html\form\component\Option("1", "Junior"),
 					new \iw\page\html\form\component\Option("2", "Medior"),
 					new \iw\page\html\form\component\Option("3", "Senior"),
@@ -324,8 +324,10 @@ abstract class WorkTypeForm extends Page2Columns
 
 	public function formComponentSeniorityValidator(string $value): true|\iw\page\html\form\component\EntryError
 	{
-		var_dump($value);
-		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"): true;
+		if (! is_numeric($value) || intval($value) <= 0)
+			return new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna");
+
+		return true;
 	}
 
 
