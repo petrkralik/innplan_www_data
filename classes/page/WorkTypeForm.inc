@@ -195,6 +195,7 @@ abstract class WorkTypeForm extends Page2Columns
 		if(!$this->form->components->componentExists($this->getFormComponentSeniorityId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
 				$this->getFormComponentSeniorityId(),
+				validator: [$this, "formComponentSeniorityValidator"],
 				optionSet: $optionSet= new \iw\page\html\form\component\OptionSet(
 					false,
 					new \iw\page\html\form\component\Option("", ""),
@@ -303,7 +304,13 @@ abstract class WorkTypeForm extends Page2Columns
 	 */
 	public function formComponentNameValidator(string $value): true|\iw\page\html\form\component\EntryError
 	{
-		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : T;
+		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : true;
+	}
+
+
+	public function formComponentDescriptionValidator(string $value): true|\iw\page\html\form\component\EntryError
+	{
+		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"): true;
 	}
 
 
