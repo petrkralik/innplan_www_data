@@ -96,6 +96,20 @@ abstract class WorkTypeForm extends Page2Columns
 			[$this, "formOnSaveSuccessFn"],
 			null
 		);
+		$this->formBuildAllComponents();
+	}
+
+
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\page\html\form\component\Exception
+	 */
+	private function formBuildAllComponents(): void
+	{
+		$this->getFormComponentName();
+		$this->getFormComponentDescription();
+		$this->getFormComponentSeniority();
+		$this->getFormComponentDisabled();
 	}
 
 
