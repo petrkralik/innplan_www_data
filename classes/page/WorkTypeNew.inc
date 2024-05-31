@@ -94,12 +94,16 @@ class WorkTypeNew extends WorkTypeForm
 			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->value,
         ];
 
-		echo json_encode($data);
-		die();
-
         $obj = new \businessObject\WorkType();
 
-        return $obj->create($data);
+		try {
+			$result = $obj->create($data);
+		}
+		catch (\iw\api\Exception $ex) {
+			var_dump($ex);
+		}
+
+        return $result;
     }
 
 
