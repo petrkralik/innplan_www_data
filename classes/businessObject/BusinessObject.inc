@@ -94,7 +94,7 @@ abstract class BusinessObject extends \World
 	 *                                   match the property names, and the values should be the property values.
 	 *
 	 * @return bool
-	 * @throws \businessObject\Exception Throws an exception if the object already has an ID (indicating it exists),
+	 * @throws Exception Throws an exception if the object already has an ID (indicating it exists),
 	 *                   if a required property is not set, if the API call is unsuccessful,
 	 *                   or if the API response does not include an ID for the newly created object.
 	 * @throws \iw\api\Exception Throws an exception if the object already has an ID (indicating it exists),
@@ -143,7 +143,7 @@ abstract class BusinessObject extends \World
 
 			var_dump($response->body);
 			// If the API call did not succeed, throw an error message that includes the HTTP status code.
-			Error::API_DATA_POST->throw("Failed to create an object of type " . $this::class . " due to an error encountered by API. HTTP error code is {$response->statusCode->value}.");
+			Error::API_DATA_POST->throw("Failed to create an object of type " . $this::class . " due to an error encountered by API. HTTP error code is {$response->statusCode->value}. Body:");
 		}
 
 		// Verify whether the API response includes an ID for the object that was created just now.
@@ -182,7 +182,7 @@ abstract class BusinessObject extends \World
 	 * @return array An associative array where each key is a property name and the value is the property's
 	 *               value formatted for the API request. This array is used as the payload in the API call
 	 *               to create or update the object.
-	 * @throws \businessObject\Exception
+	 * @throws Exception
 	 * @throws \businessObject\property\Exception
 	 */
 	private function createCollectData(): array
@@ -382,7 +382,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param \stdClass $body The response from the API containing the data.
 	 *
-	 * @throws \businessObject\Exception|\businessObject\property\Exception If there is an issue with setting the property values.
+	 * @throws Exception|\businessObject\property\Exception If there is an issue with setting the property values.
 	 */
 	public function apiResultMapData(\stdClass $body): void
 	{

@@ -79,7 +79,6 @@ class WorkTypeNew extends WorkTypeForm
 	 * Saves the form. Operation is stubbed out in this method.
 	 *
 	 * @return bool Always false as a save operation is not implemented.
-	 * @throws \iw\api\Exception
 	 * @throws \iw\page\html\form\Exception
 	 * @throws \businessObject\Exception
 	 * @throws \businessObject\property\Exception
