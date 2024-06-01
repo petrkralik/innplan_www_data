@@ -20,7 +20,6 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
-		var_dump($this->uriMatches);
 		try {
 			$this->loadObject();
 		}
