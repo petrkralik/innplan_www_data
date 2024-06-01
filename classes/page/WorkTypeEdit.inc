@@ -122,7 +122,11 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	protected function getFormComponentSeniorityValue(): ?int
 	{
-		return $this->workType->workTypeSeniorityId->getValue();
+		return $this->request->isPropertySet($this->getFormComponentSeniorityId())
+			?
+			$this->request->getProperty($this->getFormComponentSeniorityId())
+			:
+			$this->workType->workTypeSeniorityId->getValue();
 	}
 
 
@@ -131,7 +135,11 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	protected function getFormComponentDisabledValue(): ?bool
 	{
-		return $this->workType->disabled->getValue();
+		return $this->request->isPropertySet($this->getFormComponentDisabledId())
+			?
+			$this->request->getProperty($this->getFormComponentDisabledId())
+			:
+			$this->workType->disabled->getValue();
 	}
 
 
