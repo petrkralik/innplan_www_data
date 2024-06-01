@@ -240,7 +240,7 @@ abstract class WorkTypeForm extends Page2Columns
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
 				$this->getFormComponentDisabledId(),
 				programPropertyName: \entity\WorkType::ATTRIBUTE_DISABLED,
-				validator: [$this]
+				validator: [$this, "formComponentDisabledValidator"]
 			));
 		}
 
@@ -319,7 +319,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @param \iw\page\html\form\component\ComponentWithValue $component
 	 *
-	 * @return true|\iw\page\html\form\component\EntryError - Returns true if the name is not empty, else returns an EntryError with an error message
+	 * @return bool - Returns true if the name is not empty, else returns an EntryError with an error message
 	 */
 	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
 	{
