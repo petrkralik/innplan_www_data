@@ -95,6 +95,7 @@ class WorkTypeNew extends WorkTypeForm
 
 		var_dump($data);
 		echo LF. LF;
+		die();
         $obj = new \businessObject\WorkType();
 
 		try {
