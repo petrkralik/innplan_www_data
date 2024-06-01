@@ -22,20 +22,43 @@ class WorkTypeEdit extends WorkTypeForm
 	{
 		try {
 			$this->loadObject();
+			$this->buildForm(urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 		}
 		catch (\businessObject\Exception $ex) {
-			echo $ex->error->value;
+			if($ex->error== \businessObject\Error::NO_OBJECT_LIKE_THIS)
+				return $this->domErrorNonexistentObject();
+			elseif($ex->error== \businessObject\Error::API_DATA_LOAD)
+				return $this->donErrorObjectLoading();
 		}
-		$this->buildForm(urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 
 		$showForm = true;
 
 		return $this->dom->div(
 			[
-				\iw\html::A_CLASS => "workTypeNew",
+				\iw\html::A_CLASS => "workTypeEdit",
 			],
 			$this->dom->h1(N, "úprava typu práce"),
 			$showForm ? $this->form : N
+		);
+	}
+
+
+	private function domErrorNonexistentObject(): \iw\dom\Element
+	{
+		return $this->dom->div(
+			N,
+			$this->dom->h1(N, "úprava typu práce"),
+			$this->dom->p(N, "Takový objekt neexistuje.")
+		);
+	}
+
+
+	private function donErrorObjectLoading(): \iw\dom\Element
+	{
+		return $this->dom->div(
+			N,
+			$this->dom->h1(N, "úprava typu práce"),
+			$this->dom->p(N, "Problém s načtením objektu")
 		);
 	}
 
