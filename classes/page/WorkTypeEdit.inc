@@ -17,6 +17,7 @@ class WorkTypeEdit extends WorkTypeForm
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$this->loadObject();
+		echo $this->workType->name->getValue(). LF;
 		$this->buildForm(urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 		$showForm = true;
 
