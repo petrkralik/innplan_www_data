@@ -32,6 +32,7 @@ class WorkTypeEdit extends WorkTypeForm
 		}
 		try {
 			if($this->detectProcess()== self::ACTION_SAVE) {
+				echo "SAVE";
 				if($this->form->isSaved()) {
 					$content= $this->domFormResave();
 				} else {
