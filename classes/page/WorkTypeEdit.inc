@@ -8,6 +8,10 @@ class WorkTypeEdit extends WorkTypeForm
 {
 
 
+	const string ACTION_SAVE = "save";
+	const string ACTION_EDIT = "edit";
+
+
 	private \businessObject\WorkType $workType;
 
 
@@ -17,7 +21,12 @@ class WorkTypeEdit extends WorkTypeForm
 	function getContentMain(): ?\iw\dom\Element
 	{
 		var_dump($this->uriMatches);
-		$this->loadObject();
+		try {
+			$this->loadObject();
+		}
+		catch (\businessObject\Exception $ex) {
+			echo $ex->error->value;
+		}
 		$this->buildForm(urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 
 		$showForm = true;
@@ -29,6 +38,15 @@ class WorkTypeEdit extends WorkTypeForm
 			$this->dom->h1(N, "úprava typu práce"),
 			$showForm ? $this->form : N
 		);
+	}
+
+
+	private function detectProcess(): string
+	{
+		return match ($this->uriMatches[2] ?? null) {
+			"save" => self::ACTION_SAVE,
+			default => self::ACTION_EDIT
+		};
 	}
 
 
