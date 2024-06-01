@@ -42,12 +42,12 @@ class WorkTypeNew extends WorkTypeForm
     function getContentMain(): ?\iw\dom\Element
     {
         $this->buildForm(urlBasePage. "/workType/new/save");
-		echo "MAIN". LF;
         $showForm = true;
         if ($this->detectProcess() == self::ACTION_SAVE) {
-            if ($this->form->isSaved())
-                $showForm = false;
-            else {
+            if ($this->form->isSaved()) {
+				$showForm = false;
+				echo "MAIN". LF;
+			} else {
 				echo "SAVE". LF;
 				$showForm = ! $this->form->save();
 				echo "AFTER SAVE". LF;
