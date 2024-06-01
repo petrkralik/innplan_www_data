@@ -4,10 +4,6 @@
 namespace businessObject;
 
 
-use businessObject\Property\Property;
-use businessObject\Property\PropertyDate;
-
-
 /**
  * Abstract class BusinessObject serves as a base class for all business entities within the application.
  * It provides common functionalities such as API interactions and property management.
@@ -51,7 +47,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @return array An array of property definitions for the business object.
 	 */
-	abstract function propertyList(): array;
+	abstract protected function propertyList(): array;
 
 
 	/**
@@ -60,7 +56,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @return array List of attribute names required for object creation.
 	 */
-	abstract public function propertyListForCreation(): array;
+	abstract protected function propertyListForCreation(): array;
 
 
 	/**
@@ -191,7 +187,7 @@ abstract class BusinessObject extends \World
 		foreach ($this->propertyListForCreation() as $propertyName => $property)
 			if (!$property instanceof PropertyObjectReferral && $property->isInitialized())
 				$data[$propertyName] = match ($property::class) {
-					PropertyDate::class => $property->getValue() ? $property->getValue()->format("Y-m-d") : N,
+					\businessObject\property\PropertyDate::class => $property->getValue() ? $property->getValue()->format("Y-m-d") : N,
 					default => $property->getValue()
 				};
 
@@ -240,10 +236,10 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param string $propertyName The name of the property to access.
 	 *
-	 * @return Property|BusinessObject The value of the requested property.
+	 * @return \businessObject\property\Property|BusinessObject The value of the requested property.
 	 * @throws Exception|\businessObject\property\Exception If the property is not defined or cannot be accessed.
 	 */
-	public function __get(string $propertyName): Property|BusinessObject
+	public function __get(string $propertyName): \businessObject\property\Property|BusinessObject
 	{
 		return $this->getProperty($propertyName);
 	}
@@ -274,14 +270,14 @@ abstract class BusinessObject extends \World
 	 * corresponding value is the Property object itself. This array can be used to further inspect changes,
 	 * validate them, or update the object in the database or through an API.
 	 *
-	 * @return Property[] An associative array of changed properties. The keys are property names, and the values are
+	 * @return \businessObject\property\Property[] An associative array of changed properties. The keys are property names, and the values are
 	 *               the new values for these properties.
 	 */
 	public function changes(): array
 	{
 		$changedProperties = [];
 		foreach ($this->properties as $propertyName => $property)
-			if ($property instanceof Property && $property->isChanged())
+			if ($property instanceof \businessObject\property\Property && $property->isChanged())
 				$changedProperties[$propertyName] = $property;
 
 		return $changedProperties;
@@ -295,7 +291,7 @@ abstract class BusinessObject extends \World
 	public function dropChanges(): void
 	{
 		foreach ($this->properties as $property)
-			if ($property instanceof Property)
+			if ($property instanceof \businessObject\property\Property)
 				$property->dropChange();
 	}
 
@@ -407,9 +403,9 @@ abstract class BusinessObject extends \World
 			if (!isset($this->id))
 				$this->id = $value;
 		} elseif (key_exists($propertyName, $this->properties)) {
-			if ($this->properties[$propertyName] instanceof Property) {
+			if ($this->properties[$propertyName] instanceof \businessObject\property\Property) {
 				$value = match ($this->properties[$propertyName]::class) {
-					PropertyDate::class => $this->convertValueStrToDate($value),
+					\businessObject\property\PropertyDate::class => $this->convertValueStrToDate($value),
 					default => $value
 				};
 				$this->properties[$propertyName]->setValue($value);
@@ -428,11 +424,11 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param   string  $propertyName  The name of the property to retrieve.
 	 *
-	 * @return Property|BusinessObject The Property object associated with the given property name.
+	 * @return \businessObject\property\Property|BusinessObject The Property object associated with the given property name.
 	 * @throws Exception If the property name is not registered in the object.
 	 * @throws \businessObject\property\Exception
 	 */
-	public function getProperty(string $propertyName): Property|BusinessObject
+	public function getProperty(string $propertyName): \businessObject\property\Property|BusinessObject
 	{
 		if (!array_key_exists($propertyName, $this->properties))
 			Error::NONEXISTENT_PROPERTY->throw("Property '$propertyName' isn't registered.");
@@ -444,12 +440,12 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @param   Property  $property
+	 * @param   \businessObject\property\Property  $property
 	 *
-	 * @return Property|BusinessObject
+	 * @return \businessObject\property\Property|BusinessObject
 	 * @throws \businessObject\property\Exception
 	 */
-	private function getPropertyConverted(Property $property): Property|BusinessObject
+	private function getPropertyConverted(\businessObject\property\Property $property): \businessObject\property\Property|BusinessObject
 	{
 		if ($property instanceof PropertyObjectReferral)
 			return $property->getObject();
@@ -498,6 +494,24 @@ abstract class BusinessObject extends \World
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * @return \businessObject\property\Property[]
+	 */
+	public function getProperties(): array
+	{
+		return $this->properties;
+	}
+
+
+	/**
+	 * @return \businessObject\property\Property[]
+	 */
+	public function getPropertiesForCreation(): array
+	{
+		return $this->propertyListForCreation();
 	}
 
 

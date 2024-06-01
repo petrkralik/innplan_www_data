@@ -169,6 +169,7 @@ abstract class WorkTypeForm extends Page2Columns
 		if(!$this->form->components->componentExists($this->getFormComponentNameId()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Text(
 				$this->getFormComponentNameId(),
+				programPropertyName: \entity\WorkType::ATTRIBUTE_NAME,
 				validator: [$this, "formComponentNameValidator"],
 				value: $this->getFormComponentNameValue(),
 				size: 50
@@ -189,6 +190,7 @@ abstract class WorkTypeForm extends Page2Columns
 		if(!$this->form->components->componentExists($this->getFormComponentDescriptionId()))
 			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
 				$this->getFormComponentDescriptionId(),
+				programPropertyName: \entity\WorkType::ATTRIBUTE_DESCRIPTION,
 				value: $this->getFormComponentDescriptionValue(),
 				cols: 47,
 				rows: 8
@@ -209,6 +211,7 @@ abstract class WorkTypeForm extends Page2Columns
 		if(!$this->form->components->componentExists($this->getFormComponentSeniorityId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
 				$this->getFormComponentSeniorityId(),
+				programPropertyName: \entity\WorkType::ATTRIBUTE_SENIORITY_ID,
 				validator: [$this, "formComponentSeniorityValidator"],
 				optionSet: $optionSet= new \iw\page\html\form\component\OptionSet(
 					false,
@@ -235,7 +238,8 @@ abstract class WorkTypeForm extends Page2Columns
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentDisabledId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
-				$this->getFormComponentDisabledId()
+				$this->getFormComponentDisabledId(),
+				programPropertyName: \entity\WorkType::ATTRIBUTE_DISABLED
 			));
 		}
 
@@ -312,18 +316,20 @@ abstract class WorkTypeForm extends Page2Columns
 	/**
 	 * Validator for the form component's name. Checks if the name is empty.
 	 *
-	 * @param   string  $value  - the name of the component to be validated
+	 * @param \iw\page\html\form\component\ComponentWithValue $component
 	 *
 	 * @return true|\iw\page\html\form\component\EntryError - Returns true if the name is not empty, else returns an EntryError with an error message
 	 */
-	public function formComponentNameValidator(string $value): true|\iw\page\html\form\component\EntryError
+	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): true|\iw\page\html\form\component\EntryError
 	{
+		$value= $component->getValue();
 		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : true;
 	}
 
 
-	public function formComponentSeniorityValidator(string $value): true|\iw\page\html\form\component\EntryError
+	public function formComponentSeniorityValidator(\iw\page\html\form\component\ComponentWithValue $component): true|\iw\page\html\form\component\EntryError
 	{
+		$value= $component->getValue();
 		if (! is_numeric($value) || intval($value) <= 0)
 			return new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna");
 

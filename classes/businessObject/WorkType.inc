@@ -34,21 +34,24 @@ class WorkType extends BusinessObject
 	}
 
 
-	function propertyList(): array
+	protected function propertyList(): array
 	{
 		return [
 			\entity\WorkType::ATTRIBUTE_NAME         => new \businessObject\property\PropertyString(),
-			\entity\WorkType::ATTRIBUTE_DESCRIPTION  => new \businessObject\property\PropertyString(),
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION  => new \businessObject\property\PropertyString(false, true),
 			\entity\WorkType::ATTRIBUTE_SENIORITY_ID => new \businessObject\property\PropertyInt(),
-			\entity\WorkType::ATTRIBUTE_DISABLED     => new \businessObject\property\PropertyBool(F, T),
+			\entity\WorkType::ATTRIBUTE_DISABLED     => new \businessObject\property\PropertyBool(false, true),
 		];
 	}
 
 
-	public function propertyListForCreation(): array
+	protected function propertyListForCreation(): array
 	{
 		return $this->properties;
 	}
+
+
+
 
 
 }
