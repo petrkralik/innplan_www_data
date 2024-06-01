@@ -47,7 +47,9 @@ class WorkTypeNew extends WorkTypeForm
             if ($this->form->isSaved())
                 $showForm = false;
             else {
+				echo "SAVE". LF;
 				$showForm = ! $this->form->save();
+				echo "AFTER SAVE". LF;
 			}
         }
 
@@ -95,7 +97,7 @@ class WorkTypeNew extends WorkTypeForm
 
 		var_dump($data);
 		echo LF. LF;
-		die();
+
         $obj = new \businessObject\WorkType();
 
 		try {
