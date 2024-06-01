@@ -332,8 +332,10 @@ abstract class WorkTypeForm extends Page2Columns
 		$value= $component->getValue();
 		if (! is_numeric($value) || intval($value) <= 0) {
 			$component->addError(new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"));
+
 			return false;
 		} else {
+			echo "SET VALUE TO INT". LF;
 			$component->setValue((int) $component->getValue());
 		}
 
