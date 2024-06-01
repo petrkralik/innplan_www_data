@@ -354,7 +354,10 @@ abstract class WorkTypeForm extends Page2Columns
 
 	public function formComponentDisabledValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
 	{
+
 		$value= $component->getValue();
+		echo "DISABLED". LF;
+		var_dump($value);
 		//$component->setValue($value === "1");
 
 		return true;
