@@ -47,13 +47,9 @@ class WorkTypeNew extends WorkTypeForm
             if ($this->form->isSaved()) {
 				$showForm = false;
 			} else {
-				echo "SAVE". LF;
 				$showForm = ! $this->form->save();
-				echo "AFTER SAVE". LF;
 			}
         }
-		echo "#### MAIN ####". LF;
-		var_dump($showForm);
         return $this->dom->div(
             [
                 \iw\html::A_CLASS => "workTypeNew",
