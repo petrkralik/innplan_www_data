@@ -60,7 +60,7 @@ class WorkTypeEdit extends WorkTypeForm
 
 	private function domFormSaved(): \iw\dom\Element
 	{
-		return $this->dom->p(N, "Uložit.");
+		return $this->dom->p(N, "Uloženo.");
 	}
 
 
@@ -133,9 +133,22 @@ class WorkTypeEdit extends WorkTypeForm
 	}
 
 
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\page\html\form\component\Exception
+	 */
 	public function formOnSaveFn(): ?bool
 	{
-		return true;
+		$data = [
+			\entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->value,
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->value,
+			\entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->value,
+			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->value,
+		];
+
+		var_dump($data);
+
+		return false;
 	}
 
 

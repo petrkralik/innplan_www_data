@@ -92,9 +92,6 @@ class WorkTypeNew extends WorkTypeForm
 			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->value,
         ];
 
-		var_dump($data);
-		echo LF. LF;
-
         $obj = new \businessObject\WorkType();
 
 		try {
