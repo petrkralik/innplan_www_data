@@ -53,7 +53,7 @@ class WorkTypeNew extends WorkTypeForm
 			}
         }
 		echo "#### MAIN ####". LF;
-
+		var_dump($showForm);
         return $this->dom->div(
             [
                 \iw\html::A_CLASS => "workTypeNew",
