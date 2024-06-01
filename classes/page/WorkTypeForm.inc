@@ -335,7 +335,6 @@ abstract class WorkTypeForm extends Page2Columns
 
 			return false;
 		} else {
-			echo "SET VALUE TO INT". LF;
 			$component->setValue((int) $component->getValue());
 		}
 
