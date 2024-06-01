@@ -239,9 +239,13 @@ abstract class WorkTypeForm extends Page2Columns
 		if(!$this->form->components->componentExists($this->getFormComponentDisabledId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
 				$this->getFormComponentDisabledId(),
-				programPropertyName: \entity\WorkType::ATTRIBUTE_DISABLED,
-				validator: [$this, "formComponentDisabledValidator"],
-				checked: $this->getFormComponentDisabledValue()
+				null,
+				\entity\WorkType::ATTRIBUTE_DISABLED,
+				[$this, "formComponentDisabledValidator"],
+				true,
+				null,
+				$this->getFormComponentDisabledValue(),
+				null
 			));
 		}
 
