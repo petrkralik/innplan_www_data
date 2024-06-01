@@ -35,7 +35,6 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	protected function getFormComponentNameValue(): ?string
 	{
-		echo "get value NAME". LF;
 		return $this->workType->name->getValue();
 	}
 
