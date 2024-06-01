@@ -35,7 +35,6 @@ class WorkTypeEdit extends WorkTypeForm
 				if($this->form->isSaved()) {
 					$content= $this->domFormResave();
 				} else {
-					echo "SAVE";
 					if($this->form->save())
 						$content= $this->domFormSaved();
 					else
@@ -136,7 +135,7 @@ class WorkTypeEdit extends WorkTypeForm
 
 	public function formOnSaveFn(): ?bool
 	{
-		return null;
+		return true;
 	}
 
 
