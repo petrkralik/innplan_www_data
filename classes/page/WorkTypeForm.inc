@@ -234,7 +234,7 @@ abstract class WorkTypeForm extends Page2Columns
 	 * @return \iw\page\html\form\component\ComponentWithValue - the disabled component of the form
 	 * @throws \iw\page\html\form\Exception
 	 */
-	protected function getFormComponentDisabled(): \iw\page\html\form\component\ComponentWithValue
+	protected function getFormComponentDisabled(): \iw\page\html\form\component\Checkbox
 	{
 		if(!$this->form->components->componentExists($this->getFormComponentDisabledId())) {
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
