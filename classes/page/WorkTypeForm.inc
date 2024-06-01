@@ -240,7 +240,8 @@ abstract class WorkTypeForm extends Page2Columns
 			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
 				$this->getFormComponentDisabledId(),
 				programPropertyName: \entity\WorkType::ATTRIBUTE_DISABLED,
-				validator: [$this, "formComponentDisabledValidator"]
+				validator: [$this, "formComponentDisabledValidator"],
+				checked: $this->getFormComponentDisabledValue()
 			));
 		}
 
