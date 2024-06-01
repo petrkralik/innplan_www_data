@@ -27,8 +27,8 @@ class UriClassMapper extends \iw\page\driver\UriClassMapper
 			"/\/workType\/new\/(save)\/?/i" => "\page\WorkTypeNew",
 			"/\/workType\/(new)\/?/i" => "\page\WorkTypeNew",
 			"/\/workType\/(\d+)\/?$/i" => "\page\WorkTypeDetail",
-			"/\/workType\/(\d+)\/edit\/?/i" => "\page\WorkTypeEdit",
 			"/\/workType\/(\d+)\/edit\/(save)\/?/i" => "\page\WorkTypeEdit",
+			"/\/workType\/(\d+)\/edit\/?/i" => "\page\WorkTypeEdit",
 			"/\/workType\/(\d+)\/delete\/?/i" => "\page\WorkTypeDelete",
 		];
 	}
