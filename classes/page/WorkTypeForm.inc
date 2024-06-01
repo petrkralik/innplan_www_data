@@ -323,7 +323,12 @@ abstract class WorkTypeForm extends Page2Columns
 	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
 	{
 		$value= $component->getValue();
-		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : true;
+		if(empty($value)) {
+			$component->addError(new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný"));
+			return false;
+		}
+
+		return true;
 	}
 
 
@@ -332,7 +337,6 @@ abstract class WorkTypeForm extends Page2Columns
 		$value= $component->getValue();
 		if (! is_numeric($value) || intval($value) <= 0) {
 			$component->addError(new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"));
-
 			return false;
 		} else {
 			$component->setValue((int) $component->getValue());
