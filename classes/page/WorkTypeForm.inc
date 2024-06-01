@@ -320,18 +320,22 @@ abstract class WorkTypeForm extends Page2Columns
 	 *
 	 * @return true|\iw\page\html\form\component\EntryError - Returns true if the name is not empty, else returns an EntryError with an error message
 	 */
-	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): true|\iw\page\html\form\component\EntryError
+	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
 	{
 		$value= $component->getValue();
 		return empty($value) ? new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný") : true;
 	}
 
 
-	public function formComponentSeniorityValidator(\iw\page\html\form\component\ComponentWithValue $component): true|\iw\page\html\form\component\EntryError
+	public function formComponentSeniorityValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
 	{
 		$value= $component->getValue();
-		if (! is_numeric($value) || intval($value) <= 0)
-			return new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna");
+		if (! is_numeric($value) || intval($value) <= 0) {
+			$component->addError(new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"));
+			return false;
+		} else {
+			$component->setValue((int) $component->getValue());
+		}
 
 		return true;
 	}
