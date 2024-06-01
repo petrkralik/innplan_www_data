@@ -147,7 +147,7 @@ abstract class Property
 	/**
 	 * Checks if a property has been initialized. If not, an exception is thrown.
 	 *
-	 * @throws \businessObject\property\Exception If the property has not been initialized.
+	 * @throws Exception If the property has not been initialized.
 	 */
 	private function checkInitialization(): void
 	{
@@ -186,7 +186,7 @@ abstract class Property
 	 * Erases the value of the property if it's not required. Throws an exception if
 	 * trying to erase a required property.
 	 *
-	 * @throws \businessObject\property\Exception If the property is required and cannot be erased.
+	 * @throws Exception If the property is required and cannot be erased.
 	 */
 	public function clear(): void
 	{
@@ -206,7 +206,7 @@ abstract class Property
 	 * @param   mixed  $value  The value to initialize the property with.
 	 *
 	 * @return void
-	 * @throws \businessObject\property\Exception If the property is already initialized.
+	 * @throws Exception If the property is already initialized.
 	 *
 	 */
 	public function initialize(mixed $value): void
@@ -226,7 +226,7 @@ abstract class Property
 	 *
 	 * @param mixed $value The new value to set.
 	 *
-	 * @throws \businessObject\property\Exception If the value is not valid according to valueCheckOnSet.
+	 * @throws Exception If the value is not valid according to valueCheckOnSet.
 	 */
 	public function setValue(mixed $value): void
 	{
@@ -274,7 +274,7 @@ abstract class Property
 	 * otherwise the original value.
 	 *
 	 * @return mixed The current value of the property.
-	 * @throws \businessObject\property\Exception
+	 * @throws Exception
 	 */
 	public function getValue(): mixed
 	{
@@ -288,7 +288,7 @@ abstract class Property
 	 * Gets the original value of the property.
 	 *
 	 * @return mixed The original value of the property.
-	 * @throws \businessObject\property\Exception
+	 * @throws Exception
 	 */
 	public function getValueOriginal(): mixed
 	{
@@ -302,7 +302,7 @@ abstract class Property
 	 * Gets the changed value of the property if there is one.
 	 *
 	 * @return mixed The changed value of the property, or null if no change has been made.
-	 * @throws \businessObject\property\Exception
+	 * @throws Exception
 	 */
 	public function getValueChanged(): mixed
 	{
@@ -320,7 +320,7 @@ abstract class Property
 	 * @param   \businessObject\PropertyObjectReferral  $referral  The PropertyObjectReferral instance to add to the referrals list.
 	 *
 	 * @return void
-	 * @throws \businessObject\property\Exception
+	 * @throws Exception
 	 */
 	public function addReferral(\businessObject\PropertyObjectReferral $referral): void
 	{
@@ -336,7 +336,7 @@ abstract class Property
 	 * for understanding the dependencies and relationships this property has with other business objects.
 	 *
 	 * @return array An array of PropertyObjectReferral instances that are linked to this property.
-	 * @throws \businessObject\property\Exception
+	 * @throws Exception
 	 */
 	public function getReferrals(): array
 	{
