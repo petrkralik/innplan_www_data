@@ -96,7 +96,11 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	protected function getFormComponentNameValue(): ?string
 	{
-		return $this->workType->name->getValue();
+		return $this->request->isPropertySet($this->getFormComponentNameId())
+			?
+			$this->request->getProperty($this->getFormComponentNameId())
+			:
+			$this->workType->name->getValue();
 	}
 
 
@@ -105,7 +109,11 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	protected function getFormComponentDescriptionValue(): ?string
 	{
-		return $this->workType->description->getValue();
+		return $this->request->isPropertySet($this->getFormComponentDescriptionId())
+			?
+				$this->request->getProperty($this->getFormComponentDescriptionId())
+			:
+				$this->workType->description->getValue();
 	}
 
 
