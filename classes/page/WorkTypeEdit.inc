@@ -26,40 +26,59 @@ class WorkTypeEdit extends WorkTypeForm
 		}
 		catch (\businessObject\Exception $ex) {
 			if($ex->error== \businessObject\Error::NO_OBJECT_LIKE_THIS)
-				return $this->domErrorNonexistentObject();
+				$content= $this->domErrorNonexistentObject();
 			elseif($ex->error== \businessObject\Error::API_DATA_LOAD)
-				return $this->donErrorObjectLoading();
+				$content= $this->donErrorObjectLoading();
 		}
-
-		$showForm = true;
+		try {
+			if($this->detectProcess()== self::ACTION_SAVE) {
+				if($this->form->isSaved()) {
+					$content= $this->domFormResave();
+				} else {
+					if($this->form->save())
+						$content= $this->domFormSaved();
+					else
+						$content= $this->form;
+				}
+			} else {
+				$content= $this->form;
+			}
+		}
+		catch (\iw\Exception $ex) {
+			throw $ex;
+		}
 
 		return $this->dom->div(
 			[
 				\iw\html::A_CLASS => "workTypeEdit",
 			],
 			$this->dom->h1(N, "úprava typu práce"),
-			$showForm ? $this->form : N
+			$content
 		);
+	}
+
+
+	private function domFormSaved(): \iw\dom\Element
+	{
+		return $this->dom->p(N, "Uložit.");
+	}
+
+
+	private function domFormResave(): \iw\dom\Element
+	{
+		return $this->dom->p(N, "Program zabránil opětovnému uložení.");
 	}
 
 
 	private function domErrorNonexistentObject(): \iw\dom\Element
 	{
-		return $this->dom->div(
-			N,
-			$this->dom->h1(N, "úprava typu práce"),
-			$this->dom->p(N, "Takový objekt neexistuje.")
-		);
+		return $this->dom->p(N, "Takový objekt neexistuje.");
 	}
 
 
 	private function donErrorObjectLoading(): \iw\dom\Element
 	{
-		return $this->dom->div(
-			N,
-			$this->dom->h1(N, "úprava typu práce"),
-			$this->dom->p(N, "Problém s načtením objektu")
-		);
+		return $this->dom->p(N, "Problém s načtením objektu");
 	}
 
 
