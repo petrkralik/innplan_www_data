@@ -89,7 +89,7 @@ class WorkTypeNew extends WorkTypeForm
             \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->value,
 			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->value,
             \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->value,
-			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->value,
+			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->isChecked()? true: null,
         ];
 
         $obj = new \businessObject\WorkType();
