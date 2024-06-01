@@ -144,17 +144,19 @@ class WorkTypeEdit extends WorkTypeForm
 	/**
 	 * @throws \iw\page\html\form\Exception
 	 * @throws \iw\page\html\form\component\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function formOnSaveFn(): ?bool
 	{
-		$data = [
-			\entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->value,
-			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->value,
-			\entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->value,
-			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->isChecked()? true: null,
-		];
+		$this->workType->name->setValue($this->getFormComponentName()->value);
+		$this->workType->description->setValue($this->getFormComponentDescription()->value);
+		//$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->value);
+		//$this->workType->disabled->setValue($this->getFormComponentDisabled()->checked? true: null);
 
-		var_dump($data);
+		foreach($this->workType->changes() as $change) {
+			echo $change->isChanged. LF;
+		}
+
 
 		return false;
 	}
