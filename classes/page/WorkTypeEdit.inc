@@ -154,7 +154,8 @@ class WorkTypeEdit extends WorkTypeForm
 		//$this->workType->disabled->setValue($this->getFormComponentDisabled()->checked? true: null);
 
 		foreach($this->workType->changes() as $change) {
-			echo $change->isChanged. LF;
+			echo $change->getValue(). LF;
+			echo $change->isChanged(). LF;
 		}
 
 
