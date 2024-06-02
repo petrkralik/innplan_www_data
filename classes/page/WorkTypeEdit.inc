@@ -145,6 +145,7 @@ class WorkTypeEdit extends WorkTypeForm
 	 * @throws \iw\page\html\form\Exception
 	 * @throws \iw\page\html\form\component\Exception
 	 * @throws \businessObject\property\Exception
+	 * @throws \iw\api\Exception
 	 */
 	public function formOnSaveFn(): ?bool
 	{

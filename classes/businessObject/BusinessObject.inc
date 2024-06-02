@@ -312,15 +312,15 @@ abstract class BusinessObject extends \World
 	public function saveChanges(): bool
 	{
 		$data= [];
-		foreach ($this->properties as $name=>$property) {
-			if($property->isChanged()) {
-				//echo LF. "<b>$name</b> changed from <i>'{$property->getValueOriginal()}</i>' to <i>'{$property->getValueChanged()}'</i>";
+		foreach ($this->properties as $name=>$property)
+			if($property->isChanged())
 				$data[$name]= $property->getValueChanged();
-			}
+		try {
+			$result = $this->getApi()->patch($this->apiUrlEdit(), $data);
 		}
-
-		$result= $this->getApi()->patch($this->apiUrlEdit(), $data);
-		var_dump($result);
+		catch (\iw\api\Exception $ex) {
+			Error::GENERAL->throw("Save data error", previous: $ex);
+		}
 
 		return false;
 	}
