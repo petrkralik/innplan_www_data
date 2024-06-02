@@ -19,7 +19,7 @@ abstract class BusinessObject extends \World
 	public bool $dataInitiated = false;
 
 	/**
-	 * @var array $properties Associative array storing properties of the business object, keyed by property names.
+	 * @var \businessObject\property\Property[] $properties Associative array storing properties of the business object, keyed by property names.
 	 */
 	protected array $properties;
 
@@ -304,8 +304,13 @@ abstract class BusinessObject extends \World
 	 */
 	public function saveChanges(): bool
 	{
-		// @todo Logic to save changes goes here.
-		return T;
+		$data= [];
+		foreach ($this->properties as $name=>$property) {
+			if($property->isChanged()) {
+				echo "$name changed from '{$property->valueOriginal}' to '$property->valueChanged'". LF;
+			}
+		}
+		return false;
 	}
 
 

@@ -150,15 +150,10 @@ class WorkTypeEdit extends WorkTypeForm
 	{
 		$this->workType->name->setValue($this->getFormComponentName()->value);
 		$this->workType->description->setValue($this->getFormComponentDescription()->value);
-		//$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->value);
-		//$this->workType->disabled->setValue($this->getFormComponentDisabled()->checked? true: null);
+		$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->value);
+		$this->workType->disabled->setValue($this->getFormComponentDisabled()->checked? true: null);
 
-		foreach($this->workType->changes() as $change) {
-			var_dump($change);
-		}
-
-
-		return false;
+		return $this->workType->saveChanges();
 	}
 
 
