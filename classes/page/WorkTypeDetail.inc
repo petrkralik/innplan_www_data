@@ -36,7 +36,6 @@ class WorkTypeDetail extends Page2Columns
 			$e->append($this->domObjectLoadError());
 		}
 
-
 		return $e;
 	}
 
