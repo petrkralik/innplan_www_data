@@ -85,7 +85,8 @@ class WorkTypeNew extends WorkTypeForm
 	 */
     public function formOnSaveFn(): bool
     {
-        $data = [
+
+		$data = [
             \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->value,
 			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->value,
             \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->value,
