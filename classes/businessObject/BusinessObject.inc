@@ -319,7 +319,7 @@ abstract class BusinessObject extends \World
 			}
 		}
 
-		$result= $this->getApi()->post($this->apiUrlEdit(), $data);
+		$result= $this->getApi()->patch($this->apiUrlEdit(), $data);
 		var_dump($result);
 
 		return false;
