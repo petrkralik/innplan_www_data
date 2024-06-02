@@ -59,9 +59,9 @@ class WorkTypeDetail extends Page2Columns
 
 	public function tableDataCallback($row, $col, &$value): void
 	{
-		if ($row == 0 && $col == 1)
+		if ($row == 1 && $col == 1)
 			$value = $value ?? "bez popisu";
-		if ($row == 2 && $col == 1)
+		if ($row == 3 && $col == 1)
 			$value = $value ?"ano": "ne";
 	}
 
