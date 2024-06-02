@@ -16,10 +16,16 @@ class WorkType extends BusinessObject
 {
 
 
+	public function apiUrlCreate(): string
+	{
+		return urlBaseAPI."/v1/workType";
+	}
+
+
 	/**
 	 * @throws Exception
 	 */
-	function apiUrlGet(): string
+	public function apiUrlGet(): string
 	{
 		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
@@ -28,9 +34,21 @@ class WorkType extends BusinessObject
 	}
 
 
-	function apiUrlCreate(): string
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlEdit(): string
 	{
-		return urlBaseAPI."/v1/workType";
+		return $this->apiUrlGet();
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlDelete(): string
+	{
+		return $this->apiUrlGet();
 	}
 
 

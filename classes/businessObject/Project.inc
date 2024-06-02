@@ -23,6 +23,18 @@ class Project extends BusinessObject
 
 
 	/**
+	 * @throws \businessObject\property\Exception|Exception
+	 */
+	public function apiUrlCreate(): string
+	{
+		if (! $this->clientId->isInitialized())
+			Error::GENERAL->throw("Attribute clientId must be set");
+
+		return urlBaseAPI."/v1/client/{$this->clientId->getValue()}/project/";
+	}
+
+
+	/**
 	 * Provides the API URL for the current project. This URL is used to access or modify
 	 * the project's data via a RESTful API.
 	 *
@@ -39,14 +51,20 @@ class Project extends BusinessObject
 
 
 	/**
-	 * @throws \businessObject\property\Exception|\businessObject\Exception
+	 * @throws Exception
 	 */
-	public function apiUrlCreate(): string
+	public function apiUrlEdit(): string
 	{
-		if (! $this->clientId->isInitialized())
-			Error::GENERAL->throw("Attribute clientId must be set");
+		return $this->apiUrlGet();
+	}
 
-		return urlBaseAPI."/v1/client/{$this->clientId->getValue()}/project/";
+
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlDelete(): string
+	{
+		return $this->apiUrlGet();
 	}
 
 

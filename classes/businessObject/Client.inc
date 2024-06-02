@@ -47,4 +47,22 @@ class Client extends BusinessObject
 	}
 
 
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlEdit(): string
+	{
+		return $this->apiUrlGet();
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlDelete(): string
+	{
+		return $this->apiUrlGet();
+	}
+
+
 }

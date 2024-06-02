@@ -29,16 +29,21 @@ abstract class BusinessObject extends \World
 	public readonly ?int $id;
 
 
+	abstract public function apiUrlCreate(): string;
+
+
 	/**
 	 * Abstract method that should return the specific API endpoint URL for the business object.
 	 * Implementing classes must define this to interact with the correct API endpoint.
 	 *
 	 * @return string The API endpoint URL specific to the business object.
 	 */
-	abstract function apiUrlGet(): string;
+	abstract public function apiUrlGet(): string;
 
 
-	abstract function apiUrlCreate(): string;
+	abstract public function apiUrlEdit(): string;
+
+	abstract public function apiUrlDelete(): string;
 
 
 	/**
@@ -301,17 +306,22 @@ abstract class BusinessObject extends \World
 	 * This method should contain logic to persist the changes tracked in $changedProperties.
 	 *
 	 * @return bool Returns true if changes are successfully saved, false otherwise.
+	 * @throws property\Exception
+	 * @throws \iw\api\Exception
 	 */
 	public function saveChanges(): bool
 	{
 		$data= [];
 		foreach ($this->properties as $name=>$property) {
 			if($property->isChanged()) {
-				echo LF. "<b>$name</b> changed from <i>'{$property->getValueOriginal()}</i>' to <i>'{$property->getValueChanged()}'</i>";
+				//echo LF. "<b>$name</b> changed from <i>'{$property->getValueOriginal()}</i>' to <i>'{$property->getValueChanged()}'</i>";
 				$data[$name]= $property->getValueChanged();
 			}
 		}
-		var_dump($data);
+
+		$result= $this->getApi()->post($this->apiUrlEdit(), $data);
+		var_dump($result);
+
 		return false;
 	}
 

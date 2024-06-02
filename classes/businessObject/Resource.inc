@@ -15,7 +15,15 @@ class Resource extends BusinessObject
 
 
 	/**
-	 * @throws \businessObject\Exception
+	 */
+	function apiUrlCreate(): string
+	{
+		return urlBaseAPI."/v1/resource";
+	}
+
+
+	/**
+	 * @throws Exception
 	 */
 	function apiUrlGet(): string
 	{
@@ -26,9 +34,21 @@ class Resource extends BusinessObject
 	}
 
 
-	function apiUrlCreate(): string
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlEdit(): string
 	{
-		return urlBaseAPI."/v1/resource";
+		return $this->apiUrlGet();
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlDelete(): string
+	{
+		return $this->apiUrlGet();
 	}
 
 

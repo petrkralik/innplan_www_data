@@ -14,6 +14,12 @@ class ProjectRole extends BusinessObject
 {
 
 
+	function apiUrlCreate(): string
+	{
+		return urlBaseAPI."/v1/project/role";
+	}
+
+
 	/**
 	 * @throws \businessObject\Exception
 	 */
@@ -26,9 +32,21 @@ class ProjectRole extends BusinessObject
 	}
 
 
-	function apiUrlCreate(): string
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlEdit(): string
 	{
-		return urlBaseAPI."/v1/project/role";
+		return $this->apiUrlGet();
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlDelete(): string
+	{
+		return $this->apiUrlGet();
 	}
 
 

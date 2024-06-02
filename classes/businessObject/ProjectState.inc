@@ -16,6 +16,14 @@ class ProjectState extends BusinessObject
 
 
 	/**
+	 */
+	#[\Override] function apiUrlCreate(): string
+	{
+		return urlBaseAPI. "/project/state/";
+	}
+
+
+	/**
 	 * @throws Exception
 	 */
 	#[\Override] function apiUrlGet(): string
@@ -27,18 +35,30 @@ class ProjectState extends BusinessObject
 	}
 
 
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlEdit(): string
+	{
+		return $this->apiUrlGet();
+	}
+
+
+	/**
+	 * @throws Exception
+	 */
+	public function apiUrlDelete(): string
+	{
+		return $this->apiUrlGet();
+	}
+
+
 	#[\Override] function propertyList(): array
 	{
 		return [
 			"name"     => new \businessObject\property\PropertyString(),
 			"disabled" => new \businessObject\property\PropertyBool(F, T),
 		];
-	}
-
-
-	#[\Override] function apiUrlCreate(): string
-	{
-		return urlBaseAPI. "/project/state/";
 	}
 
 
