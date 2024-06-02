@@ -25,7 +25,8 @@ class WorkTypeDetail extends Page2Columns
 			$workType->loadData();
 			$e->append($this->dom->h2(N, $workType->name->getValue()));
 			$data = [
-				["popis", null],
+				["id", $workType->id],
+				["popis", $workType->description->getValue()],
 				["seniorita", $workType->workTypeSeniorityId->getValue()],
 				["uzamčeno", $workType->disabled->getValue()],
 				[null, [$this->buttonEdit(), $this->buttonDelete()]],
