@@ -9,7 +9,6 @@ class WorkTypeDetail extends Page2Columns
 
 
 	private int $workTypeId;
-	private \businessObject\WorkType $workType;
 
 
 	/**
@@ -29,7 +28,7 @@ class WorkTypeDetail extends Page2Columns
 				["popis", $workType->description->getValue()],
 				["seniorita", $workType->workTypeSeniorityId->getValue()],
 				["uzamčeno", $workType->disabled->getValue()],
-				[null, [$this->buttonEdit(), $this->buttonDelete()]],
+				[null, [$this->domButtonEdit(), $this->domButtonDelete()]],
 			];
 			$e->append(new \iw\page\html\arrayDecorator\ArrayDecorator($data, [$this, "tableDataCallback"]));
 		} catch (\businessObject\Exception $ex) {
@@ -37,32 +36,6 @@ class WorkTypeDetail extends Page2Columns
 		}
 
 		return $e;
-	}
-
-
-	/**
-	 * @throws \DOMException
-	 */
-	private function buttonEdit(): \iw\dom\Element
-	{
-		return $this->dom->a(
-			N,
-			urlBasePage. "/workType/{$this->workTypeId}/edit",
-        	"upravit"
-        );
-	}
-
-
-	/**
-	 * @throws \DOMException
-	 */
-	private function buttonDelete(): \iw\dom\Element
-	{
-		return $this->dom->a(
-			N,
-			urlBasePage . "/workType/{$this->workTypeId}/delete",
-			"smazat"
-		);
 	}
 
 
