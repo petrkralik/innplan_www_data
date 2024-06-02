@@ -308,10 +308,10 @@ abstract class BusinessObject extends \World
 		foreach ($this->properties as $name=>$property) {
 			if($property->isChanged()) {
 				echo LF. "<b>$name</b> changed from <i>'{$property->getValueOriginal()}</i>' to <i>'{$property->getValueChanged()}'</i>";
-				$a= $property->getValueChanged();
-				var_dump($a);
+				$data[$name]= $property->getValueChanged();
 			}
 		}
+		var_dump($data);
 		return false;
 	}
 
