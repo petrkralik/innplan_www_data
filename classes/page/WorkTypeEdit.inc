@@ -152,9 +152,9 @@ class WorkTypeEdit extends WorkTypeForm
 		$this->workType->name->setValue($this->getFormComponentName()->value);
 		$this->workType->description->setValue($this->getFormComponentDescription()->value);
 		$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->value);
-		$this->workType->disabled->setValue($this->getFormComponentDisabled()->checked? true: null);
+		$this->workType->disabled->setValue($this->getFormComponentDisabled()->isChecked()? true: null);
 
-		var_dump($this->getFormComponentDisabled()->checked);
+		var_dump($this->getFormComponentDisabled()->isChecked());
 
 		echo "NAME: {$this->workType->name->getValue()}".LF;
 		echo "DESCRIPTION: {$this->workType->description->getValue()}".LF;
