@@ -87,9 +87,9 @@ class WorkTypeNew extends WorkTypeForm
     {
 
 		$data = [
-            \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->getValueInForm(),
-			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->getValueInForm(),
-            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->getValueInForm(),
+            \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->getValue(),
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->getValue(),
+            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->getValue(),
 			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->isCheckedInForm()? true: null,
         ];
 
