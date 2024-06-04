@@ -152,17 +152,10 @@ class WorkTypeEdit extends WorkTypeForm
 	 */
 	public function formOnSaveFn(): ?bool
 	{
-		$this->workType->name->setValue($this->getFormComponentName()->value);
-		$this->workType->description->setValue($this->getFormComponentDescription()->value);
-		$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->value);
+		$this->workType->name->setValue($this->getFormComponentName()->getValueInForm());
+		$this->workType->description->setValue($this->getFormComponentDescription()->getValueInForm());
+		$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->getValueInForm());
 		$this->workType->disabled->setValue($this->getFormComponentDisabled()->isCheckedInForm()? true: null);
-
-		var_dump($this->getFormComponentDisabled()->isCheckedInForm());
-
-		echo "NAME: {$this->workType->name->getValue()}".LF;
-		echo "DESCRIPTION: {$this->workType->description->getValue()}".LF;
-		echo "SENIORITY ID: {$this->workType->workTypeSeniorityId->getValue()}".LF;
-		echo "DISABLED: {$this->workType->disabled->getValue()}".LF;
 
 		return $this->workType->saveChanges();
 	}

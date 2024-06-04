@@ -87,22 +87,22 @@ class WorkTypeNew extends WorkTypeForm
     {
 
 		$data = [
-            \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->value,
-			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->value,
-            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->value,
+            \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->getValueInForm(),
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->getValueInForm(),
+            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->getValueInForm(),
 			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->isCheckedInForm()? true: null,
         ];
 
         $obj = new \businessObject\WorkType();
 
 		try {
-			$result = $obj->create($data);
+			return $obj->create($data);
 		}
 		catch (\iw\api\Exception $ex) {
 			var_dump($ex);
 		}
 
-        return $result;
+		return false;
     }
 
 
