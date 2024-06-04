@@ -64,6 +64,8 @@ abstract class BusinessObject extends \World
 	 */
 	abstract public function apiUrlDelete(): string;
 
+	abstract public function urlPageDetail(): string;
+
 
 	/**
 	 * Abstract method that should return a list of properties associated with the business object.

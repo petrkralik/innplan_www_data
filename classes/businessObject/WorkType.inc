@@ -69,7 +69,34 @@ class WorkType extends BusinessObject
 	}
 
 
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	public function urlPageDetail(): string
+	{
+		if (! $this->id)
+			Error::GENERAL->throw("Object must exist.");
 
+		return urlBasePage. "/workType/{$this->id}";
+	}
+
+
+	public function urlPageNew(): string
+	{
+		return urlBasePage. "/workType/new";
+	}
+
+
+	/**
+	 * @throws \businessObject\Exception
+	 */
+	public function urlPageEdit(): string
+	{
+		if (! $this->id)
+			Error::GENERAL->throw("Object must exist.");
+
+		return urlBasePage. "/workType/new";
+	}
 
 
 }

@@ -161,9 +161,12 @@ class WorkTypeEdit extends WorkTypeForm
 	}
 
 
+	/**
+	 * @throws \businessObject\Exception
+	 */
 	#[NoReturn] public function formOnSaveSuccessFn(): ?bool
 	{
-		$this->dom->redirect(urlBasePage. "/workType/{$this->workTypeId}/detail");
+		$this->dom->redirect($this->workType->urlPageDetail());
 	}
 
 
