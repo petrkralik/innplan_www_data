@@ -340,8 +340,7 @@ abstract class BusinessObject extends \World
 				$data[$name]= $property->getValueChanged();
 		try {
 			$result = $this->getApi()->patch($this->apiUrlEdit(), $data);
-			var_dump($result);
-			if($result->statusCodeType == \iw\HttpStatusCode::OK)
+			if($result->statusCode == \iw\HttpStatusCode::OK)
 				return true;
 			else
 				Error::GENERAL->throw("Save data error");
