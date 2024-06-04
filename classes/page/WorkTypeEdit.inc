@@ -4,6 +4,9 @@
 namespace page;
 
 
+use JetBrains\PhpStorm\NoReturn;
+
+
 class WorkTypeEdit extends WorkTypeForm
 {
 
@@ -165,9 +168,9 @@ class WorkTypeEdit extends WorkTypeForm
 	}
 
 
-	public function formOnSaveSuccessFn(): ?bool
+	#[NoReturn] public function formOnSaveSuccessFn(): ?bool
 	{
-		return null;
+		$this->dom->redirect(urlBasePage. "/workType/{$this->workTypeId}/detail");
 	}
 
 
