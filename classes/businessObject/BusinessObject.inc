@@ -340,6 +340,7 @@ abstract class BusinessObject extends \World
 				$data[$name]= $property->getValueChanged();
 		try {
 			$result = $this->getApi()->patch($this->apiUrlEdit(), $data);
+			var_dump($result);
 			if($result->statusCodeType == \iw\HttpStatusCode::OK)
 				return true;
 			else
