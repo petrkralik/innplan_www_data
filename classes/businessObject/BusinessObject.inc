@@ -307,7 +307,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @return bool Returns true if changes are successfully saved, false otherwise.
 	 * @throws property\Exception
-	 * @throws \iw\api\Exception
+	 * @throws \businessObject\Exception
 	 */
 	public function saveChanges(): bool
 	{
@@ -317,13 +317,14 @@ abstract class BusinessObject extends \World
 				$data[$name]= $property->getValueChanged();
 		try {
 			$result = $this->getApi()->patch($this->apiUrlEdit(), $data);
-			var_dump($result);
+			if($result->statusCodeType == \iw\HttpStatusCode::OK)
+				return true;
+			else
+				Error::GENERAL->throw("Save data error");
 		}
 		catch (\iw\api\Exception $ex) {
 			Error::GENERAL->throw("Save data error", previous: $ex);
 		}
-
-		return false;
 	}
 
 
