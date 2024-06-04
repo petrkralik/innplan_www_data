@@ -29,6 +29,12 @@ abstract class BusinessObject extends \World
 	public readonly ?int $id;
 
 
+	/**
+	 * Abstract method that should return the specific API endpoint URL for creating the business object.
+	 * Implementing classes must define this to interact with the correct API endpoint.
+	 *
+	 * @return string The API endpoint URL specific to the business object for the create operation.
+	 */
 	abstract public function apiUrlCreate(): string;
 
 
@@ -41,8 +47,21 @@ abstract class BusinessObject extends \World
 	abstract public function apiUrlGet(): string;
 
 
+	/**
+	 * Abstract method that is used to get the specific API endpoint URL for editing the business object.
+	 * Implementing classes must define this to interact with the correct API endpoint.
+	 *
+	 * @return string The API endpoint URL specific to the business object for the edit operation.
+	 */
 	abstract public function apiUrlEdit(): string;
 
+
+	/**
+	 * Abstract method that is used to get the specific API endpoint URL for deleting the business object.
+	 * Implementing classes must define this to interact with the correct API endpoint.
+	 *
+	 * @return string The API endpoint URL specific to the business object for the delete operation.
+	 */
 	abstract public function apiUrlDelete(): string;
 
 
@@ -311,6 +330,8 @@ abstract class BusinessObject extends \World
 	 */
 	public function saveChanges(): bool
 	{
+		if(!$this->isChanged())
+			return true;
 		$data= [];
 		foreach ($this->properties as $name=>$property)
 			if($property->isChanged())
@@ -334,7 +355,7 @@ abstract class BusinessObject extends \World
 	 *
 	 * @param bool $forceLoad Forces the reload of data even if it has already been loaded.
 	 *
-	 * @throws Exception If there is an issue with data loading.
+	 * @throws Exception|\businessObject\property\Exception If there is an issue with data loading.
 	 */
 	public function loadData(bool $forceLoad = false): void
 	{
@@ -459,10 +480,20 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @param   \businessObject\property\Property  $property
+	 * Convert and return the Property object if it is an instance of PropertyObjectReferral.
 	 *
-	 * @return \businessObject\property\Property|BusinessObject
-	 * @throws \businessObject\property\Exception
+	 * This method checks if the passed Property object is an instance of PropertyObjectReferral.
+	 * If it is, the method gets and returns the BusinessObject that is being referred to by
+	 * calling getObject() method on the PropertyObjectReferral instance.
+	 * If it's not an instance of PropertyObjectReferral, the original Property object is returned.
+	 *
+	 * @param   \businessObject\property\Property  $property  The Property object to be converted if necessary.
+	 *
+	 * @return \businessObject\property\Property|BusinessObject The referenced BusinessObject if the passed
+	 * Property object is instanceof PropertyObjectReferral, or the original Property object otherwise.
+	 *
+	 * @throws \businessObject\property\Exception If any error occurs while trying to get the BusinessObject
+	 * from PropertyObjectReferral instance.
 	 */
 	private function getPropertyConverted(\businessObject\property\Property $property): \businessObject\property\Property|BusinessObject
 	{
@@ -497,11 +528,21 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * Validates whether a string is a well-formed date string in the format 'Y-m-d'.
+	 * Checks a string to verify whether it is a valid date in 'YYYY-MM-DD' format.
 	 *
-	 * @param string $value The date string to validate.
+	 * This method first creates a regular expression pattern to match the expected date format
+	 * i.e., 4 digits for year, then a hyphen, then two digits for month, another hyphen, and finally two digits for day.
 	 *
-	 * @return bool True if the string is a well-formed date, false otherwise.
+	 * It then uses PHP's preg_match function to test the input string against the pattern, if there is a match it decomposes
+	 * the $value into $year, $month, and $day parts using array_map and array_slice functions and then uses PHP's built-in
+	 * checkdate() function to verify that the $year, $month and $day constitute a valid gregorian date.
+	 *
+	 * If it is a well-formed and valid date, the method returns true.
+	 * Otherwise, if either the format check fails or the date components do not form a valid date, it returns false.
+	 *
+	 * @param   string  $value  The date string to validate.
+	 *
+	 * @return bool True if the string is well-formed and represents a valid date in 'YYYY-MM-DD' format, false otherwise.
 	 */
 	private function strDateWellFormed(string $value): bool
 	{
@@ -517,7 +558,11 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @return \businessObject\property\Property[]
+	 * This method is used to retrieve the properties of the business object.
+	 * It returns an associative array where the key is the property name and the
+	 * value is an instance of \businessObject\property\Property or its descendant.
+	 *
+	 * @return \businessObject\property\Property[] An array of properties of the business object.
 	 */
 	public function getProperties(): array
 	{
@@ -526,11 +571,35 @@ abstract class BusinessObject extends \World
 
 
 	/**
-	 * @return \businessObject\property\Property[]
+	 * This method is used to retrieve properties that are required for creating the business object.
+	 * It understands which properties are required for the creation of the object.
+	 * The method returns an associative array where the key is the property name and the
+	 * value is an instance of \businessObject\property\Property or its descendant.
+	 *
+	 * @return \businessObject\property\Property[] Array of properties required for object creation.
 	 */
 	public function getPropertiesForCreation(): array
 	{
 		return $this->propertyListForCreation();
+	}
+
+
+	/**
+	 * This method checks if any properties of the business object have been changed.
+	 * It iterates over all the properties of the business object and calls the isChanged
+	 * method on each property. If any property is marked as changed, it will
+	 * return true immediately, else it will return false.
+	 *
+	 * @return bool True if any property is changed, false otherwise.
+	 */
+	public function isChanged(): bool
+	{
+		foreach ($this->properties as $property) {
+			if ($property->isChanged())
+				return true;
+		}
+
+		return false;
 	}
 
 
