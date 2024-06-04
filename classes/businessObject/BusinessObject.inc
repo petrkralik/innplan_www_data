@@ -317,6 +317,7 @@ abstract class BusinessObject extends \World
 				$data[$name]= $property->getValueChanged();
 		try {
 			$result = $this->getApi()->patch($this->apiUrlEdit(), $data);
+			var_dump($result);
 		}
 		catch (\iw\api\Exception $ex) {
 			Error::GENERAL->throw("Save data error", previous: $ex);
