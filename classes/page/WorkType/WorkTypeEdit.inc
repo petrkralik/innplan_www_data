@@ -1,13 +1,13 @@
 <?php
 
 
-namespace page;
+namespace page\WorkType;
 
 
 use JetBrains\PhpStorm\NoReturn;
 
 
-class WorkTypeEdit extends WorkTypeForm
+class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 {
 
 
@@ -28,7 +28,7 @@ class WorkTypeEdit extends WorkTypeForm
 	{
 		try {
 			$this->loadObject();
-			$this->buildForm(urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
+			$this->buildForm(\urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 		}
 		catch (\businessObject\Exception $ex) {
 			if($ex->error== \businessObject\Error::NO_OBJECT_LIKE_THIS)
@@ -58,7 +58,7 @@ class WorkTypeEdit extends WorkTypeForm
 			[
 				\iw\html::A_CLASS => "workTypeEdit",
 			],
-			$this->dom->h1(N, "úprava typu práce"),
+			$this->dom->h1(\N, "úprava typu práce"),
 			$content
 		);
 	}
@@ -66,25 +66,25 @@ class WorkTypeEdit extends WorkTypeForm
 
 	private function domFormSaved(): \iw\dom\Element
 	{
-		return $this->dom->p(N, "Uloženo.");
+		return $this->dom->p(\N, "Uloženo.");
 	}
 
 
 	private function domFormResave(): \iw\dom\Element
 	{
-		return $this->dom->p(N, "Program zabránil opětovnému uložení.");
+		return $this->dom->p(\N, "Program zabránil opětovnému uložení.");
 	}
 
 
 	private function domErrorNonexistentObject(): \iw\dom\Element
 	{
-		return $this->dom->p(N, "Takový objekt neexistuje.");
+		return $this->dom->p(\N, "Takový objekt neexistuje.");
 	}
 
 
 	private function donErrorObjectLoading(): \iw\dom\Element
 	{
-		return $this->dom->p(N, "Problém s načtením objektu");
+		return $this->dom->p(\N, "Problém s načtením objektu");
 	}
 
 

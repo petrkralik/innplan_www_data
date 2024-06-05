@@ -1,17 +1,17 @@
 <?php
 
 
-namespace page;
+namespace page\WorkType;
 
 
-abstract class WorkType extends Page2Columns
+abstract class WorkType extends \page\Page2Columns
 {
 
 
 	/**
 	 * @var int The type ID of the work.
 	 */
-	protected int $workTypeId;
+	private int $workTypeId;
 
 
 	protected function getWorkTypeId(): int

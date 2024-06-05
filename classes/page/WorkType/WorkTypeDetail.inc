@@ -1,14 +1,11 @@
 <?php
 
 
-namespace page;
+namespace page\WorkType;
 
 
-class WorkTypeDetail extends Page2Columns
+class WorkTypeDetail extends WorkType
 {
-
-
-	private int $workTypeId;
 
 
 	/**
@@ -17,12 +14,12 @@ class WorkTypeDetail extends Page2Columns
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
-		$this->workTypeId = $this->uriMatches[1];
-		$e = $this->dom->div(N, $this->dom->h1(N, "detail typu práce"));
-		$workType = new \businessObject\WorkType($this->workTypeId);
+		$this->getWorkTypeId();
+		$e = $this->dom->div(\N, $this->dom->h1(\N, "detail typu práce"));
+		$workType = new \businessObject\WorkType($this->getWorkTypeId());
 		try {
 			$workType->loadData();
-			$e->append($this->dom->h2(N, $workType->name->getValue()));
+			$e->append($this->dom->h2(\N, $workType->name->getValue()));
 			$data = [
 				["id", $workType->id],
 				["popis", $workType->description->getValue()],
@@ -44,7 +41,7 @@ class WorkTypeDetail extends Page2Columns
 	 */
 	private function domButtonEdit(): \iw\dom\Element
 	{
-		return $this->dom->a(N, urlBasePage. "/worktype/{$this->workTypeId}/edit", "editovat");
+		return $this->dom->a(\N, \urlBasePage. "/worktype/{$this->getWorkTypeId()}/edit", "editovat");
 	}
 
 
@@ -53,7 +50,7 @@ class WorkTypeDetail extends Page2Columns
 	 */
 	private function domButtonDelete(): \iw\dom\Element
 	{
-		return $this->dom->a(N, urlBasePage . "/worktype/{$this->workTypeId}/delete", 'smazat');
+		return $this->dom->a(\N, \urlBasePage. "/worktype/{$this->getWorkTypeId()}/delete", 'smazat');
 	}
 
 

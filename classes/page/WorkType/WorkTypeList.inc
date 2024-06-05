@@ -1,10 +1,11 @@
 <?php
 
 
-namespace page;
+namespace page\WorkType;
 
 
-class WorkTypeList extends Page2Columns {
+class WorkTypeList extends \page\Page2Columns
+{
 
 
 
@@ -25,7 +26,7 @@ class WorkTypeList extends Page2Columns {
 
 		return $this->dom->div(
 			[\iw\html::A_CLASS=> "workTypeList"],
-			$this->dom->h1(N, "seznam typů práce"),
+			$this->dom->h1(\N, "seznam typů práce"),
 			$this->linkCreateNew(),
 			$this->workTypes? $this->contentResourceList(): $this->contentNoResources()
 		);
@@ -41,7 +42,7 @@ class WorkTypeList extends Page2Columns {
 				\iw\html::A_CLASS=> "workTypeNewLink",
 				\iw\html::A_ID=> "workTypeNewLink",
 			],
-			$this->dom->a(N, urlBasePage. "/workType/new", "nový typ práce")
+			$this->dom->a(\N, \urlBasePage. "/workType/new", "nový typ práce")
 		);
 	}
 
@@ -53,7 +54,7 @@ class WorkTypeList extends Page2Columns {
 	 */
 	private function init(): void
 	{
-		$result= $this->api->get(urlBaseAPI. "/v1/workType");
+		$result= $this->api->get(\urlBaseAPI. "/v1/workType");
 		if($result->statusCodeType== \iw\HttpStatusCodeType::SUCCESS) {
 			foreach ($result->body as $data) {
 				$workType= new \businessObject\WorkType();
@@ -76,7 +77,7 @@ class WorkTypeList extends Page2Columns {
 		foreach ($this->workTypes as $workType) {
 			$data[]= [
 				$workType->id,
-				$this->dom->a(N, urlBasePage. "/workType/{$workType->id}", $workType->name->getValue()),
+				$this->dom->a(\N, \urlBasePage. "/workType/{$workType->id}", $workType->name->getValue()),
 				$this->workTypeActions($workType)
 			];
 		}
@@ -91,8 +92,8 @@ class WorkTypeList extends Page2Columns {
 	private function workTypeActions(\businessObject\WorkType $workType): mixed
 	{
 		return [
-			$this->dom->a(N, urlBasePage. "/workType/{$workType->id}/edit", "upravit"),
-			$this->dom->a(N, urlBasePage. "/workType/{$workType->id}/delete", "smazat")
+			$this->dom->a(\N, \urlBasePage. "/workType/{$workType->id}/edit", "upravit"),
+			$this->dom->a(\N, \urlBasePage. "/workType/{$workType->id}/delete", "smazat")
 		];
 	}
 

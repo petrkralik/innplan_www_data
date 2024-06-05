@@ -1,7 +1,7 @@
 <?php
 
 
-namespace page;
+namespace page\WorkType;
 
 
 use JetBrains\PhpStorm\NoReturn;
@@ -38,10 +38,12 @@ class WorkTypeNew extends WorkTypeForm
      *
      * @return ?\iw\dom\Element Return form DOM element or show a success message when saved.
      * @throws \iw\page\html\form\Exception
+	 * @throws \Random\RandomException
+	 * @throws \iw\Exception
      */
     function getContentMain(): ?\iw\dom\Element
     {
-        $this->buildForm(urlBasePage. "/workType/new/save");
+        $this->buildForm(\urlBasePage. "/workType/new/save");
         $showForm = true;
         if ($this->detectProcess() == self::ACTION_SAVE) {
             if ($this->form->isSaved()) {
@@ -54,9 +56,8 @@ class WorkTypeNew extends WorkTypeForm
             [
                 \iw\html::A_CLASS => "workTypeNew",
             ],
-            $this->dom->h1(N, "nový typ práce"),
-            $showForm ? $this->form : N
-        );
+            $this->dom->h1(\N, "nový typ práce"),
+            $showForm ? $this->form : \N);
     }
 
 
@@ -109,7 +110,7 @@ class WorkTypeNew extends WorkTypeForm
     #[NoReturn]
     public function formOnSaveSuccessFn(): ?bool
     {
-        $this->dom->redirect(urlBasePage . "/workType/list");
+        $this->dom->redirect(\urlBasePage. "/workType/list");
     }
 
 

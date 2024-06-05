@@ -1,7 +1,7 @@
 <?php
 
 
-namespace page;
+namespace page\WorkType;
 
 
 class WorkTypeDelete extends WorkType
@@ -25,7 +25,7 @@ class WorkTypeDelete extends WorkType
 			$dom= $this->domConfirmation();
 		}
 
-		return $this->dom->div(N, $dom);
+		return $this->dom->div(\N, $dom);
 	}
 
 
@@ -41,7 +41,7 @@ class WorkTypeDelete extends WorkType
 	private function domConfirmation(): array
 	{
 		return [
-			$this->dom->p(N, "Opravdu chcete tento ty práce smazat?"),
+			$this->dom->p(\N, "Opravdu chcete tento ty práce smazat?"),
 			$this->domButtonBack(),
 			$this->domButtonConfirm()
 		];
@@ -50,13 +50,13 @@ class WorkTypeDelete extends WorkType
 
 	private function domButtonBack(): \iw\dom\Element
 	{
-		return $this->dom->a(N, urlBasePage. "/workType/{$this->workTypeId}", "nemazat");
+		return $this->dom->a(\N, \urlBasePage. "/workType/{$this->getWorkTypeId()}", "nemazat");
 	}
 
 
 	private function domButtonConfirm(): \iw\dom\Element
 	{
-		return $this->dom->a(N, urlBasePage. "/workType/{$this->workTypeId}/delete/processing", "ano, smazat");
+		return $this->dom->a(\N, \urlBasePage. "/workType/{$this->getWorkTypeId()}/delete/processing", "ano, smazat");
 	}
 
 

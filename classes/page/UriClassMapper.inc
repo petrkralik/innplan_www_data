@@ -23,14 +23,16 @@ class UriClassMapper extends \iw\page\driver\UriClassMapper
 			"/\/client\/list\/?/i" => "\page\ClientList",
 			"/\/resource\/list\/?/i" => "\page\ResourceList",
 			"/\/project\/role\/list\/?/i" => "\page\ProjectRoleList",
-			"/\/workType\/list\/?/i" => "\page\WorkTypeList",
-			"/\/workType\/new\/(save)\/?/i" => "\page\WorkTypeNew",
-			"/\/workType\/(new)\/?/i" => "\page\WorkTypeNew",
-			"/\/workType\/(\d+)\/?$/i" => "\page\WorkTypeDetail",
-			"/\/workType\/(\d+)\/edit\/(save)\/?/i" => "\page\WorkTypeEdit",
-			"/\/workType\/(\d+)\/edit\/?/i" => "\page\WorkTypeEdit",
-			"/\/workType\/(\d+)\/delete\/(processing)\/?/i" => "\page\WorkTypeDelete",
-			"/\/workType\/(\d+)\/delete\/?/i" => "\page\WorkTypeDelete",
+
+			// Work Type
+			"/\/workType\/list\/?/i" => "\page\WorkType\WorkTypeList",
+			"/\/workType\/new\/(save)\/?/i" => "\page\WorkType\WorkTypeNew",
+			"/\/workType\/(new)\/?/i" => "\page\WorkType\WOrkTypeNew",
+			"/\/workType\/(\d+)\/?$/i" => "\page\WorkType\WorkTypeDetail",
+			"/\/workType\/(\d+)\/edit\/(save)\/?/i" => "\page\WorkType\WorkTypeEdit",
+			"/\/workType\/(\d+)\/edit\/?/i" => "\page\WorkType\WorkTypeEdit",
+			"/\/workType\/(\d+)\/delete\/(processing)\/?/i" => "\page\WorkType\WorkTypeDelete",
+			"/\/workType\/(\d+)\/delete\/?/i" => "\page\WorkType\WorkTypeDelete",
 		];
 	}
 
