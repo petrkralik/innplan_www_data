@@ -98,45 +98,49 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 
 	/**
 	 * @throws \businessObject\property\Exception
+	 * @throws \businessObject\Exception
 	 */
 	protected function getFormComponentNameValue(): ?string
 	{
 		return $this->request->isPropertySet($this->getFormComponentNameId())
 			? $this->request->getProperty($this->getFormComponentNameId())
-			: $this->workType->name->getValue();
+			: $this->getWorkTypeObject()->name->getValue();
 	}
 
 
 	/**
 	 * @throws \businessObject\property\Exception
+	 * @throws \businessObject\Exception
 	 */
 	protected function getFormComponentDescriptionValue(): ?string
 	{
 		return $this->request->isPropertySet($this->getFormComponentDescriptionId())
 			? $this->request->getProperty($this->getFormComponentDescriptionId())
-			: $this->workType->description->getValue();
+			: $this->getWorkTypeObject()->description->getValue();
 	}
 
 
 	/**
 	 * @throws \businessObject\property\Exception
+	 * @throws \businessObject\Exception
 	 */
 	protected function getFormComponentSeniorityValue(): ?int
 	{
 		return $this->request->isPropertySet($this->getFormComponentSeniorityId())
 			? $this->request->getProperty($this->getFormComponentSeniorityId())
-			: $this->workType->workTypeSeniorityId->getValue();
+			: $this->getWorkTypeObject()->workTypeSeniorityId->getValue();
 	}
 
 
 	/**
 	 * @throws \businessObject\property\Exception
+	 * @throws \businessObject\Exception
 	 */
 	protected function getFormComponentDisabledValue(): ?bool
 	{
 		return $this->request->isPropertySet($this->getFormComponentDisabledId())
 			? $this->request->getProperty($this->getFormComponentDisabledId())
-			: $this->workType->disabled->getValue();
+			: $this->getWorkTypeObject()->disabled->getValue();
 	}
 
 
@@ -148,31 +152,23 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	public function formOnSaveFn(): ?bool
 	{
-		$this->workType->name->setValue($this->getFormComponentName()->getValue());
-		$this->workType->description->setValue($this->getFormComponentDescription()->getValue());
-		$this->workType->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->getValue());
-		$this->workType->disabled->setValue($this->getFormComponentDisabled()->isCheckedInForm()? true: null);
+		$w= $this->getWorkTypeObject();
+		$w->name->setValue($this->getFormComponentName()->getValue());
+		$w->description->setValue($this->getFormComponentDescription()->getValue());
+		$w->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->getValue());
+		$w->disabled->setValue($this->getFormComponentDisabled()->isCheckedInForm()? true: null);
 
-		return $this->workType->saveChanges();
+		return $w->saveChanges();
 	}
 
 
 	/**
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	#[NoReturn] public function formOnSaveSuccessFn(): ?bool
 	{
-		$this->dom->redirect($this->workType->urlPageDetail());
-	}
-
-
-	/**
-	 * @throws \businessObject\Exception|\businessObject\property\Exception
-	 */
-	private function loadObject(): void
-	{
-		$this->workType = new \businessObject\WorkType($this->getWorkTypeId());
-    	$this->workType->loadData();
+		$this->dom->redirect($this->getWorkTypeObject()->urlPageDetail());
 	}
 
 
