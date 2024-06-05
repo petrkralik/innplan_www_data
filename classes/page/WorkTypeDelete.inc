@@ -56,7 +56,7 @@ class WorkTypeDelete extends WorkType
 
 	private function domButtonConfirm(): \iw\dom\Element
 	{
-		return $this->dom->a(N, urlBasePage. "/workType/{$this->workTypeId}", "ano, smazat");
+		return $this->dom->a(N, urlBasePage. "/workType/{$this->workTypeId}/delete/processing", "ano, smazat");
 	}
 
 
