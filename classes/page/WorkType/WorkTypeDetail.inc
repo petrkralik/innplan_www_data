@@ -14,11 +14,9 @@ class WorkTypeDetail extends WorkType
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
-		$this->getWorkTypeId();
 		$e = $this->dom->div(\N, $this->dom->h1(\N, "detail typu práce"));
-		$workType = new \businessObject\WorkType($this->getWorkTypeId());
 		try {
-			$workType->loadData();
+			$workType = $this->getWorkTypeObject();
 			$e->append($this->dom->h2(\N, $workType->name->getValue()));
 			$data = [
 				["id", $workType->id],

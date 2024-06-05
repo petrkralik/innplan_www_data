@@ -12,6 +12,9 @@ abstract class WorkType extends \page\Page2Columns
 	 * @var int The type ID of the work.
 	 */
 	private int $workTypeId;
+	private \businessObject\WorkType $workType;
+	private bool $workTypeIsLoaded= false;
+
 
 
 	protected function getWorkTypeId(): int
@@ -21,6 +24,24 @@ abstract class WorkType extends \page\Page2Columns
 
 		return $this->workTypeId;
 	}
+
+
+	/**
+	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 */
+	protected function getWorkTypeObject(): \businessObject\WorkType
+	{
+		if(!isset($this->workType)) {
+			$this->workType = new \businessObject\WorkType($this->getWorkTypeId());
+			$this->workType->loadData();
+		}
+
+		return $this->workType;
+	}
+
+
+
 
 
 

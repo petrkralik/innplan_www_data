@@ -15,7 +15,6 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	const string ACTION_EDIT = "edit";
 
 
-	private \businessObject\WorkType $workType;
 
 
 	/**
@@ -27,7 +26,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	function getContentMain(): ?\iw\dom\Element
 	{
 		try {
-			$this->loadObject();
+			$this->getWorkTypeObject();
 			$this->buildForm(\urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 		}
 		catch (\businessObject\Exception $ex) {

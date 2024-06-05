@@ -17,7 +17,7 @@ class WorkTypeDelete extends WorkType
 	{
 		$dom= null;
 		if($this->detectProcess()== self::ACTION_PROCESSING) {
-			$dom= null;
+			$dom= $this->delete();
 		} else {
 
 			// Confirmation
@@ -27,6 +27,13 @@ class WorkTypeDelete extends WorkType
 
 		return $this->dom->div(\N, $dom);
 	}
+
+
+	private function delete()
+	{
+		$result= $this->getWorkTypeObject()->delete();
+	}
+
 
 
 	private function detectProcess(): string
@@ -43,7 +50,7 @@ class WorkTypeDelete extends WorkType
 		return [
 			$this->dom->p(\N, "Opravdu chcete tento ty práce smazat?"),
 			$this->domButtonBack(),
-			$this->domButtonConfirm()
+			$this->domButtonConfirm(),
 		];
 	}
 
