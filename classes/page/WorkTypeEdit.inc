@@ -20,6 +20,9 @@ class WorkTypeEdit extends WorkTypeForm
 
 	/**
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 * @throws \Random\RandomException
+	 * @throws \iw\Exception
 	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
@@ -135,12 +138,6 @@ class WorkTypeEdit extends WorkTypeForm
 		return $this->request->isPropertySet($this->getFormComponentDisabledId())
 			? $this->request->getProperty($this->getFormComponentDisabledId())
 			: $this->workType->disabled->getValue();
-	}
-
-
-	private function getWorkTypeId(): int
-	{
-		return $this->workTypeId= (int)$this->uriMatches[1];
 	}
 
 

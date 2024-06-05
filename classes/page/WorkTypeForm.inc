@@ -13,7 +13,7 @@ namespace page;
  * @package page
  *
  */
-abstract class WorkTypeForm extends Page2Columns
+abstract class WorkTypeForm extends WorkType
 {
 
 
@@ -22,10 +22,6 @@ abstract class WorkTypeForm extends Page2Columns
 	 */
 	protected \iw\page\html\form\Form $form;
 
-	/**
-	 * @var int The type ID of the work.
-	 */
-	protected int $workTypeId;
 
 	/**
 	 * @var string The ID of the form
