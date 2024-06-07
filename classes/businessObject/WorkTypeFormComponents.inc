@@ -30,6 +30,7 @@ class WorkTypeFormComponents extends FormComponents
 	 */
 	private function getFormComponentName(): \iw\page\html\form\component\Text
 	{
+		var_dump($this->businessObject);
 		if(!$this->componentExists($this->getFormComponentNameId()))
 			$this->addComponent(
 				new \iw\page\html\form\component\Text(
