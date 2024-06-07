@@ -27,6 +27,7 @@ abstract class BusinessObject extends \World
 	 * @var int|null $id Unique identifier for the business object, essential for database operations and API interactions.
 	 */
 	public readonly ?int $id;
+	protected \iw\page\html\form\Components $formComponents;
 
 
 	/**
@@ -83,6 +84,7 @@ abstract class BusinessObject extends \World
 	 * @return array List of attribute names required for object creation.
 	 */
 	abstract protected function propertyListForCreation(): array;
+	abstract public function getFormComponents(): \iw\page\html\form\Components;
 
 
 	/**

@@ -77,13 +77,13 @@ class WorkType extends BusinessObject
 		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return urlBasePage. "/workType/{$this->id}";
+		return urlBasePage."/workType/{$this->id}";
 	}
 
 
 	public function urlPageNew(): string
 	{
-		return urlBasePage. "/workType/new";
+		return urlBasePage."/workType/new";
 	}
 
 
@@ -95,7 +95,16 @@ class WorkType extends BusinessObject
 		if (! $this->id)
 			Error::GENERAL->throw("Object must exist.");
 
-		return urlBasePage. "/workType/new";
+		return urlBasePage."/workType/new";
+	}
+
+
+	public function getFormComponents(): \iw\page\html\form\Components
+	{
+		if (! isset($this->formComponents))
+			$this->formComponents = new WorkTypeFormComponents($this);
+
+		return $this->formComponents;
 	}
 
 
