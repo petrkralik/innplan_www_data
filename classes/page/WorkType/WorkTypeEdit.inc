@@ -15,8 +15,6 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	const string ACTION_EDIT = "edit";
 
 
-
-
 	/**
 	 * @throws \businessObject\Exception
 	 * @throws \businessObject\property\Exception
@@ -26,7 +24,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	function getContentMain(): ?\iw\dom\Element
 	{
 		try {
-			$this->getWorkTypeObject();
+			$this->getBusinessObject();
 			$this->buildForm(\urlBasePage. "/workType/{$this->getWorkTypeId()}/edit/save");
 		}
 		catch (\businessObject\Exception $ex) {
@@ -104,7 +102,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	{
 		return $this->request->isPropertySet($this->getFormComponentNameId())
 			? $this->request->getProperty($this->getFormComponentNameId())
-			: $this->getWorkTypeObject()->name->getValue();
+			: $this->getBusinessObject()->name->getValue();
 	}
 
 
@@ -116,7 +114,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	{
 		return $this->request->isPropertySet($this->getFormComponentDescriptionId())
 			? $this->request->getProperty($this->getFormComponentDescriptionId())
-			: $this->getWorkTypeObject()->description->getValue();
+			: $this->getBusinessObject()->description->getValue();
 	}
 
 
@@ -128,7 +126,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	{
 		return $this->request->isPropertySet($this->getFormComponentSeniorityId())
 			? $this->request->getProperty($this->getFormComponentSeniorityId())
-			: $this->getWorkTypeObject()->workTypeSeniorityId->getValue();
+			: $this->getBusinessObject()->workTypeSeniorityId->getValue();
 	}
 
 
@@ -140,7 +138,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	{
 		return $this->request->isPropertySet($this->getFormComponentDisabledId())
 			? $this->request->getProperty($this->getFormComponentDisabledId())
-			: $this->getWorkTypeObject()->disabled->getValue();
+			: $this->getBusinessObject()->disabled->getValue();
 	}
 
 
@@ -152,7 +150,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	public function formOnSaveFn(): ?bool
 	{
-		$w= $this->getWorkTypeObject();
+		$w= $this->getBusinessObject();
 		$w->name->setValue($this->getFormComponentName()->getValue());
 		$w->description->setValue($this->getFormComponentDescription()->getValue());
 		$w->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->getValue());
@@ -168,7 +166,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	#[NoReturn] public function formOnSaveSuccessFn(): ?bool
 	{
-		$this->dom->redirect($this->getWorkTypeObject()->urlPageDetail());
+		$this->dom->redirect($this->getBusinessObject()->urlPageDetail());
 	}
 
 

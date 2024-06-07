@@ -16,7 +16,7 @@ class WorkTypeDetail extends WorkType
 	{
 		$e = $this->dom->div(\N, $this->dom->h1(\N, "detail typu práce"));
 		try {
-			$workType = $this->getWorkTypeObject();
+			$workType = $this->getBusinessObject();
 			$e->append($this->dom->h2(\N, $workType->name->getValue()));
 			$data = [
 				["id", $workType->id],

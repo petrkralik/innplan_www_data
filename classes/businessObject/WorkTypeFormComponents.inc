@@ -149,4 +149,44 @@ class WorkTypeFormComponents extends FormComponents
 	}
 
 
+	/**
+	 * Validator for the form component's name. Checks if the name is empty.
+	 *
+	 * @param \iw\page\html\form\component\ComponentWithValue $component
+	 *
+	 * @return bool - Returns true if the name is not empty, else returns an EntryError with an error message
+	 */
+	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
+	{
+		$value= $component->getValue();
+		if(empty($value)) {
+			$component->addError(new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný"));
+			return false;
+		}
+
+		return true;
+	}
+
+
+	public function formComponentSeniorityValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
+	{
+		$value= $component->getValue();
+		if (! is_numeric($value) || intval($value) <= 0) {
+			$component->addError(new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"));
+			return false;
+		} else {
+			$component->setValue((int) $component->getValue());
+		}
+
+		return true;
+	}
+
+
+	public function formComponentDisabledValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
+	{
+		return true;
+	}
+
+
+
 }

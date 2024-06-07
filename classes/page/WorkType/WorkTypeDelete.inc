@@ -31,7 +31,7 @@ class WorkTypeDelete extends WorkType
 
 	private function delete()
 	{
-		$result= $this->getWorkTypeObject()->delete();
+		$result= $this->getBusinessObject()->delete();
 	}
 
 

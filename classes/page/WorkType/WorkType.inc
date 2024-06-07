@@ -30,7 +30,7 @@ abstract class WorkType extends \page\Page2Columns
 	 * @throws \businessObject\Exception
 	 * @throws \businessObject\property\Exception
 	 */
-	protected function getWorkTypeObject(): \businessObject\WorkType
+	protected function getBusinessObject(): \businessObject\WorkType
 	{
 		if(!isset($this->workType)) {
 			$this->workType = new \businessObject\WorkType($this->getWorkTypeId());
