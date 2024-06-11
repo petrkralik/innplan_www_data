@@ -28,7 +28,7 @@ class WorkTypeFormComponents extends FormComponents
 	 * @return \iw\page\html\form\component\Text
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function getFormComponentName(): \iw\page\html\form\component\Text
+	public function getFormComponentName(): \iw\page\html\form\component\Text
 	{
 		var_dump($this->controlObject);
 		if(!$this->componentExists($this->getFormComponentNameId()))
@@ -46,7 +46,7 @@ class WorkTypeFormComponents extends FormComponents
 	}
 
 
-	private function getFormComponentNameId(): string
+	public function getFormComponentNameId(): string
 	{
 		return \entity\WorkType::ATTRIBUTE_NAME;
 	}
@@ -58,7 +58,7 @@ class WorkTypeFormComponents extends FormComponents
 	 * @return \iw\page\html\form\component\Textarea - the description component of the form
 	 * @throws \iw\page\html\form\Exception
 	 */
-	private function getFormComponentDescription(): \iw\page\html\form\component\Textarea
+	public function getFormComponentDescription(): \iw\page\html\form\component\Textarea
 	{
 		if(!$this->componentExists($this->getFormComponentDescriptionId()))
 			$this->addComponent(
@@ -75,7 +75,7 @@ class WorkTypeFormComponents extends FormComponents
 	}
 
 
-	private function getFormComponentDescriptionId(): string
+	public function getFormComponentDescriptionId(): string
 	{
 		return \entity\WorkType::ATTRIBUTE_DESCRIPTION;
 	}
@@ -87,7 +87,7 @@ class WorkTypeFormComponents extends FormComponents
 	 * @throws \iw\page\html\form\component\Exception
 	 * @throws \iw\page\html\form\Exception
 	 */
-	protected function getFormComponentSeniority(): \iw\page\html\form\component\Combobox
+	public function getFormComponentSeniority(): \iw\page\html\form\component\Combobox
 	{
 		if(!$this->componentExists($this->getFormComponentSeniorityId())) {
 			$this->addComponent(
@@ -111,7 +111,7 @@ class WorkTypeFormComponents extends FormComponents
 	}
 
 
-	private function getFormComponentSeniorityId(): string
+	public function getFormComponentSeniorityId(): string
 	{
 		return \entity\WorkType::ATTRIBUTE_SENIORITY_ID;
 	}
@@ -123,7 +123,7 @@ class WorkTypeFormComponents extends FormComponents
 	 * @return \iw\page\html\form\component\Checkbox - the disabled component of the form
 	 * @throws \iw\page\html\form\Exception
 	 */
-	protected function getFormComponentDisabled(): \iw\page\html\form\component\Checkbox
+	public function getFormComponentDisabled(): \iw\page\html\form\component\Checkbox
 	{
 		if(!$this->componentExists($this->getFormComponentDisabledId())) {
 			$this->addComponent(
@@ -144,7 +144,7 @@ class WorkTypeFormComponents extends FormComponents
 	}
 
 
-	private function getFormComponentDisabledId(): string
+	public function getFormComponentDisabledId(): string
 	{
 		return \entity\WorkType::ATTRIBUTE_DISABLED;
 	}

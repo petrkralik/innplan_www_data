@@ -103,12 +103,6 @@ abstract class WorkTypeForm extends WorkType
 	private function formBuildAllComponents(): void
 	{
 		$this->form->components->addComponents($this->getBusinessObject()->getFormComponents($this));
-		/*
-		$this->getFormComponentName();
-		$this->getFormComponentDescription();
-		$this->getFormComponentSeniority();
-		$this->getFormComponentDisabled();
-		 */
 	}
 
 
@@ -122,11 +116,12 @@ abstract class WorkTypeForm extends WorkType
 	 */
 	public function formOnGetContentFn(): array
 	{
+		$c= $this->getBusinessObject()->getFormComponents($this);
 		$table= [
-			["název", [$this->getFormComponentName(), $this->componentError($this->getFormComponentName())]],
-			["popis", [$this->getFormComponentDescription(), $this->componentError($this->getFormComponentDescription())]],
-			["seniorita", [$this->getFormComponentSeniority(), $this->componentError($this->getFormComponentSeniority())]],
-			["uzamčeno", [$this->getFormComponentDisabled(),  $this->componentError($this->getFormComponentDisabled())]],
+			["název", [$c->getFormComponentName(), $this->componentError($c->getFormComponentName())]],
+			["popis", [$c->getFormComponentDescription(), $this->componentError($c->getFormComponentDescription())]],
+			["seniorita", [$c->getFormComponentSeniority(), $this->componentError($c->getFormComponentSeniority())]],
+			["uzamčeno", [$c->getFormComponentDisabled(),  $this->componentError($c->getFormComponentDisabled())]],
 			[null, $this->getFormComponentSubmit()],
 		];
 
@@ -135,6 +130,32 @@ abstract class WorkTypeForm extends WorkType
 			$this->form->getInnerIdComponent(),
 		];
 	}
+
+
+	/**
+	 * @throws \iw\page\html\form\Exception
+	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 */
+	protected function getFormComponentSubmit(): \iw\page\html\form\component\Component
+	{
+		$c = $this->getBusinessObject()->getFormComponents($this);
+		if(!$c->componentExists($this->getFormComponentSubmitName())) {
+			$c->addComponent(new \iw\page\html\form\component\Submit(
+				$this->getFormComponentSubmitName(),
+				"uložit"
+			));
+		}
+
+		return $c->getComponent($this->getFormComponentSubmitName());
+	}
+
+
+	private function getFormComponentSubmitName(): string
+	{
+		return "buttonSubmit";
+	}
+
 
 
 	/**
@@ -147,213 +168,14 @@ abstract class WorkTypeForm extends WorkType
 	 */
 	private function componentError(\iw\page\html\form\component\Component $component): ?\iw\dom\Element
 	{
-		if (!$component->onError)
+		if (! $component->onError)
 			return null;
 		$e = $this->dom->div([\iw\html::A_CLASS => "errs"]);
-		foreach ($component->errorsIterator() as $error)
+		foreach ($component->errorsIterator() as $error) {
 			$e->append($this->dom->div([\iw\html::A_CLASS => "err"], $error->message));
+		}
 
 		return $e;
-	}
-
-
-	/**
-	 * Get the form component name
-	 *
-	 * @return \iw\page\html\form\component\ComponentWithValue - the component of the form's name
-	 * @throws \iw\page\html\form\Exception
-	 */
-	protected function getFormComponentName(): \iw\page\html\form\component\ComponentWithValue
-	{
-		if(!$this->form->components->componentExists($this->getFormComponentNameId()))
-			$this->form->components->addComponent(new \iw\page\html\form\component\Text(
-				$this->getFormComponentNameId(),
-				programPropertyName: \entity\WorkType::ATTRIBUTE_NAME,
-				validator: [$this, "formComponentNameValidator"],
-				value: $this->getFormComponentNameValue(),
-				size: 50
-			));
-
-		return $this->form->components->getComponent($this->getFormComponentNameId());
-	}
-
-
-	/**
-	 * Get the form component description
-	 *
-	 * @return \iw\page\html\form\component\ComponentWithValue - the description component of the form
-	 * @throws \iw\page\html\form\Exception
-	 */
-	protected function getFormComponentDescription(): \iw\page\html\form\component\ComponentWithValue
-	{
-		if(!$this->form->components->componentExists($this->getFormComponentDescriptionId()))
-			$this->form->components->addComponent(new \iw\page\html\form\component\Textarea(
-				$this->getFormComponentDescriptionId(),
-				programPropertyName: \entity\WorkType::ATTRIBUTE_DESCRIPTION,
-				value: $this->getFormComponentDescriptionValue(),
-				cols: 47,
-				rows: 8
-			));
-
-		return $this->form->components->getComponent($this->getFormComponentDescriptionId());
-	}
-
-
-	/**
-	 * @throws \iw\page\html\form\Exception
-	 * @throws \iw\page\html\form\component\Exception
-	 *
-	 * @throws \iw\page\html\form\Exception
-	 */
-	protected function getFormComponentSeniority(): \iw\page\html\form\component\ComponentWithValue
-	{
-		if(!$this->form->components->componentExists($this->getFormComponentSeniorityId())) {
-			$this->form->components->addComponent(new \iw\page\html\form\component\Combobox(
-				$this->getFormComponentSeniorityId(),
-				programPropertyName: \entity\WorkType::ATTRIBUTE_SENIORITY_ID,
-				validator: [$this, "formComponentSeniorityValidator"],
-				optionSet: $optionSet= new \iw\page\html\form\component\OptionSet(
-					false,
-					new \iw\page\html\form\component\Option("0", ""),
-					new \iw\page\html\form\component\Option("1", "Junior"),
-					new \iw\page\html\form\component\Option("2", "Medior"),
-					new \iw\page\html\form\component\Option("3", "Senior"),
-				)
-			));
-			$optionSet->selectOptionByValue($this->getFormComponentSeniorityValue());
-		}
-
-		return $this->form->components->getComponent($this->getFormComponentSeniorityId());
-	}
-
-
-	/**
-	 * Get the form component disabled
-	 *
-	 * @return \iw\page\html\form\component\ComponentWithValue - the disabled component of the form
-	 * @throws \iw\page\html\form\Exception
-	 */
-	protected function getFormComponentDisabled(): \iw\page\html\form\component\Checkbox
-	{
-		if(!$this->form->components->componentExists($this->getFormComponentDisabledId())) {
-			$this->form->components->addComponent(new \iw\page\html\form\component\Checkbox(
-				$this->getFormComponentDisabledId(),
-				null,
-				\entity\WorkType::ATTRIBUTE_DISABLED,
-				[$this, "formComponentDisabledValidator"],
-				"1",
-				null,
-				$this->getFormComponentDisabledValue(),
-				null
-			));
-		}
-
-		return $this->form->components->getComponent($this->getFormComponentDisabledId());
-	}
-
-
-	/**
-	 * @throws \iw\page\html\form\Exception
-	 */
-	protected function getFormComponentSubmit(): \iw\page\html\form\component\Component
-	{
-		if(!$this->form->components->componentExists($this->getFormComponentSubmitName())) {
-			$this->form->components->addComponent(new \iw\page\html\form\component\Submit(
-				$this->getFormComponentSubmitName(),
-				"uložit"
-			));
-		}
-
-		return $this->form->components->getComponent($this->getFormComponentSubmitName());
-	}
-
-
-	/**
-	 * Get the name of the form seniority component
-	 *
-	 * @return string - the name of the form seniority component
-	 */
-	protected function getFormComponentSeniorityId(): string
-	{
-		return $this->formId . "_seniority";
-	}
-
-
-	/**
-	 * Method to get the name of the form component name
-	 *
-	 * @return string - Returns the name of the form component, which is the formId appended with '_name'
-	 */
-	protected function getFormComponentNameId(): string
-	{
-		return $this->formId."_name";
-	}
-
-
-	/**
-	 * Method to get the description of the form component
-	 *
-	 * @return string - Returns the name of the description component, which is the formId appended with '_description'
-	 */
-	protected function getFormComponentDescriptionId(): string
-	{
-		return $this->formId . "_description";
-	}
-
-
-	/**
-	 * Method to get the form component disabled name
-	 *
-	 * @return string - Returns the name of the disabled component of the form, which is the formId appended with '_disabled'
-	 */
-	protected function getFormComponentDisabledId(): string
-	{
-		return $this->formId . "_disabled";
-	}
-
-
-	protected function getFormComponentSubmitName(): string
-	{
-		return $this->formId . "_submit";
-	}
-
-
-	/**
-	 * Validator for the form component's name. Checks if the name is empty.
-	 *
-	 * @param \iw\page\html\form\component\ComponentWithValue $component
-	 *
-	 * @return bool - Returns true if the name is not empty, else returns an EntryError with an error message
-	 */
-	public function formComponentNameValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
-	{
-		$value= $component->getValue();
-		if(empty($value)) {
-			$component->addError(new \iw\page\html\form\component\EntryError(0, "název nesmí být prázdný"));
-			return false;
-		}
-
-		return true;
-	}
-
-
-	public function formComponentSeniorityValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
-	{
-		$value= $component->getValue();
-		if (! is_numeric($value) || intval($value) <= 0) {
-			$component->addError(new \iw\page\html\form\component\EntryError(0, "seniorita musí být vyplněna"));
-			return false;
-		} else {
-			$component->setValue((int) $component->getValue());
-		}
-
-		return true;
-	}
-
-
-	public function formComponentDisabledValidator(\iw\page\html\form\component\ComponentWithValue $component): bool
-	{
-		return true;
 	}
 
 

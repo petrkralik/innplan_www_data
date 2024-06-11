@@ -100,8 +100,9 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	public function getFormComponentNameValue(): ?string
 	{
-		return $this->request->isPropertySet($this->getFormComponentNameId())
-			? $this->request->getProperty($this->getFormComponentNameId())
+		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentNameId();
+		return $this->request->isPropertySet($id)
+			? $this->request->getProperty($id)
 			: $this->getBusinessObject()->name->getValue();
 	}
 
@@ -112,8 +113,9 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	protected function getFormComponentDescriptionValue(): ?string
 	{
-		return $this->request->isPropertySet($this->getFormComponentDescriptionId())
-			? $this->request->getProperty($this->getFormComponentDescriptionId())
+		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentDescriptionId();
+		return $this->request->isPropertySet($id)
+			? $this->request->getProperty($id)
 			: $this->getBusinessObject()->description->getValue();
 	}
 
@@ -124,8 +126,9 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	protected function getFormComponentSeniorityValue(): ?int
 	{
-		return $this->request->isPropertySet($this->getFormComponentSeniorityId())
-			? $this->request->getProperty($this->getFormComponentSeniorityId())
+		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentSeniorityId();
+		return $this->request->isPropertySet($id)
+			? $this->request->getProperty($id)
 			: $this->getBusinessObject()->workTypeSeniorityId->getValue();
 	}
 
@@ -136,8 +139,9 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	protected function getFormComponentDisabledValue(): ?bool
 	{
-		return $this->request->isPropertySet($this->getFormComponentDisabledId())
-			? $this->request->getProperty($this->getFormComponentDisabledId())
+		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentDisabledId();
+		return $this->request->isPropertySet($id)
+			? $this->request->getProperty($id)
 			: $this->getBusinessObject()->disabled->getValue();
 	}
 
@@ -151,10 +155,11 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	public function formOnSaveFn(): ?bool
 	{
 		$w= $this->getBusinessObject();
-		$w->name->setValue($this->getFormComponentName()->getValue());
-		$w->description->setValue($this->getFormComponentDescription()->getValue());
-		$w->workTypeSeniorityId->setValue($this->getFormComponentSeniority()->getValue());
-		$w->disabled->setValue($this->getFormComponentDisabled()->isCheckedInForm()? true: null);
+		$c= $w->getFormComponents($this);
+		$w->name->setValue($c->getFormComponentName()->getValue());
+		$w->description->setValue($c->getFormComponentDescription()->getValue());
+		$w->workTypeSeniorityId->setValue($c->getFormComponentSeniority()->getValue());
+		$w->disabled->setValue($c->getFormComponentDisabled()->isCheckedInForm()? true: null);
 
 		return $w->saveChanges();
 	}

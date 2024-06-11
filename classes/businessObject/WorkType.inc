@@ -99,7 +99,7 @@ class WorkType extends BusinessObject
 	}
 
 
-	public function getFormComponents(\page\Page $controlObject): \iw\page\html\form\Components
+	public function getFormComponents(\page\Page $controlObject): WorkTypeFormComponents
 	{
 		if (! isset($this->formComponents))
 			$this->formComponents = new WorkTypeFormComponents($controlObject);
