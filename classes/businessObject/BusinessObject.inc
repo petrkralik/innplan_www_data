@@ -84,7 +84,7 @@ abstract class BusinessObject extends \World
 	 * @return array List of attribute names required for object creation.
 	 */
 	abstract protected function propertyListForCreation(): array;
-	abstract public function getFormComponents(): \iw\page\html\form\Components;
+	abstract public function getFormComponents(\page\Page $controlObject): \iw\page\html\form\Components;
 
 
 	/**

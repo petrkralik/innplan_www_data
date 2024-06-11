@@ -9,9 +9,9 @@ class WorkTypeFormComponents extends FormComponents
 
 
 
-	public function __construct(WorkType $businessObject)
+	public function __construct(\page\Page $controlObject)
 	{
-		parent::__construct($businessObject);
+		parent::__construct($controlObject);
 	}
 
 
@@ -30,14 +30,14 @@ class WorkTypeFormComponents extends FormComponents
 	 */
 	private function getFormComponentName(): \iw\page\html\form\component\Text
 	{
-		var_dump($this->businessObject);
+		var_dump($this->controlObject);
 		if(!$this->componentExists($this->getFormComponentNameId()))
 			$this->addComponent(
 				new \iw\page\html\form\component\Text(
 					$this->getFormComponentNameId(),
 					programPropertyName: \entity\WorkType::ATTRIBUTE_NAME,
 					validator: [$this, "formComponentNameValidator"],
-					value: $this->businessObject->getFormComponentNameValue(),
+					value: $this->controlObject->getFormComponentNameValue(),
 					size: 50
 				)
 			);
@@ -65,7 +65,7 @@ class WorkTypeFormComponents extends FormComponents
 				new \iw\page\html\form\component\Textarea(
 					$this->getFormComponentDescriptionId(),
 					programPropertyName: \entity\WorkType::ATTRIBUTE_DESCRIPTION,
-					value: $this->businessObject->getFormComponentDescriptionValue(),
+					value: $this->controlObject->getFormComponentDescriptionValue(),
 					cols: 47,
 					rows: 8
 				)
@@ -104,7 +104,7 @@ class WorkTypeFormComponents extends FormComponents
 					)
 				)
 			);
-			$optionSet->selectOptionByValue($this->businessObject->getFormComponentSeniorityValue());
+			$optionSet->selectOptionByValue($this->controlObject->getFormComponentSeniorityValue());
 		}
 
 		return $this->getComponent($this->getFormComponentSeniorityId());
@@ -134,7 +134,7 @@ class WorkTypeFormComponents extends FormComponents
 					[$this, "formComponentDisabledValidator"],
 					"1",
 					null,
-					$this->businessObject->getFormComponentDisabledValue(),
+					$this->controlObject->getFormComponentDisabledValue(),
 					null
 				)
 			);

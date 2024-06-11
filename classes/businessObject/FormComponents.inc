@@ -8,14 +8,14 @@ abstract class FormComponents extends \iw\page\html\form\Components
 {
 
 
-	protected BusinessObject $businessObject;
+	protected \page\Page $controlObject;
 
 
 	abstract public function buildFormComponents(): void;
 
 
-	public function __construct(BusinessObject $businessObject) {
-		$this->businessObject= $businessObject;
+	public function __construct(\page\Page $controlObject) {
+		$this->controlObject= $controlObject;
 		$this->buildFormComponents();
 	}
 

@@ -102,7 +102,7 @@ abstract class WorkTypeForm extends WorkType
 	 */
 	private function formBuildAllComponents(): void
 	{
-		$this->form->components->addComponents($this->getBusinessObject()->getFormComponents());
+		$this->form->components->addComponents($this->getBusinessObject()->getFormComponents($this));
 		/*
 		$this->getFormComponentName();
 		$this->getFormComponentDescription();
