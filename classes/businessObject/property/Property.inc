@@ -250,7 +250,7 @@ abstract class Property
 		// If the validation fails, it indicates that the new value does not adhere to the required type for this property,
 		// hence an error is thrown.
 		if (! $this->valueCheckOnSet($value))
-			\businessObject\Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type. Class '". $this::class. "'.");
+			\businessObject\Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type. Class '". $this::class. "' value '$value'.");
 
 		// Assign the new value to the 'valueChanged' field. This signifies that the property has been updated
 		// with a new value (which was verified to be of the correct type in the previous step).
