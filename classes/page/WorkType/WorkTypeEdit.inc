@@ -95,15 +95,17 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 
 
 	/**
-	 * @throws \businessObject\property\Exception
+	 * @param   \iw\page\html\form\component\Text  $component
+	 *
+	 * @return string|null
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
-	public function getFormComponentNameValue(): ?string
+	public function getFormComponentNameValue(\iw\page\html\form\component\Text $component): ?string
 	{
-		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentNameId();
-		return $this->request->isPropertySet($id)
-			? $this->request->getProperty($id)
-			: $this->getBusinessObject()->name->getValue();
+		return $this->request->isPropertySet($component->name)
+			? $this->request->getProperty($component->name)
+			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
 	}
 
 
@@ -111,12 +113,11 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 * @throws \businessObject\property\Exception
 	 * @throws \businessObject\Exception
 	 */
-	protected function getFormComponentDescriptionValue(): ?string
+	public function getFormComponentDescriptionValue(\iw\page\html\form\component\Textarea $component): ?string
 	{
-		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentDescriptionId();
-		return $this->request->isPropertySet($id)
-			? $this->request->getProperty($id)
-			: $this->getBusinessObject()->description->getValue();
+		return $this->request->isPropertySet($component->name)
+			? $this->request->getProperty($component->name)
+			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
 	}
 
 
@@ -124,12 +125,11 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 * @throws \businessObject\property\Exception
 	 * @throws \businessObject\Exception
 	 */
-	protected function getFormComponentSeniorityValue(): ?int
+	public function getFormComponentSeniorityValue(\iw\page\html\form\component\Combobox $component): ?int
 	{
-		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentSeniorityId();
-		return $this->request->isPropertySet($id)
-			? $this->request->getProperty($id)
-			: $this->getBusinessObject()->workTypeSeniorityId->getValue();
+		return $this->request->isPropertySet($component->name)
+			? $this->request->getProperty($component->name)
+			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
 	}
 
 
@@ -137,12 +137,11 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 * @throws \businessObject\property\Exception
 	 * @throws \businessObject\Exception
 	 */
-	protected function getFormComponentDisabledValue(): ?bool
+	public function getFormComponentDisabledValue(\iw\page\html\form\component\Checkbox $component): ?bool
 	{
-		$id= $this->getBusinessObject()->getFormComponents($this)->getFormComponentDisabledId();
-		return $this->request->isPropertySet($id)
-			? $this->request->getProperty($id)
-			: $this->getBusinessObject()->disabled->getValue();
+		return $this->request->isPropertySet($component->name)
+			? $this->request->getProperty($component->name)
+			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
 	}
 
 

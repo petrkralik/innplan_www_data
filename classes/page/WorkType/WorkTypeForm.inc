@@ -34,7 +34,7 @@ abstract class WorkTypeForm extends WorkType
 	 *
 	 * @return ?string the value of the component name
 	 */
-	abstract public function getFormComponentNameValue(): ?string;
+	abstract public function getFormComponentNameValue(\iw\page\html\form\component\Text $component): ?string;
 
 
 	/**
@@ -42,7 +42,7 @@ abstract class WorkTypeForm extends WorkType
 	 *
 	 * @return int|null the seniority of the component
 	 */
-	abstract protected function getFormComponentSeniorityValue(): ?int;
+	abstract public function getFormComponentSeniorityValue(\iw\page\html\form\component\Combobox $component): ?int;
 
 
 	/**
@@ -50,8 +50,8 @@ abstract class WorkTypeForm extends WorkType
 	 *
 	 * @return ?string the description of the component
 	 */
-	abstract protected function getFormComponentDescriptionValue(): ?string;
-	abstract protected function getFormComponentDisabledValue(): ?bool;
+	abstract public function getFormComponentDescriptionValue(\iw\page\html\form\component\Textarea $component): ?string;
+	abstract public function getFormComponentDisabledValue(\iw\page\html\form\component\Checkbox $component): ?bool;
 
 
 	/**
