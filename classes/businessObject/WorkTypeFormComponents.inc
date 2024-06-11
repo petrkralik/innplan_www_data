@@ -8,13 +8,6 @@ class WorkTypeFormComponents extends FormComponents
 {
 
 
-
-	public function __construct(\page\Page $controlObject)
-	{
-		parent::__construct($controlObject);
-	}
-
-
 	/**
 	 * @throws \iw\page\html\form\Exception
 	 */
@@ -30,7 +23,6 @@ class WorkTypeFormComponents extends FormComponents
 	 */
 	public function getFormComponentName(): \iw\page\html\form\component\Text
 	{
-		var_dump($this->controlObject);
 		if(!$this->componentExists($this->getFormComponentNameId()))
 			$this->addComponent(
 				new \iw\page\html\form\component\Text(
