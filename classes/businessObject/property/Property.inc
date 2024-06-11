@@ -224,9 +224,10 @@ abstract class Property
 	 * Sets the value of the property, checking its validity with valueCheckOnSet.
 	 * If the property has been previously set, it marks the property as changed.
 	 *
-	 * @param mixed $value The new value to set.
+	 * @param   mixed  $value  The new value to set.
 	 *
 	 * @throws Exception If the value is not valid according to valueCheckOnSet.
+	 * @throws \businessObject\Exception
 	 */
 	public function setValue(mixed $value): void
 	{
@@ -249,7 +250,7 @@ abstract class Property
 		// If the validation fails, it indicates that the new value does not adhere to the required type for this property,
 		// hence an error is thrown.
 		if (! $this->valueCheckOnSet($value))
-			\businessObject\Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type");
+			\businessObject\Error::PROPERTY_TYPE_ERROR->throw("Property is not of required type. Class '". $this::class. "'.");
 
 		// Assign the new value to the 'valueChanged' field. This signifies that the property has been updated
 		// with a new value (which was verified to be of the correct type in the previous step).
