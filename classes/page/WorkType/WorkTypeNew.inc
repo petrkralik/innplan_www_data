@@ -117,9 +117,11 @@ class WorkTypeNew extends WorkTypeForm
 	/**
 	 * This method retrieves the name component of the form
 	 *
+	 * @param   \iw\page\html\form\component\Text  $component  *
+	 *
 	 * @return ?string Returns null as no name is provided
 	 */
-	protected function getFormComponentNameValue(): ?string
+	public function getFormComponentNameValue(\iw\page\html\form\component\Text $component): ?string
 	{
 		return $this->request->{$this->getFormComponentNameId()};
 	}
