@@ -98,7 +98,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 * @throws \businessObject\property\Exception
 	 * @throws \businessObject\Exception
 	 */
-	public function getFormComponentNameValue(): ?string
+	protected function getFormComponentNameValue(): ?string
 	{
 		return $this->request->isPropertySet($this->getFormComponentNameId())
 			? $this->request->getProperty($this->getFormComponentNameId())
