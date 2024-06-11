@@ -34,7 +34,7 @@ abstract class WorkTypeForm extends WorkType
 	 *
 	 * @return ?string the value of the component name
 	 */
-	abstract protected function getFormComponentNameValue(): ?string;
+	abstract public function getFormComponentNameValue(): ?string;
 
 
 	/**
