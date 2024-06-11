@@ -116,7 +116,7 @@ abstract class Property
 	 *
 	 * @return bool Returns true if the value is valid, false otherwise.
 	 */
-	abstract protected function valueCheckOnSet(mixed $value): bool;
+	abstract protected function valueCheckOnSet(mixed &$value): bool;
 
 
 	/**

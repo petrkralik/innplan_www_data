@@ -22,7 +22,7 @@ class PropertyDate extends Property
 	 *
 	 * @return bool Always returns true. Future implementations should include validation logic.
 	 */
-	protected function valueCheckOnSet(mixed $value): bool
+	protected function valueCheckOnSet(mixed &$value): bool
 	{
 		// Placeholder for actual date validation logic.
 		return true;

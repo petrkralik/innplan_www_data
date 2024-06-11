@@ -53,8 +53,11 @@ class PropertyInt extends Property
 	 *
 	 * @return bool True if the value is an integer and within the specified range, false otherwise.
 	 */
-	protected function valueCheckOnSet(mixed $value): bool
+	protected function valueCheckOnSet(mixed &$value): bool
 	{
+		if (is_string($value) && ctype_digit($value))
+			$value = (int)$value;
+
 		if (is_int($value)) {
 			if ($this->minimum !== null && $value < $this->minimum)
 				return false;

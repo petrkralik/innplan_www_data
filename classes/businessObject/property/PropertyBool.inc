@@ -21,7 +21,7 @@ class PropertyBool extends Property
 	 *
 	 * @return bool Returns true if the value is a boolean or null (when nullable is allowed); otherwise, false.
 	 */
-	#[\Override] protected function valueCheckOnSet(mixed $value): bool
+	#[\Override] protected function valueCheckOnSet(mixed &$value): bool
 	{
 		if ((($value === \N) && ($this->nullable)) || is_bool($value))
 			return \T;

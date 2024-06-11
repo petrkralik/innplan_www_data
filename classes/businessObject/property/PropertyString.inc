@@ -20,7 +20,7 @@ class PropertyString extends Property
 	 *
 	 * @return bool Returns true if the value is a string or null (when nullable is allowed); otherwise, false.
 	 */
-	protected function valueCheckOnSet(mixed $value): bool
+	protected function valueCheckOnSet(mixed &$value): bool
 	{
 		if (is_string($value) || ($this->nullable && is_null($value)))
 			return true;
