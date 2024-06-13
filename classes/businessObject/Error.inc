@@ -84,6 +84,8 @@ enum Error: string
 	 * Commonly thrown during the duplicate object initiation process.
 	 */
 	case OBJECT_ALREADY_INITIATED = "OBJECT_ALREADY_INITIATED";
+	case OBJECT_NOT_INITIATED = "OBJECT_NOT_INITIATED";
+	case OBJECT_COULD_NOT_BEEN_DELETED = "OBJECT_COULD_NOT_BEEN_DELETED";
 
 
 	/**

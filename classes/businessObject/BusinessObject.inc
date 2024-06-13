@@ -103,6 +103,23 @@ abstract class BusinessObject extends \World
 
 
 	/**
+	 * @throws \businessObject\Exception
+	 */
+	public function delete(): bool
+	{
+		if (!isset($this->id))
+			Error::OBJECT_NOT_INITIATED->throw("Temporary object only");
+		try	{
+			$result= $this->getApi()->delete($this->apiUrlDelete());
+		} catch (\iw\api\Exception $ex) {
+			Error::OBJECT_COULD_NOT_BEEN_DELETED->throw("Object could't been deleted", previous: $ex);
+		}
+
+		return true;
+	}
+
+
+	/**
 	 * Creates a new instance of the business object by sending a POST request to the API.
 	 * This method initializes the object with provided attributes, validates required properties,
 	 * and handles the API response to set the object's ID and load its data.

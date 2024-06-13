@@ -29,9 +29,13 @@ class WorkTypeDelete extends WorkType
 	}
 
 
-	private function delete()
+	/**
+	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 */
+	private function delete(): bool
 	{
-		$result= $this->getBusinessObject()->delete();
+		return $this->getBusinessObject()->delete();
 	}
 
 
