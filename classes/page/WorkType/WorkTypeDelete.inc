@@ -13,6 +13,10 @@ class WorkTypeDelete extends WorkType
 	const string ACTION_PROCESSING = "processing";
 
 
+	/**
+	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 */
 	function getContentMain(): ?\iw\dom\Element
 	{
 		$dom= null;
