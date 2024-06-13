@@ -94,6 +94,7 @@ class WorkTypeNew extends WorkTypeForm
             \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $c->getFormComponentSeniority()->getValue(),
 			\entity\WorkType::ATTRIBUTE_DISABLED => $c->getFormComponentDisabled()->isCheckedInForm()? true: null,
         ];
+		var_dump($data);
 		try {
 			return $obj->create($data);
 		}

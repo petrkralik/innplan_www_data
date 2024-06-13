@@ -154,7 +154,6 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	{
 		$w= $this->getBusinessObject();
 		$c= $w->getFormComponents($this);
-		echo "Components count: ". $c->componentsCount(). LF;
 		$w->name->setValue($c->getFormComponentName()->getValue());
 		$w->description->setValue($c->getFormComponentDescription()->getValue());
 		$w->workTypeSeniorityId->setValue($c->getFormComponentSeniority()->getValue());

@@ -51,6 +51,15 @@ abstract class WorkTypeForm extends WorkType
 	 * @return ?string the description of the component
 	 */
 	abstract public function getFormComponentDescriptionValue(\iw\page\html\form\component\Textarea $component): ?string;
+
+
+	/**
+	 * Abstract method to get the Form Component Disabled value.
+	 *
+	 * @param   \iw\page\html\form\component\Checkbox  $component  The component from which to get the value
+	 *
+	 * @return bool|null The disabled value of the component. Returns null if the value is not set.
+	 */
 	abstract public function getFormComponentDisabledValue(\iw\page\html\form\component\Checkbox $component): ?bool;
 
 
