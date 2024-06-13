@@ -29,7 +29,7 @@ class WorkTypeDelete extends WorkType
 			}
 		}
 		catch (\businessObject\Exception|\businessObject\property\Exception $ex) {
-			\page\Error::GENERAL->throw("Došlo k chybě");
+			\page\Error::GENERAL->throw("Došlo k chybě", previous: $ex);
 		}
 
 		return $this->dom->div(\N, $dom);
