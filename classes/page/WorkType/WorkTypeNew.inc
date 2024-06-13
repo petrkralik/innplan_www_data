@@ -86,16 +86,14 @@ class WorkTypeNew extends WorkTypeForm
 	 */
     public function formOnSaveFn(): bool
     {
-
-		$data = [
-            \entity\WorkType::ATTRIBUTE_NAME => $this->getFormComponentName()->getValue(),
-			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $this->getFormComponentDescription()->getValue(),
-            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $this->getFormComponentSeniority()->getValue(),
-			\entity\WorkType::ATTRIBUTE_DISABLED => $this->getFormComponentDisabled()->isCheckedInForm()? true: null,
-        ];
-
         $obj = new \businessObject\WorkType();
-
+		$c= $obj->getFormComponents($this);
+		$data = [
+            \entity\WorkType::ATTRIBUTE_NAME => $c->getFormComponentName()->getValue(),
+			\entity\WorkType::ATTRIBUTE_DESCRIPTION => $c->getFormComponentDescription()->getValue(),
+            \entity\WorkType::ATTRIBUTE_SENIORITY_ID => $c->getFormComponentSeniority()->getValue(),
+			\entity\WorkType::ATTRIBUTE_DISABLED => $c->getFormComponentDisabled()->isCheckedInForm()? true: null,
+        ];
 		try {
 			return $obj->create($data);
 		}
