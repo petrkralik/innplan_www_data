@@ -117,41 +117,45 @@ class WorkTypeNew extends WorkTypeForm
 	/**
 	 * This method retrieves the name component of the form
 	 *
-	 * @param   \iw\page\html\form\component\Text  $component  *
+	 * @param   \iw\page\html\form\component\Text  $component
 	 *
 	 * @return ?string Returns null as no name is provided
 	 */
 	public function getFormComponentNameValue(\iw\page\html\form\component\Text $component): ?string
 	{
-		return $this->request->{$this->getFormComponentNameId()};
+		return $this->request->getProperty($component->name);
 	}
 
 
 	/**
 	 * This method retrieves the seniority id value
 	 *
+	 * @param   \iw\page\html\form\component\Combobox  $component  *
+	 *
 	 * @return int|null Returns null as no value is given
 	 */
-	protected function getFormComponentSeniorityValue(): ?int
+	public function getFormComponentSeniorityValue(\iw\page\html\form\component\Combobox $component): ?int
 	{
-		return (int) $this->request->{$this->getFormComponentSeniorityId()};
+		return (int) $this->request->getProperty($component->name);
 	}
 
 
 	/**
 	 * This method retrieves the description of the work type.
 	 *
+	 * @param   \iw\page\html\form\component\Textarea  $component  *
+	 *
 	 * @return ?string Returns null as no description is provided.
 	 */
-	protected function getFormComponentDescriptionValue(): ?string
+	public function getFormComponentDescriptionValue(\iw\page\html\form\component\Textarea $component): ?string
 	{
-		return $this->request->{$this->getFormComponentDescriptionId()};
+		return $this->request->getProperty($component->name);
 	}
 
 
-	protected function getFormComponentDisabledValue(): ?bool
+	public function getFormComponentDisabledValue(\iw\page\html\form\component\Checkbox $component): ?bool
 	{
-		return $this->request->{$this->getFormComponentDisabledId()}? true: null;
+		return $this->request->getProperty($component->name)? true: null;
 	}
 
 

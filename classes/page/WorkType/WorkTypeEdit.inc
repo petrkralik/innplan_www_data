@@ -33,22 +33,17 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 			elseif($ex->error== \businessObject\Error::API_DATA_LOAD)
 				$content= $this->donErrorObjectLoading();
 		}
-		try {
-			if($this->detectProcess()== self::ACTION_SAVE) {
-				if($this->form->isSaved()) {
-					$content= $this->domFormResave();
-				} else {
-					if($this->form->save())
-						$content= $this->domFormSaved();
-					else
-						$content= $this->form;
-				}
+		if($this->detectProcess()== self::ACTION_SAVE) {
+			if($this->form->isSaved()) {
+				$content= $this->domFormResave();
 			} else {
-				$content= $this->form;
+				if($this->form->save())
+					$content= $this->domFormSaved();
+				else
+					$content= $this->form;
 			}
-		}
-		catch (\iw\Exception $ex) {
-			throw $ex;
+		} else {
+			$content= $this->form;
 		}
 
 		return $this->dom->div(
@@ -103,9 +98,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	public function getFormComponentNameValue(\iw\page\html\form\component\Text $component): ?string
 	{
-		return $this->request->isPropertySet($component->name)
-			? $this->request->getProperty($component->name)
-			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
+		return $this->getFormValueStd($component);
 	}
 
 
@@ -115,9 +108,7 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	public function getFormComponentDescriptionValue(\iw\page\html\form\component\Textarea $component): ?string
 	{
-		return $this->request->isPropertySet($component->name)
-			? $this->request->getProperty($component->name)
-			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
+		return $this->getFormValueStd($component);
 	}
 
 
@@ -127,17 +118,25 @@ class WorkTypeEdit extends \page\WorkType\WorkTypeForm
 	 */
 	public function getFormComponentSeniorityValue(\iw\page\html\form\component\Combobox $component): ?int
 	{
-		return $this->request->isPropertySet($component->name)
-			? $this->request->getProperty($component->name)
-			: $this->getBusinessObject()->{$component->programPropertyName}->getValue();
+		return $this->getFormValueStd($component);
 	}
 
 
 	/**
-	 * @throws \businessObject\property\Exception
 	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
 	 */
 	public function getFormComponentDisabledValue(\iw\page\html\form\component\Checkbox $component): ?bool
+	{
+		return $this->getFormValueStd($component);
+	}
+
+
+	/**
+	 * @throws \businessObject\Exception
+	 * @throws \businessObject\property\Exception
+	 */
+	private function getFormValueStd(\iw\page\html\form\component\ComponentWithValue $component): mixed
 	{
 		return $this->request->isPropertySet($component->name)
 			? $this->request->getProperty($component->name)
