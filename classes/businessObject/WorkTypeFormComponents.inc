@@ -10,10 +10,14 @@ class WorkTypeFormComponents extends FormComponents
 
 	/**
 	 * @throws \iw\page\html\form\Exception
+	 * @throws \iw\page\html\form\component\Exception
 	 */
 	public function buildFormComponents(): void
 	{
 		$this->getFormComponentName();
+		$this->getFormComponentDescription();
+		$this->getFormComponentSeniority();
+		$this->getFormComponentDisabled();
 	}
 
 
